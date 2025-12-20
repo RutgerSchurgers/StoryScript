@@ -1,0 +1,254 @@
+﻿body {
+    padding-bottom: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Papyrus, sans-serif;
+    color: #483D8B;
+    background-image: url($resources/parchment.jpg);
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    font-family: Papyrus;
+    font-size: medium;
+    font-weight: bold;
+}
+
+h2 {
+    font-family: Papyrus;
+    color: #483D8B;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+button,
+textarea {
+    max-width: 500px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: Papyrus;
+}
+
+.name-input {
+    margin: 0 20px;
+}
+
+.btn.fight {
+    display: block;
+    margin-bottom: 10px;
+}
+
+blockquote {
+    font-size: smaller;
+}
+
+.location-danger, .location-danger:hover {
+    background-color: #d9534f;
+    border-color: #d9534f;
+    color: white;
+}
+
+.location-water, .location-water:hover {
+    background-color: blue;
+    border-color: blue;
+    color: white;
+}
+
+.destination-button {
+    float: left;
+    margin: 0 15px 10px 0;
+}
+
+#farmboyframe {
+    box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
+}
+
+    #farmboyframe:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,255, 0.25);
+        transition: all .3s linear;
+    }
+
+    #farmboyframe:hover:before {
+        background: none;
+    }
+
+#world-properties .timeOfDay {
+    display: block;
+}
+
+.portraitFrame {
+    color:#0000FF;
+    float: none;
+    margin-bottom: 10px;
+}
+
+.character-equipment .box-title, #character-backpack .box-title {
+    display: none;
+}
+
+#character-attributes {
+    vertical-align: top;
+}
+
+#character-backpack {
+    border: none;
+    padding: 0;
+    margin: 5px 0 0 0;
+}
+
+#enemies li {
+    display: inline-block;
+}
+
+.time-editor, .currency-editor {
+    display: inline;
+}
+
+.time-editor select, .currency-editor input {
+    max-width: 80px;
+}
+
+.enemy-health {
+    margin-bottom: 0;
+}
+
+.effects {
+    list-style: none;
+    padding-left: 0;
+}
+
+.Frozen {
+    color: #0b5ed7;
+}
+
+.Frightened {
+    color: #ffca2c;
+}
+
+.Confused {
+    color: #660066;
+}
+
+combat-participant > div {
+    border: 2px solid white;
+    padding-top: 5px;
+    margin-bottom: 5px;
+}
+
+combat-participant > div.targeted {
+    border: 2px solid red;
+}
+
+.location-image {
+    float: left;
+    margin-right: 10px;
+}
+
+.location-text {
+    min-height: 250px;
+}
+
+.map-container {
+    max-height: 425px;
+}
+
+.candle {
+    float: right;
+}
+
+.night, .day {
+    transition: background-color 1s;
+}
+
+.night {
+    background-color: #0005; background-blend-mode: darken;
+}
+
+.night img.map-image {
+    filter: brightness(50%);
+}
+
+.map-location-label {
+    opacity: .5;
+}
+
+.map-location-label.visited {
+    opacity: 1;
+}
+
+#location {
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+#backpack-panel li {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.character-name, .character-hitpoints {
+    display: inline-block;
+}
+
+.character-hitpoints {
+    float: right;
+}
+
+.character-hitpoints {
+    font-size: 1.1rem;
+}
+
+.modal-dialog {
+    height: 100%;
+}
+
+.modal-dialog .modal-content {
+    max-height: 95%;
+    overflow-y: auto;
+}
+
+.participant.single-column {
+    display: inline-block;
+    width: 100%;
+}
+
+.participant-data {
+    display: inline;
+    float: left;
+    vertical-align: middle;
+}
+
+.participant-image {
+    float: right;
+    margin-left: 20px;
+}
+
+.combatlog {
+    margin-top: 0;
+    padding-top: 5px;
+    max-height: 250px;
+}
+
+.combatlog legend {
+    display: none;
+}
+
+.combat-header {
+    margin-top: -68px;
+}
+
+#combat-win {
+    margin-bottom: 50px;
+}
+
+.world-info li {
+    line-height: 30px;
+}

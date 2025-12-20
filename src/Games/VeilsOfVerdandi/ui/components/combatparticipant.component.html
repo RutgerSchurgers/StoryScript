@@ -1,0 +1,23 @@
+@let participantType = participant.type;
+@let hitpointText = participant.type === 'enemy' ? texts.enemyHitpoints : texts.characterHitpoints;
+<div class="participant" [ngClass]="{ 'targeted': rules.combat.isTargeted(game, participant) !== '', 'single-column': !participant.picture }" [title]="rules.combat.isTargeted(game, participant)">
+    <div [ngClass]="{ 'participant-data': participant.picture }">
+        <h4>{{ participant.name }}</h4>
+        <p [ngClass]="{ 'enemy-health': participantType === 'enemy', 'character-health': participantType === 'character' }">
+            {{ texts.format(hitpointText, [participant.currentHitpoints, participant.hitpoints]) }}
+        </p>
+        @if (participant.effects.length > 0)
+        {
+            <ul class="effects">
+                @for (effect of participant.effects; track effect.name)
+                {
+                    <li class="{{ effect.name }}" title="{{ effect.description }}">{{ effect.name }}</li>
+                }
+            </ul>
+        }
+    </div>
+    @if (participant.picture) {
+        <img class="participant-image" src="{{ participant.picture }}" alt="{{ participant.name }}" />
+    }
+    <div class="clearfix"></div>
+</div>

@@ -1,0 +1,54 @@
+import {IGame, IItem, Person} from '../types';
+import description from './Merchant.html?raw';
+import {BroadSword} from "../items/BroadSword.ts";
+import {SilverDagger} from "../items/SilverDagger.ts";
+import {RoundShield} from "../items/RoundShield.ts";
+import {MagicRing} from "../items/MagicRing.ts";
+import {Dodge2} from "../items/Dodge2.ts";
+import {getId} from "storyScript/utilityFunctions.ts";
+
+export function Merchant() {
+    return Person({
+        name: 'Merchant',
+        description: description,
+        hitpoints: 10,
+        currency: 30,
+        canAttack: false,
+        items: [
+            BroadSword(),
+            SilverDagger(),
+            RoundShield(),
+            Dodge2()
+        ],
+        trade: {
+            name: 'Merchant\'s Inventory',
+            text: 'Whatever you need, friends, I can provide. Weapons and armour. Swords and bows of the highest quality.' +
+                ' And magic items. Strange, mysterious items of such power as to be found nowhere else.' +
+                ' Oh, and I can teach you a skill or two, if you are of a certain profession.',
+            ownItemsOnly: true,
+            buy: {
+                text: 'Buy from the merchant',
+                emptyText: 'I have nothing left to offer you!',
+                itemSelector(game: IGame, item: IItem): boolean {
+                    return true;
+                }
+            },
+            sell: {
+                text: 'Sell to the merchant',
+                emptyText: 'I\'m sorry, there is nothing that you have that interests me.',
+                itemSelector(game: IGame, item: IItem): boolean {
+                    return item.value > 0;
+                },
+                priceModifier: (game: IGame): number => {
+                    return 0.7;
+                }
+            },
+            onBuy(game: IGame, item: IItem): void {
+                if (item.id === getId(Dodge2)) {
+                    game.activeCharacter.items.delete(item);
+                    game.activeCharacter.equipment.special = item;
+                }
+            }
+        }
+    });
+}

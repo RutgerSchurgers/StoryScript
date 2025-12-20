@@ -1,0 +1,84 @@
+import {IGame} from "./interfaces/game.ts";
+import {ICompiledLocation} from "./interfaces/location.ts";
+import {Character} from "./character.ts";
+import {IItem} from "./interfaces/item.ts";
+import {equals} from "storyScript/utilityFunctions.ts";
+
+export function haveItem(game: IGame, item: (() => IItem)): boolean {
+    return game.party.characters.find(c => c.items.find(i => equals(i, item))) !== undefined;
+}
+
+export function check(game: IGame, challenge: number): boolean {
+    const check = game.helpers.rollDice('1d6');
+    return check <= challenge;
+}
+
+export function descriptionSelector(game: IGame): string {
+    let selector: string;
+
+    if (game.worldProperties.isDay) {
+        if (game.currentLocation.completedDay) {
+            selector = 'daycompleted'
+        } else {
+            selector = game.currentLocation.encounterWonDay ? 'dayafter' : 'day';
+        }
+    }
+
+    if (game.worldProperties.isNight) {
+        if (game.currentLocation.completedNight) {
+            selector = 'nightcompleted'
+        } else {
+            selector = game.currentLocation.encounterWonNight ? 'nightafter' : 'night';
+        }
+    }
+
+    return game.currentLocation.descriptions[selector] ? selector : null;
+}
+
+export function locationComplete(game: IGame, location: ICompiledLocation, completeDay: (() => boolean), completeNight: (() => boolean)) {
+    if (!location.completedDay) {
+        location.completedDay = completeDay();
+    }
+
+    if (!location.completedNight) {
+        location.completedNight = completeNight();
+    }
+
+    game.currentLocation.descriptionSelector = undefined;
+}
+
+export function heal(character: Character, amount: number) {
+    const newHitpoints = character.currentHitpoints + amount;
+    character.currentHitpoints = newHitpoints > character.hitpoints ? character.hitpoints : newHitpoints;
+}
+
+export function getTopWeapon(character: Character): IItem {
+    let weapon: IItem;
+
+    Object.keys(character.equipment).forEach(k => {
+        const item = <IItem>character.equipment[k];
+
+        if (item?.damage) {
+            if (!weapon || parseInt(item.damage.substring(2)) > parseInt(weapon.damage.substring(2))) {
+                weapon = item;
+            }
+        }
+    });
+
+    return weapon;
+}
+
+export function setTimeStyling(game: IGame): void {
+    game.UIRootElement.classList.remove('day');
+    game.UIRootElement.classList.remove('night');
+
+    if (game.worldProperties.timeOfDay === 'day') {
+        game.worldProperties.isDay = true;
+        game.worldProperties.isNight = false;
+        game.UIRootElement.classList.add('day');
+    } else if (game.worldProperties.timeOfDay === 'night') {
+        game.worldProperties.isDay = false;
+        game.worldProperties.isNight = true;
+        game.UIRootElement.classList.add('night');
+    }
+}

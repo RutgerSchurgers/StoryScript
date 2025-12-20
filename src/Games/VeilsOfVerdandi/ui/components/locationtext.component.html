@@ -1,0 +1,19 @@
+@if (game.currentLocation?.description)
+{
+    <div class="box-container" id="location">
+        <div class="box-title" [innerHTML]="texts.format(texts.youAreHere, [game.currentLocation.name]) | safe: 'html'"></div>
+        <div textFeatures>
+            @if (game.currentLocation.picture) 
+            {
+                <img class="location-image" src="{{ 'resources/locations/' + game.currentLocation.id + '.png' }}" alt="{{ game.currentLocation.name }}" />
+            }
+            <div class="location-text" [innerHTML]="game.currentLocation.description | safe: 'html'"></div>
+        </div>
+        <ul id="location-log" class="list-unstyled">
+            @for (message of game.currentLocation.log; track $index)
+            {
+                <li [innerHTML]="message | safe: 'html'"></li>
+            }
+        </ul>
+    </div>
+}
