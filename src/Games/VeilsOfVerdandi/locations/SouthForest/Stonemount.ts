@@ -12,7 +12,6 @@ export function Stonemount() {
     return Location({
         name: 'The Stone Mount',
         description: description,
-        picture: true,
         destinations: [
             {
                 name: backToForestText,

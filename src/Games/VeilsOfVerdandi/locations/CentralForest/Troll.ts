@@ -9,7 +9,6 @@ export function Troll() {
     return Location({
         name: 'The Troll',
         description: description,
-        picture: true,
         destinations: [
             {
                 name: backToForestText,

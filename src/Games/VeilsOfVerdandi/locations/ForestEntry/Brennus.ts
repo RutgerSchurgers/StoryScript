@@ -9,7 +9,6 @@ export function Brennus() {
     return Location({
         name: 'Brennus',
         description: description,
-        picture: true,
         destinations: [
             {
                 name: backToForestText,

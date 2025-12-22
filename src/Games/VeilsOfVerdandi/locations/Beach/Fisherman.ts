@@ -16,7 +16,6 @@ export function Fisherman() {
     return Location({
         name: 'The Fisherman\'s Cottage',
         description: description,
-        picture: true,
         persons: [
             FisherManPerson()
         ],

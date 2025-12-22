@@ -10,7 +10,6 @@ export function ForestLake() {
     return Location({
         name: 'Forest Lake',
         description: description,
-        picture: true,
         destinations: [
             {
                 name: backToForestText,

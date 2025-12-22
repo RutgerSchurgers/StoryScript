@@ -60,30 +60,6 @@ blockquote {
     margin: 0 15px 10px 0;
 }
 
-#farmboyframe {
-    box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
-}
-
-    #farmboyframe:before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(0,0,255, 0.25);
-        transition: all .3s linear;
-    }
-
-    #farmboyframe:hover:before {
-        background: none;
-    }
-
-#world-properties .timeOfDay {
-    display: block;
-}
-
 .portraitFrame {
     color:#0000FF;
     float: none;
@@ -137,17 +113,17 @@ blockquote {
     color: #660066;
 }
 
-combat-participant > div {
+.participant {
     border: 2px solid white;
     padding-top: 5px;
     margin-bottom: 5px;
 }
 
-combat-participant > div.targeted {
+.participant.targeted {
     border: 2px solid red;
 }
 
-.location-image {
+.location-picture {
     float: left;
     margin-right: 10px;
 }
@@ -208,6 +184,7 @@ combat-participant > div.targeted {
 
 .modal-dialog {
     height: 100%;
+    max-width: 50%;
 }
 
 .modal-dialog .modal-content {
@@ -242,7 +219,8 @@ combat-participant > div.targeted {
 }
 
 .combat-header {
-    margin-top: -68px;
+    margin-top: -72px;
+    margin-bottom: 20px;
 }
 
 #combat-win {

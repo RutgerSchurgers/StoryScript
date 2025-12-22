@@ -9,7 +9,6 @@ export function CliffWall() {
     return Location({
         name: 'The Cliff Wall',
         description: description,
-        picture: true,
         destinations: [
             {
                 name: 'The Strange Trees',

@@ -37,7 +37,7 @@ export function Octopus() {
                     execute:
                         (game: IGame) => {
                             game.currentLocation.descriptionSelector = 'attack';
-                            game.currentLocation.picture = true;
+                            game.currentLocation.picture = 'resources/locations/octopus.png"';
                             game.currentLocation.enemies.map(e => {
                                 e.inactive = false;
                                 e.activeDay = game.worldProperties.isDay;

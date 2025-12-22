@@ -10,7 +10,6 @@ export function Guardians() {
     return Location({
         name: 'The Strange Trees',
         description: description,
-        picture: true,
         destinations: [
             {
                 name: backToForestText,

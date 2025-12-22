@@ -11,7 +11,6 @@ export function MagicFlower() {
     return Location({
         name: 'The Magic Flowers',
         description: description,
-        picture: true,
         destinations: [
             {
                 name: backToForestText,

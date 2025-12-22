@@ -16,7 +16,6 @@ export interface ILocation extends StoryScriptILocation {
     items?: IItem[];
     persons?: IPerson[];
     isHotspot?: boolean;
-    picture?: boolean;
 }
 
 export interface ICompiledLocation extends ILocation, StoryScriptICompiledLocation {
