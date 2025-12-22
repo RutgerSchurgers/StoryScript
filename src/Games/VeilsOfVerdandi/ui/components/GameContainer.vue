@@ -38,9 +38,8 @@
             <li>Day: {{ game.worldProperties.currentDay }}</li>
             <li v-if="isDevelopment">Time:
               <div class="time-editor float-right">
-                <select v-model="game.worldProperties.timeOfDay" class="custom-select"
-                        @change="e => (<any>game).changeTime(e)">
-                  <option v-for="item of ['day', 'night']" :value="item">{{ item }}</option>
+                <select class="custom-select" @change="changeTime">
+                  <option v-for="item of time" :value="item" :selected="item === game.worldProperties.timeOfDay">{{ item }}</option>
                 </select>
               </div>
             </li>
@@ -66,6 +65,12 @@ import {isDevelopment} from "../../../../../constants.ts";
 const store = useStateStore();
 const {game, useEquipment, useBackpack, useQuests, useCharacterSheet} = storeToRefs(store);
 const {texts} = store.services;
+
+const time = ['day', 'night'];
+
+const changeTime = (e) => {
+  (<any>game.value).changeTime(e.target.value);
+}
 
 const showCharacterPane = computed(() => useCharacterSheet.value || useEquipment.value || useBackpack.value || useQuests.value);
 

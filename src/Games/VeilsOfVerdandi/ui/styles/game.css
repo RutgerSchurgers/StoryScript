@@ -1,4 +1,9 @@
-﻿body {
+﻿@font-face {
+    font-family: "Papyrus";
+    src: url("../font/papyrus.ttf");
+}
+
+body {
     padding-bottom: 20px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, Papyrus, sans-serif;
     color: #483D8B;
@@ -183,7 +188,6 @@ blockquote {
 }
 
 .modal-dialog {
-    height: 100%;
     max-width: 50%;
 }
 
