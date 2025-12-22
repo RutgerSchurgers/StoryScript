@@ -1,0 +1,14 @@
+import {Person} from '../types';
+import description from './Vigga.html?raw';
+
+export function Vigga() {
+    return Person({
+        name: 'Vigga',
+        description: description,
+        hitpoints: 10,
+        items: [],
+        quests: [],
+        canAttack: false,
+        conversation: {},
+    });
+}

@@ -1,0 +1,142 @@
+html {
+    min-height: 100%;
+}
+
+
+body {
+    min-height: 100%;
+}
+
+h1 {
+    color: black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+  
+}
+
+.box-container {
+    color: black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.3em; /* 40px/16=2.5em */;
+}
+
+.modal-dialog {
+    max-width: 70%;
+}
+
+.gradient-ship-outside {
+    background: linear-gradient(180deg, rgba(255,235,0,1) 10%, rgba(0,130,205,1) 50%, rgba(200,150,5,1) 100%);
+}
+
+.gradient-waterworld {
+    background:  linear-gradient(0deg, rgba(9,9,121,1) 35%, rgba(1,200,250,1) 96%, rgba(0,212,255,1) 100%);
+}
+
+.gradient-beach {
+    background:  linear-gradient(0deg, rgba(255,255,0,1) 20%, rgba(0,176,255,1) 50%, rgba(0,250,235,1) 80%);
+}
+
+.gradient-ship-inside {
+    background: linear-gradient(180deg, rgba(223,175,12,1) 0%, rgba(170,122,13,1) 35%, rgba(30,25,8,1) 100%);
+}
+
+.gradient-intro {
+    background: linear-gradient(180deg, rgba(255,235,0,1) 0%, rgba(205,160,0,1) 40%, rgba(60,60,35,1) 100%); 
+}
+
+.gradient-jungle {
+    background: linear-gradient(0deg, rgba(6,125,80,1) 0%, rgba(36,230,108,1) 50%, rgba(19,232,205,1) 100%);
+}
+
+
+.combat-win {
+   /* Add victory picture here */
+}
+
+.person-name {
+    display: none;
+}
+
+.enemy-picture {
+    height: 300px;
+}
+
+#combat {
+    border: solid 1px black;
+    background-color: white;
+}
+
+#combat .btn, .combat-actions ul, .combat-actions li, .combat-actions span, .combat-actions button {
+    float: left;
+}
+
+#combat .btn {
+    margin-right: 80px;
+}
+
+#combat .btn, .combat-actions li, .combat-actions button {
+    margin-left: 20px;
+}
+
+.combat-actions span {
+    display: inline-block;
+    line-height: 50px;
+}
+
+.combat-overview-enemies, .combatlog {
+    float: left;
+}
+
+.combatlog {
+    min-width: 300px;
+}
+
+.combat-overview-enemies {
+    margin-left: 50px;
+}
+
+#conversation-history {
+    display: none;
+}
+
+.build-character-container, .intro-container {
+    float: left;
+    width: 70%;
+}
+
+#conversation {
+    background-image: url(resources/Shipback.png);
+}
+
+#conversation .modal-header {
+    border-bottom: none;
+}
+
+#conversation .modal-footer {
+    border-top: none;
+}
+
+#conversation-options, .conversation-text {
+    margin-top: 10px;
+    padding: 20px 30px 30px 30px;
+    background: radial-gradient(circle, rgba(221,181,50,1) 50%, rgba(185,145,0,1) 70%);
+    border: double 6px transparent;
+    border-radius: 20px;
+}
+
+feature {
+    color: green;
+}
+
+#game-map {
+    text-align: center;
+}
+
+#game-map img {
+    max-width: 70%;
+    border-radius: var(--bs-modal-inner-border-radius);
+}
+
+.modal-header > .close {
+    float: right;
+}

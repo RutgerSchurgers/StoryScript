@@ -1,0 +1,616 @@
+﻿import {StateList} from 'storyScript/Interfaces/stateList';
+import {GameState, ICharacter, ICombinationAction, ICreateCharacter, IRules} from 'storyScript/Interfaces/storyScript';
+import {Constants} from './constants';
+import {Class} from './interfaces/class';
+import {Beach} from './locations/Beach';
+import {Junglestart} from './locations/junglestart';
+import {Shipbattle} from './locations/shipbattle';
+import {ShipBow} from './locations/ShipBow';
+import {Shipsdeck} from './locations/shipsdeck';
+import {ShipsHold} from './locations/ShipsHold';
+import {ShipsHoldAft} from './locations/ShipsHoldAft';
+import {ShipsholdFront} from './locations/ShipsholdFront';
+import {ShipStern} from './locations/shipStern';
+import {Start} from './locations/start';
+import {Waterworld} from './locations/Waterworld';
+import {Character, IEnemy, IEquipment, IGame} from './types';
+import {selectStateListEntry} from "storyScript/Services/sharedFunctions.ts";
+import {createPromiseForCallback} from "storyScript/utilityFunctions.ts";
+import {ICombatSetup} from "./interfaces/combatSetup.ts";
+
+const combatTimeout: number = 1000;
+
+const locationGradients = <StateList>{
+    'gradient-ship-outside': [
+        Start, Shipsdeck, ShipStern, ShipBow, Shipbattle
+    ],
+    'gradient-ship-inside': [
+        ShipsHold, ShipsholdFront, ShipsHoldAft
+    ],
+    'gradient-beach': [
+        Beach
+    ],
+    'gradient-waterworld': [
+        Waterworld
+    ],
+    'gradient-jungle': [
+        Junglestart
+    ],
+    'gradient-intro': [
+        GameState.Intro
+    ]
+};
+
+const encounterBackgrounds = <StateList>{
+    'Shipback.png': [
+        Start, Shipsdeck, ShipStern, ShipBow, Shipbattle
+    ],
+    'ShipsHold.png': [
+        ShipsHold, ShipsholdFront, ShipsHoldAft
+    ]
+};
+
+export function Rules(): IRules {
+
+    return {
+        setup: {
+            intro: true,
+            fadeMusicInterval: 200,
+            getCombinationActions: (): ICombinationAction[] => {
+                return [
+                    {
+                        text: Constants.LOOKAT,
+                        requiresTool: false,
+                        failText: (game, target, tool): string => {
+                            return 'you look at the ' + target.name + '. There is nothing special about it.';
+                        }
+                    },
+                    {
+                        text: Constants.USE,
+                        requiresTool: false,
+                        preposition: 'on',
+                    },
+                    {
+                        text: Constants.COMBINE,
+                        requiresTool: true,
+                        preposition: 'with',
+                    },
+                    {
+                        text: Constants.TAKE,
+                        requiresTool: false,
+                        failText: (game, target, tool): string => {
+                            return 'You cannot pick that up';
+                        }
+                    },
+
+                ];
+            },
+            playList: {
+                'Medieval.mp3': [GameState.CreateCharacter, GameState.Intro],
+                'underwater.mp3': [GameState.Play],
+                'Shipshold.mp3':
+                    [
+                        ShipsHold, ShipsHoldAft, ShipsholdFront
+                    ],
+                'Beach.mp3':
+                    [
+                        Beach
+                    ],
+                'Shipbattle.mp3':
+                    [
+                        Shipbattle
+                    ],
+                'Waterworld.mp3':
+                    [
+                        Waterworld
+                    ]
+            }
+        },
+
+        general: {
+            scoreChange: (game: IGame, change: number): boolean => {
+                // Implement logic to occur when the score changes. Return true when the character gains a level.
+                return false;
+            },
+            gameStateChange: (game: IGame) => {
+                setGradient(game);
+            },
+            playStateChange: (game: IGame) => {
+                setModalBackground(game);
+            }
+        },
+
+        character: {
+            getSheetAttributes: (): string[] => {
+                return [
+                    'class',
+                    'level',
+                    'strength',
+                    'agility',
+                    'intelligence'
+                ];
+            },
+
+            getCreateCharacterSheet: (): ICreateCharacter => {
+                return {
+                    steps: [
+                        {
+                            attributes: [
+                                {
+                                    question: 'What is your name?',
+                                    entries: [
+                                        {
+                                            attribute: 'name'
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            questions: [
+                                {
+                                    question: 'Do you wish to choose your class manually, or answer questions to determine your path?',
+                                    entries: [
+                                        {
+                                            text: 'Choose my class',
+                                            value: '2'
+                                        },
+                                        {
+                                            text: 'Answer Questions',
+                                            value: '3'
+                                        }
+                                    ]
+                                }
+                            ],
+                            nextStepSelector: (party, character, currentStep) => {
+                                switch (currentStep.questions[0].selectedEntry.value) {
+                                    case '2':
+                                        return 2;
+                                    case '3':
+                                        return 3;
+                                    default:
+                                        return 0;
+                                }
+                            }
+                        },
+                        {
+                            questions: [
+                                {
+                                    question: 'Choose your class',
+                                    entries: [
+                                        {
+                                            text: Class.Rogue,
+                                            value: Class.Rogue
+                                        },
+                                        {
+                                            text: Class.Warrior,
+                                            value: Class.Warrior
+                                        },
+                                        {
+                                            text: Class.Wizard,
+                                            value: Class.Wizard
+                                        }
+                                    ]
+                                }
+                            ],
+                            nextStepSelector(party, character, currentStep) {
+                                const selectedClass = currentStep.questions[0].selectedEntry.value;
+                                const confirmStep = character.steps[9];
+                                confirmStep.questions[0].question = `You have chosen the path of the ${selectedClass}. Do you want to be a ${selectedClass}?`;
+                                return 9;
+                            },
+                        },
+                        {
+                            questions: [
+                                {
+                                    question: 'You witness the village bully pestering a little child. Do you:',
+                                    entries: [
+                                        {
+                                            text: 'Challenge him to try on someone his own size, namely you?',
+                                            value: Class.Warrior,
+                                            bonus: 1
+                                        },
+                                        {
+                                            text: 'Try to sneak up on him and trip him, making him fall into a puddle of mud?',
+                                            value: Class.Rogue,
+                                            bonus: 1
+                                        },
+                                        {
+                                            text: 'Try to talk to him and show him the error of his ways?',
+                                            value: Class.Wizard,
+                                            bonus: 1
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            questions: [
+                                {
+                                    question: 'Your grandfather has been telling you stories of the gods of the old homeland. Stories of the mighty Thor, the wise Odin and the clever Loki. He promises to teach you a prayer to one of the gods to invoke his blessing. Which god do you choose?',
+                                    entries: [
+                                        {
+                                            text: 'Thor, the god of storms and lightning, the destroyer of giants.',
+                                            value: Class.Warrior,
+                                            bonus: 1
+                                        },
+                                        {
+                                            text: 'Loki, the god of trickery and deceit, the troublemaker.',
+                                            value: Class.Rogue,
+                                            bonus: 1
+                                        },
+                                        {
+                                            text: 'Odin, the god of wisdom and insight, the Allfather.',
+                                            value: Class.Wizard,
+                                            bonus: 1
+                                        },
+
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            questions: [
+                                {
+                                    question: 'A wolf has been ravaging the flocks of sheep of your village. Do you:',
+                                    entries: [
+                                        {
+                                            text: 'Go out and hunt the beast?',
+                                            value: Class.Warrior,
+                                            bonus: 1
+                                        },
+                                        {
+                                            text: 'Set a devious trap?',
+                                            value: Class.Rogue,
+                                            bonus: 1
+                                        },
+                                        {
+                                            text: 'Design and build a new fence to keep the wolf and future predators out?',
+                                            value: Class.Wizard,
+                                            bonus: 1
+                                        },
+
+                                    ]
+                                }
+                            ]
+                        },
+
+                        {
+                            questions: [
+                                {
+                                    question: 'Your village holds the yearly Harvest festival, which has many games. Do you:',
+                                    entries: [
+                                        {
+                                            text: 'Participate in the Wrestling contest? ',
+                                            value: Class.Warrior,
+                                            bonus: 1
+                                        },
+                                        {
+                                            text: 'Participate in the Archery contest?',
+                                            value: Class.Rogue,
+                                            bonus: 1
+                                        },
+                                        {
+                                            text: 'Participate in the Puzzle contest?',
+                                            value: Class.Wizard,
+                                            bonus: 1
+                                        },
+
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            questions: [
+                                {
+                                    question: 'An item of great importance to your village has been stolen from the house of the mayor. The local magistrate has identified several suspects, but his questioning so far has led to no results. You think you could do better, and if it where up to you, would you:',
+                                    entries: [
+                                        {
+                                            text: 'Use strength and intimidation to get some answers.',
+                                            value: Class.Warrior,
+                                            bonus: 1
+                                        },
+                                        {
+                                            text: 'Use stealth to follow the movements of the suspects, and agility to enter their houses undetected and search for clues.',
+                                            value: Class.Rogue,
+                                            bonus: 1
+                                        },
+                                        {
+                                            text: 'Use deduction and reasoning to get to the truth.',
+                                            value: Class.Wizard,
+                                            bonus: 1
+                                        },
+
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            questions: [
+                                {
+                                    question: 'You are in love with the most beautiful girl in the village. But you are not the only one. One of your competitors has written a striking poem, and you know the girl loves poetry. Do you:',
+                                    entries: [
+                                        {
+                                            text: 'Ignore the poetry and try to impress the girl with a show of strength?',
+                                            value: Class.Warrior,
+                                            bonus: 1
+                                        },
+                                        {
+                                            text: 'Try to steal his poem and pass it off as you own?',
+                                            value: Class.Rogue,
+                                            bonus: 1
+                                        },
+                                        {
+                                            text: 'Try to write an even better poem?',
+                                            value: Class.Wizard,
+                                            bonus: 1
+                                        }
+                                    ]
+                                }
+                            ],
+                            nextStepSelector: 9
+                        },
+                        {
+                            initStep: (party, character, currentStep, previousStep) => {
+                                const classSelect = character.steps[2].questions[0];
+                                let selectedClass = classSelect.selectedEntry ? classSelect.selectedEntry.value : null;
+                                const points = {
+                                    Warrior: 0,
+                                    Rogue: 0,
+                                    Wizard: 0
+                                };
+
+                                // If questions were answered, calculate which class has the highest score.
+                                if (previousStep > 2) {
+                                    for (let i = 3; i <= previousStep; i++) {
+                                        const selectedEntry = character.steps[i].questions[0].selectedEntry;
+                                        points[selectedEntry.value] += selectedEntry.bonus;
+                                    }
+
+                                    // When the scores are equal, the first class in the list wins (first warrior, then rogue, then wizard).
+                                    const max = Math.max(points.Warrior, points.Rogue, points.Wizard);
+                                    selectedClass = max === points.Warrior ? Class.Warrior : max === points.Rogue ? Class.Rogue : Class.Wizard;
+                                }
+
+                                // Update the class selector step to use when processing the character sheet data.
+                                classSelect.selectedEntry = classSelect.entries.filter(entry => entry.value === selectedClass)[0];
+
+                                const nextQuestion = currentStep.questions[0];
+
+                                if (previousStep > 2) {
+                                    nextQuestion.question = `Your path seems to be that of the ${selectedClass}. Do you want to be a ${selectedClass}?`;
+                                }
+
+                                nextQuestion.entries[1].text = `Yes, proceed as a ${selectedClass}`;
+                            },
+                            questions: [
+                                {
+                                    question: '',
+                                    entries: [
+                                        {
+                                            text: 'No, select another class',
+                                            value: "no",
+                                        },
+                                        {
+                                            text: '',
+                                            value: "yes"
+                                        }
+                                    ]
+                                }
+                            ],
+                            nextStepSelector(party, character, currentStep) {
+                                switch (currentStep.questions[0].selectedEntry.value) {
+                                    case 'no':
+                                        return 2;
+                                    case 'yes':
+                                        return 10;
+                                    default:
+                                        return 0;
+                                }
+                            },
+                        },
+                        {
+                            description: `'Thank you, friend, that is all I needed to know, for now.<br>But before we part, allow me to give you some advice. 
+                            I know something of Eastwind, and I have long suspected the royal guild of enchanters to have a hand in some of the darker events 
+                            that have plagued Eastwind recently. In participating in the tournament, with your talents, you will be sure to draw their attention.<br>
+                            But I have faith in your abilities, and I hope we may meet again, and you will tell me all about your adventures 
+                            and victories.'`
+                        }
+                    ]
+                };
+            },
+
+            createCharacter: (game: IGame, characterData: ICreateCharacter): ICharacter => {
+                const character = new Character();
+                const characterClass = characterData.steps[2].questions[0].selectedEntry.value;
+
+                switch (characterClass) {
+                    case Class.Warrior:
+                        character.strength = 3;
+                        character.agility = 1;
+                        character.intelligence = 1;
+                        character.class = Class.Warrior;
+                        break;
+                    case Class.Rogue:
+                        character.strength = 1;
+                        character.agility = 3;
+                        character.intelligence = 1;
+                        character.class = Class.Rogue;
+                        break;
+                    case Class.Wizard:
+                        character.strength = 1;
+                        character.agility = 1;
+                        character.intelligence = 3;
+                        character.class = Class.Wizard;
+                        break;
+                }
+
+                return character;
+            }
+        },
+
+        exploration: {
+            enterLocation: (game: IGame) => {
+                setGradient(game);
+            }
+        },
+
+        combat: {
+            fight: (game: IGame, combatRound: ICombatSetup): Promise<void> | void => {
+                const character = combatRound[0].character;
+                const enemy = combatRound[0].target;
+                game.combatLog.length = 0;
+                const equipment = character.equipment;
+
+                if (equipment.rightHand?.attackText) {
+                    game.logToCombatLog(equipment.rightHand?.attackText);
+                }
+
+                if (equipment.leftHand?.attackText) {
+                    game.logToCombatLog(equipment.leftHand?.attackText);
+                }
+
+                setAttackImage(equipment, game);
+                const damage = game.helpers.rollDice('1d6') + character.strength + game.helpers.calculateBonus(character, 'damage');
+                const attackSound = equipment.rightHand?.attackSound ?? equipment.leftHand?.attackSound;
+                return fight(game, enemy, attackSound, damage);
+            }
+        }
+    };
+}
+
+export function fight(game: IGame, enemy: IEnemy, attackSound: string, damage: number): Promise<void> | void {
+    const callBack = () => continueFight(game, enemy, damage);
+
+    if (attackSound) {
+        const {promise, promiseCallback} = createPromiseForCallback<void>(callBack);
+        game.sounds.playSound(attackSound, promiseCallback);
+        return promise;
+    } else {
+        callBack();
+    }
+}
+
+const continueFight = function (game: IGame, currentEnemy: IEnemy, damage: number): Promise<void> | void {
+    removeAttackImage(game);
+    game.combatLog.push('You do ' + damage + ' damage to the ' + currentEnemy.name + '!');
+    currentEnemy.hitpoints -= damage;
+
+    if (currentEnemy.hitpoints <= 0) {
+        game.combatLog.push('You defeat the ' + currentEnemy.name + '!');
+    }
+
+    let promise: Promise<void> | void = null;
+
+    game.currentLocation.enemies.filter((enemy: IEnemy) => {
+        return enemy.hitpoints > 0;
+    }).forEach(async enemy => {
+        if (!promise) {
+            promise = waitPromise();
+        } else {
+            promise = promise.then(() => waitPromise());
+        }
+
+        promise = promise.then(() => enemyAttack(game, enemy));
+    });
+
+    return promise;
+}
+
+const waitPromise = function (): Promise<void> {
+    return new Promise<void>(function (resolve) {
+        setTimeout(() => {
+            resolve();
+        }, combatTimeout);
+    });
+}
+
+const enemyAttack = function (game: IGame, enemy: IEnemy): Promise<void> | void {
+    game.combatLog.push(enemy.attackText ?? 'The ' + enemy.name + ' attacks!');
+
+    const attackSound = enemy.attackSound;
+    const callBack = () => enemyAttacks(game, enemy);
+
+    if (attackSound) {
+        const {promise, promiseCallback} = createPromiseForCallback<void>(callBack);
+        game.sounds.playSound(attackSound, promiseCallback);
+        return promise;
+    } else {
+        callBack();
+    }
+}
+
+const enemyAttacks = function (game: IGame, enemy: IEnemy): Promise<void> | void {
+    const damage = game.helpers.rollDice(enemy.attack) + game.helpers.calculateBonus(enemy, 'damage');
+    game.combatLog.push('The ' + enemy.name + ' does ' + damage + ' damage!');
+    game.activeCharacter.currentHitpoints -= damage;
+}
+
+function setAttackImage(equipment: IEquipment, game: IGame) {
+    const attackImage = equipment.rightHand.attackImage ?? equipment.leftHand.attackImage;
+
+    if (attackImage) {
+        const attackElementSelector = '.attack-symbol';
+        const enemyPortrait = game.UIRootElement.querySelector('.combat-participant');
+        const portraitContainer = enemyPortrait.parentElement;
+        let attackSymbol = portraitContainer.querySelector(attackElementSelector);
+
+        if (!attackSymbol) {
+            const width = enemyPortrait.clientWidth / 2;
+            const height = enemyPortrait.clientHeight / 2;
+            const attackSymbolString = `<img class="attack-symbol" style="position:absolute; top:${width}px; left:${height}px; z-index: 20" />`;
+            const attackSymbolElement = new DOMParser().parseFromString(attackSymbolString, "text/html");
+            portraitContainer.prepend(attackSymbolElement.body.firstElementChild);
+            attackSymbol = portraitContainer.querySelector(attackElementSelector);
+        }
+
+        (<HTMLImageElement>attackSymbol).src = `resources/${attackImage}`;
+    }
+}
+
+function removeAttackImage(game: IGame) {
+    const portraitElement = game.UIRootElement.querySelector('.combat-participant');
+
+    if (portraitElement) {
+        portraitElement.parentElement.removeChild(portraitElement.parentElement.children[0]);
+    }
+}
+
+const setGradient = function (game: IGame) {
+    const gradientClass = selectStateListEntry(game, locationGradients);
+
+    if (gradientClass) {
+        // When refreshing the page, the UIRootElement is not yet on the game so use a timeout.
+        if (game.UIRootElement) {
+            setGradientClass(game.UIRootElement, gradientClass);
+        } else {
+            setTimeout(() => {
+                setGradientClass(game.UIRootElement, gradientClass);
+            });
+        }
+    }
+}
+
+const setGradientClass = function (element: HTMLElement, className: string) {
+    element.classList.forEach(c => {
+        if (c.startsWith('gradient')) {
+            element.classList.remove(c);
+        }
+    });
+
+    element.classList.add(className);
+}
+
+const setModalBackground = function (game: IGame) {
+    const background = selectStateListEntry(game, encounterBackgrounds);
+
+    if (background) {
+        setTimeout(() => {
+            const modalElement = game.UIRootElement?.getElementsByClassName('encounter-modal')[0] as HTMLElement;
+
+            if (modalElement) {
+                modalElement.style.backgroundImage = `url(resources/${background})`;
+            }
+        }, 0);
+    }
+}

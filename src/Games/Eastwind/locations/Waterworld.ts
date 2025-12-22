@@ -1,0 +1,39 @@
+import {IGame, Location} from '../types';
+import {Beach} from './Beach';
+import description from './Waterworld.html?raw';
+
+export function Waterworld() {
+    return Location({
+        name: 'Waterworld',
+        description: description,
+        destinations: [
+            {
+                name: 'Continue...',
+                target: Beach,
+                inactive: true
+            },
+        ],
+        features: [],
+        items: [],
+        enemies: [],
+        persons: [],
+        trade: [],
+        enterEvents: [['Mermaid',
+            (game: IGame) => {
+                setTimeout(() => {
+                    var mermaidImage = game.UIRootElement.getElementsByClassName('underwater-img')[0];
+
+                    if (mermaidImage) {
+                        mermaidImage.classList.remove('invisible');
+                    }
+
+                    game.currentLocation.destinations[0].inactive = false;
+                }, 3000);
+            }]
+
+        ],
+        leaveEvents: [],
+        actions: [],
+        combatActions: [],
+    });
+}
