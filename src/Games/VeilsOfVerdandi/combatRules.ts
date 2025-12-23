@@ -389,7 +389,7 @@ function filterWeapons(game: IGame, combatSetup: ICombatSetup, filter: (combatSe
         c.item = c.itemsAvailable.find(i => i === selectedItem) ?? c.itemsAvailable[0];
 
         if (!c.item) {
-            c.targetsAvailable = null;
+            c.targetsAvailable = [];
             c.target = null;
         }
         

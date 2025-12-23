@@ -29,7 +29,7 @@
         <div class="box-container world-info">
           <div class="box-title">{{ game.party.name }}</div>
           <ul class="list-unstyled float-left">
-            <li>{{ texts.currency }}
+            <li>{{ texts.partyCurrency }}
               <div class="currency-editor">
                 <span v-if="!isDevelopment">{{ game.party.currency }}</span>
                 <input v-if="isDevelopment" v-model="game.party.currency" max="1000" min="{{ 0 }}" type="number">

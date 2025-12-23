@@ -17,7 +17,8 @@ export function CustomTexts(): IInterfaceTexts {
         cancelBuy: 'No',
         confirmSell: 'Yes',
         cancelSell: 'No',
-        currency: 'Gold:',
+        currency: 'Gold',
+        partyCurrency: 'Gold:',
         currencyWon: 'Gold found: {0}',
         combatRound: 'Round {0}'
     };
