@@ -1,4 +1,4 @@
-﻿import {ICharacter, ICompiledLocation, ICreateCharacter, IRules} from 'storyScript/Interfaces/storyScript';
+﻿import {ICharacter, ICompiledLocation, ICreateCharacter, IRules, PlayState} from 'storyScript/Interfaces/storyScript';
 import {Character, IEnemy, IGame} from './types';
 import {Dagger} from './items/dagger';
 import {LeatherHelmet} from './items/leatherHelmet';
@@ -23,6 +23,15 @@ export function Rules(): IRules {
                 }
 
                 return levelUp;
+            },
+            playStateChange: (game: IGame, newState: PlayState, oldState: PlayState) => {
+                if (game.currentLocation?.id === 'arena' 
+                    && game.worldProperties.arenaStarted === true 
+                    && newState === null 
+                    && oldState === PlayState.Combat) {
+                    const randomEnemy = game.helpers.randomEnemy();
+                    game.currentLocation.enemies.add(randomEnemy);
+                }
             }
         },
 

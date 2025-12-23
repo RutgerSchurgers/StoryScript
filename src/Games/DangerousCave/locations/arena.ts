@@ -21,20 +21,12 @@ export function Arena() {
             {
                 text: 'Onderzoek symbool',
                 execute: function (game: IGame) {
-                    game.worldProperties.onDefeat = onDefeat;
                     const troll = Troll();
-                    troll.onDefeat = game.worldProperties.onDefeat;
                     game.currentLocation.enemies.add(troll);
+                    game.worldProperties.arenaStarted = true;
                     game.logToActionLog('Er verschijnt op magische wijze een enorme trol waar het symbool was! Hij valt je aan!');
                 }
             }
         ]]
     });
-
-    function onDefeat(game: IGame) {
-        const randomEnemy = game.helpers.randomEnemy();
-        game.currentLocation.enemies.add(randomEnemy);
-        randomEnemy.onDefeat = game.worldProperties.onDefeat;
-        game.playState = null;
-    }
 }
