@@ -10,7 +10,7 @@ export function Rest() {
         actionType: ActionType.Regular,
         execute: (game: IGame) => {
             game.party.characters.forEach(c => c.currentHitpoints = c.hitpoints);
-            game.logToActionLog('You have rested and tended to your wounds. You feel ready again to face the forest.');
+            game.logToLocationLog('You have rested and tended to your wounds. You feel ready again to face the forest.');
             
             if (game.worldProperties.isDay) {
                 game.worldProperties.hasRestedDuringDay = true;

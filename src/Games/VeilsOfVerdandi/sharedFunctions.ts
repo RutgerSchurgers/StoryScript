@@ -69,7 +69,7 @@ export function getTopWeapon(character: Character): IItem {
 }
 
 export function setTimeStyling(game: IGame): void {
-    const body = game.UIRootElement.closest('body');
+    const body = game.UIRootElement;
 
     body.classList.remove('day');
     body.classList.remove('night');
