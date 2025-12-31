@@ -13,7 +13,7 @@
         <div v-if="game.state === 'Play'">
           <encounter></encounter>
           <location-text></location-text>
-          <location-visual :hidden="true"></location-visual>
+          <location-visual></location-visual>
           <action-log></action-log>
           <ground></ground>
           <exploration></exploration>
@@ -44,6 +44,6 @@ const store = useStateStore();
 const {game, useEquipment, useBackpack, useQuests, useCharacterSheet} = storeToRefs(store);
 const {texts} = store.services;
 
-const showCharacterPane = computed(() => useCharacterSheet.value || useEquipment.value || useBackpack.value || useQuests.value)
+const showCharacterPane = computed(() => useCharacterSheet.value || useEquipment.value || useBackpack.value || useQuests.value);
 
 </script>

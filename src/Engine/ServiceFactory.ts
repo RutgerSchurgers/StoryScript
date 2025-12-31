@@ -38,8 +38,7 @@ export class ServiceFactory {
     private readonly _dataSerializer: IDataSerializer;
     private readonly _dataSynchronizer: IDataSynchronizer;
     private readonly _dataService: IDataService;
-
-    private _initialized = false;
+    
     private _game: IGame = <IGame>{};
 
     private _gameService: IGameService;
@@ -52,6 +51,7 @@ export class ServiceFactory {
     private _tradeService: ITradeService;
 
     private static _instance: ServiceFactory;
+    private static _initialized: boolean = false;
 
     constructor(
         nameSpace: string,
@@ -83,7 +83,7 @@ export class ServiceFactory {
         this._game = game ?? <IGame>{};
         this._itemService = new ItemService(this._game, this._rules, this._texts);
         this._tradeService = new TradeService(this._itemService, this._game, this._rules, this._texts, this._definitions);
-        this._conversationService = new ConversationService(this._game);
+        this._conversationService = new ConversationService(this._game, this._rules);
 
         this._soundService = new SoundService(this._game, this._rules);
         this._characterService = new CharacterService(this._dataService, this._game, this._rules);
@@ -103,7 +103,7 @@ export class ServiceFactory {
         );
         this._combatService = new CombatService(this._game, this._rules, this._texts);
         gameEvents.setGame(this._game);
-        this._initialized = true;
+        ServiceFactory._initialized = true;
     }
 
     GetGame = (): IGame => this.Get(this._game);
@@ -136,8 +136,10 @@ export class ServiceFactory {
 
     static readonly GetInstance = () => ServiceFactory._instance;
     
+    static readonly Initialized = ServiceFactory._initialized;
+    
     private Get<T>(service: T): T {
-        if (!this._initialized) {
+        if (!ServiceFactory._initialized) {
             throw new Error('ServiceFactory is not initialized!');
         }
         
