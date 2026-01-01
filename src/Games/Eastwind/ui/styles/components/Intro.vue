@@ -1,7 +1,7 @@
 <template>
   <div v-if="game.state === GameState.Intro" id="intro" class="box-container">
     <img class="float-right" :src="'resources/Fasold.png'" alt="Fasold the storyteller" />
-    <div class="float-left">
+    <div>
       <h2>Game introduction</h2>
       <p>
         'Welcome, friend. My name is Fasold the storyteller, and I thank you for taking the time to meet up with me in this tavern.

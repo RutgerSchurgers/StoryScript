@@ -48,7 +48,7 @@
                class="candle pull-right"/>
           <div class="clearfix"></div>
         </div>
-        <location-map :location="game.currentLocation" :map="game.currentMap"></location-map>
+        <location-map></location-map>
         <quests :quests="game.party.quests"></quests>
       </div>
     </div>
