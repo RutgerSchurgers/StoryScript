@@ -17,7 +17,6 @@ import {IGameService} from "storyScript/Interfaces/services/gameService.ts";
 import {IConversationService} from "storyScript/Interfaces/services/conversationService.ts";
 import {ITradeService} from "storyScript/Interfaces/services/tradeService.ts";
 import {IDataService} from "storyScript/Interfaces/services/dataService.ts";
-import {ICombinable} from "storyScript/Interfaces/combinations/combinable.ts";
 import {IAction} from "storyScript/Interfaces/action.ts";
 import {ActionType} from "storyScript/Interfaces/enumerations/actionType.ts";
 import {gameEvents} from "storyScript/gameEvents.ts";
@@ -98,6 +97,10 @@ export const useStateStore = defineStore('appState', () => {
         services.dataService = serviceFactory.GetDataService();
         availableLocations.value = serviceFactory.AvailableLocations.sort((a, b) => a.name.localeCompare(b.name));
     }
+    
+    const setActiveCharacter = (character: ICharacter) => {
+        game.value.activeCharacter = character;
+    }
 
     const trade = (location: ICompiledLocation, trade: IPerson | ITrade): boolean => {
         const locationTrade = <ITrade>trade;
@@ -118,11 +121,6 @@ export const useStateStore = defineStore('appState', () => {
         && Object.keys(character.equipment)
             .some(k => (<any>character.equipment)[k] !== undefined);
 
-    const tryCombine = (combinable: ICombinable): boolean => {
-        const result = game.value.combinations.tryCombine(combinable);
-        return result.success;
-    }
-
     const showDescription = (type: string, item: any, title: string): void => {
         game.value.currentDescription = {title: title, type: type, item: item};
     }
@@ -136,8 +134,6 @@ export const useStateStore = defineStore('appState', () => {
 
         services.combatService.initCombat();
     }
-
-    const setActiveCharacter = (character: ICharacter) => game.value.activeCharacter = character;
 
     const getButtonClass = (action: [string, IAction]): string => {
         const type = action[1].actionType || ActionType.Regular;
@@ -212,7 +208,6 @@ export const useStateStore = defineStore('appState', () => {
         setActiveCharacter,
         showEquipment,
         showDescription,
-        tryCombine,
         getButtonClass,
         executeAction,
         trade,
