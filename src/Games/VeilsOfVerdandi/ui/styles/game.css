@@ -90,7 +90,7 @@ blockquote {
 }
 
 .time-editor, .currency-editor {
-    display: inline;
+    display: inline-block;
 }
 
 .time-editor select, .currency-editor input {
@@ -185,15 +185,6 @@ blockquote {
 
 .character-hitpoints {
     font-size: 1.1rem;
-}
-
-.modal-dialog {
-    max-width: 50%;
-}
-
-.modal-dialog .modal-content {
-    max-height: 95%;
-    overflow-y: auto;
 }
 
 .participant.single-column {

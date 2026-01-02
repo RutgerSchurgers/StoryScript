@@ -138,14 +138,6 @@ export const explorationRules = <IExplorationRules>{
             }
         }
 
-        if (game.worldProperties.isNight) {
-            const element = game.UIRootElement?.querySelector<HTMLElement>('location-container');
-
-            if (element) {
-                element.style.cssText = 'filter: brightness(50%);';
-            }
-        }
-
         game.currentLocation.descriptionSelector = descriptionSelector;
     },
 
