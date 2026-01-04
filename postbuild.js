@@ -2,7 +2,7 @@ import fs from 'fs';
 import archiver from 'archiver';
 import path, { resolve } from "path";
 import jsonfile from 'jsonfile';
-import gameName from "./gameName.js";
+import gameName from "./currentGameName.js";
 import { fileURLToPath } from "url";
 import sharp from 'sharp';
 
@@ -15,14 +15,14 @@ const gameInfoPath = `${gamePath}/gameinfo.json`;
 const gameInfo = readFileSync(gameInfoPath);
 
 // 1. Copy the gameinfo.json file.
-fs.copyFile(gameInfoPath, 'dist/gameinfo.json', e => console.log(e));
+fs.copyFile(gameInfoPath, 'dist/gameinfo.json', () => {});
 
 // 2. Include the game sources if specified to do so.
 if (gameInfo.sourcesIncluded) {
-    fs.cpSync(gamePath, 'dist/sources',{ recursive: true }, e => console.log(e));
-    fs.rmSync('dist/sources/resources', { recursive: true }, e => console.log(e));
+    fs.cpSync(gamePath, 'dist/sources',{ recursive: true });
+    fs.rmSync('dist/sources/resources', { recursive: true });
     await zipDirectory('dist/sources', 'dist/sources.zip');
-    fs.rmSync('dist/sources', { recursive: true }, e => console.log(e));
+    fs.rmSync('dist/sources', { recursive: true });
 }
 
 // 3. Optimize jpg and png images using sharp.
