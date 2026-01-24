@@ -1,10 +1,14 @@
 {
     "name": "Dangerous cave",
     "description": "A dungeon crawler, still under construction",
+    "language": "Dutch",
     "picture": "",
     "sourcesIncluded": false,
-    "author": {
+    "authors": [{
         "name": "Sanne Jense",
-        "email": ""
-    }
+        "role": "Writer and Designer"
+    },{
+        "name": "Rutger Schurgers",
+        "role": "Developer"
+    }]
 }

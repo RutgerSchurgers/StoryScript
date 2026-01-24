@@ -25,13 +25,16 @@ export function Rules(): IRules {
                 return levelUp;
             },
             playStateChange: (game: IGame, newState: PlayState, oldState: PlayState) => {
-                if (game.currentLocation?.id === 'arena' 
-                    && game.worldProperties.arenaStarted === true 
-                    && newState === null 
-                    && oldState === PlayState.Combat) {
-                    const randomEnemy = game.helpers.randomEnemy();
-                    game.currentLocation.enemies.add(randomEnemy);
-                }
+                // Use a timeout to prevent a new enemy being added when fleeing, as this will
+                // set the playstate to null before moving to the new location.
+                setTimeout(() => {
+                    if (game.currentLocation?.id === 'arena' 
+                        && game.worldProperties.arenaStarted === true 
+                        && newState === null 
+                        && oldState === PlayState.Combat) {
+                        const randomEnemy = game.helpers.randomEnemy();
+                        game.currentLocation.enemies.add(randomEnemy);
+                }});
             }
         },
 

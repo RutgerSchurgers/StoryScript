@@ -88,22 +88,10 @@ export function Rules(): IRules {
             playList: {
                 'Medieval.mp3': [GameState.CreateCharacter, GameState.Intro],
                 'underwater.mp3': [GameState.Play],
-                'Shipshold.mp3':
-                    [
-                        ShipsHold, ShipsHoldAft, ShipsholdFront
-                    ],
-                'Beach.mp3':
-                    [
-                        Beach
-                    ],
-                'Shipbattle.mp3':
-                    [
-                        Shipbattle
-                    ],
-                'Waterworld.mp3':
-                    [
-                        Waterworld
-                    ]
+                'Shipshold.mp3': [ShipsHold, ShipsHoldAft, ShipsholdFront],
+                'Beach.mp3':[Beach],
+                'Shipbattle.mp3':[Shipbattle],
+                'Waterworld.mp3':[Waterworld]
             }
         },
 

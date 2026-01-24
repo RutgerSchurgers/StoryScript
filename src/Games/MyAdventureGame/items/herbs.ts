@@ -22,7 +22,7 @@ export function Herbs() {
                             removeTarget: true 
                         };
                     }
-                },
+                }
             ]
         }
     });
