@@ -68,7 +68,16 @@ blockquote {
 .portraitFrame {
     color:#0000FF;
     float: none;
-    margin-bottom: 10px;
+}
+
+.portraitFrame img {
+    max-width: 100%;
+}
+
+@media (max-width: 1400px) {
+    .portraitFrame { 
+        display: none;
+    }
 }
 
 .character-equipment .box-title, #character-backpack .box-title {
@@ -82,7 +91,7 @@ blockquote {
 #character-backpack {
     border: none;
     padding: 0;
-    margin: 5px 0 0 0;
+    margin: 15px 0 0 0;
 }
 
 #enemies li {

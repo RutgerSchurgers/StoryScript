@@ -15,7 +15,7 @@
       </template>
 
       <div class="row">
-        <div class="col-6">
+        <div class="col-xxl-6">
           <div class="portraitFrame">
             <img :src="character.portraitFileName" alt="character.name" class="portrait"/>
           </div>
@@ -25,7 +25,7 @@
             </li>
           </ul>
         </div>
-        <equipment :character="character" class="col-6"></equipment>
+        <equipment :character="character" class="col-12 col-xxl-6"></equipment>
       </div>
       <backpack :character="character"></backpack>
 
