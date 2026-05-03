@@ -1,21 +1,21 @@
-import { IGame, Location } from '../types';
+import {Location} from '../types';
 import description from './Westphalia.html?raw';
-import {Carinthia} from "./Carinthia.ts";
-import {Start} from "./start.ts";
+import {Austria} from "./Austria.ts";
+import {Franconia} from "./Franconia.ts";
 
 export function Westphalia() {
-	return Location({
-		name: 'Westphalia',
-		description: description,
-		destinations: [
+    return Location({
+        name: 'Westphalia',
+        description: description,
+        destinations: [
 			{
-				name: 'Franconia',
-				target: Start
+				name: 'Austria',
+				target: Austria
 			},
 			{
-				name: 'Carinthia',
-				target: Carinthia
-			},
-		]
-	});
+                name: 'Franconia',
+                target: Franconia
+            }
+        ]
+    });
 }

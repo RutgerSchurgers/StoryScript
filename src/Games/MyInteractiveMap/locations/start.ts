@@ -1,7 +1,8 @@
 ﻿import { Location } from '../types'
 import description from './Start.html?raw'
 import {Westphalia} from "./Westphalia.ts";
-import {Carinthia} from "./Carinthia.ts";
+import {Austria} from "./Austria.ts";
+import {Franconia} from "./Franconia.ts";
 
 export function Start() {
     return Location({
@@ -9,13 +10,17 @@ export function Start() {
         description: description,
         destinations: [
             {
-                name: 'Westphalia',
-                target: Westphalia
+                name: 'Austria',
+                target: Austria
             },
             {
-                name: 'Carinthia',
-                target: Carinthia
+                name: 'Franconia',
+                target: Franconia
             },
+            {
+                name: 'Westphalia',
+                target: Westphalia
+            }
         ]
     });
 }
