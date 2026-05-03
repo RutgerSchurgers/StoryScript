@@ -5,7 +5,7 @@
 } from 'storyScript/Interfaces/storyScript';
 import {IFeature, IGame} from '../types';
 import {ClassType} from '../classType';
-import {IEnemy} from 'src/Games/MyAdventureGame/types';
+import {IEnemy} from '../types';
 
 export function Item(entity: IItem): IItem {
     return StoryScriptItem(entity);
