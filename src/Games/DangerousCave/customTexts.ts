@@ -63,6 +63,7 @@ export function CustomTexts(): IInterfaceTexts {
         enemyHitpoints: "Gezondheid: {0} / {1}",
         characterHitpoints: "Gezondheid: {0} / {1}",
         enemiesDefeated: "Verslagen vijanden",
-        itemsTaken: "Veroverde voorwerpen"
+        itemsTaken: "Veroverde voorwerpen",
+        combatRound: "Ronde {0}"
     };
 }

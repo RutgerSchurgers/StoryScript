@@ -1,13 +1,16 @@
 {
-    "name": "Veils of Verdandi",
-    "description": "Based on the board game 'Veils of Verdandi' by Fasold Games (https://www.fasoldgames.com).",
-    "picture": "",
-    "sourcesIncluded": false,
-    "authors": [{
-        "name": "Rutger Schurgers",
-        "role": "Developer"
-    },{
-        "name": "Fabian Schurgers",
-        "role": "Board game design, Narrator"
-    }]
+  "name": "Veils of Verdandi",
+  "description": "A fantasy Role Playing Game, based on the board game 'Veils of Verdandi' by Fasold Games (https://www.fasoldgames.com). The most elaborate StoryScript game as of May 2026, including many advanced features that show you what StoryScript can do. It has the original board to show you the Forest of Myrr, which is brought to life with narrations and a day-night cycle. Explore the forest with a party of three adventurers and solve its many riddles. Talk to and trade with the helpful denizens of the place and combat the terrifying hostile ones. Save Prince Ture (but do so on a tablet or something bigger, not on a phone)!",
+  "picture": "",
+  "sourcesIncluded": false,
+  "authors": [
+    {
+      "name": "Rutger Schurgers",
+      "role": "Developer"
+    },
+    {
+      "name": "Fabian Schurgers",
+      "role": "Board game design, Narrator"
+    }
+  ]
 }

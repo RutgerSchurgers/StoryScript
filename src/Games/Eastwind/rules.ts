@@ -1,5 +1,5 @@
 ﻿import {StateList} from 'storyScript/Interfaces/stateList';
-import {GameState, ICharacter, ICombinationAction, ICreateCharacter, IRules} from 'storyScript/Interfaces/storyScript';
+import {GameState, ICharacter, ICreateCharacter, IRules} from 'storyScript/Interfaces/storyScript';
 import {Constants} from './constants';
 import {Class} from './interfaces/class';
 import {Beach} from './locations/Beach';
@@ -56,42 +56,13 @@ export function Rules(): IRules {
         setup: {
             intro: true,
             fadeMusicInterval: 200,
-            getCombinationActions: (): ICombinationAction[] => {
-                return [
-                    {
-                        text: Constants.LOOKAT,
-                        requiresTool: false,
-                        failText: (game, target, tool): string => {
-                            return 'you look at the ' + target.name + '. There is nothing special about it.';
-                        }
-                    },
-                    {
-                        text: Constants.USE,
-                        requiresTool: false,
-                        preposition: 'on',
-                    },
-                    {
-                        text: Constants.COMBINE,
-                        requiresTool: true,
-                        preposition: 'with',
-                    },
-                    {
-                        text: Constants.TAKE,
-                        requiresTool: false,
-                        failText: (game, target, tool): string => {
-                            return 'You cannot pick that up';
-                        }
-                    },
-
-                ];
-            },
             playList: {
                 'Medieval.mp3': [GameState.CreateCharacter, GameState.Intro],
                 'underwater.mp3': [GameState.Play],
                 'Shipshold.mp3': [ShipsHold, ShipsHoldAft, ShipsholdFront],
-                'Beach.mp3':[Beach],
-                'Shipbattle.mp3':[Shipbattle],
-                'Waterworld.mp3':[Waterworld]
+                'Beach.mp3': [Beach],
+                'Shipbattle.mp3': [Shipbattle],
+                'Waterworld.mp3': [Waterworld]
             }
         },
 
@@ -463,6 +434,34 @@ export function Rules(): IRules {
                 const attackSound = equipment.rightHand?.attackSound ?? equipment.leftHand?.attackSound;
                 return fight(game, enemy, attackSound, damage);
             }
+        },
+        combinations: {
+            combinationActions: [
+                {
+                    text: Constants.LOOKAT,
+                    requiresTool: false,
+                    failText: (game, target, tool): string => {
+                        return 'you look at the ' + target.name + '. There is nothing special about it.';
+                    }
+                },
+                {
+                    text: Constants.USE,
+                    requiresTool: false,
+                    preposition: 'on',
+                },
+                {
+                    text: Constants.COMBINE,
+                    requiresTool: true,
+                    preposition: 'with',
+                },
+                {
+                    text: Constants.TAKE,
+                    requiresTool: false,
+                    failText: (game, target, tool): string => {
+                        return 'You cannot pick that up';
+                    }
+                }
+            ]
         }
     };
 }
