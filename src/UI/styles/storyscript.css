@@ -79,7 +79,7 @@ button {
     padding: 10px 15px 5px 15px;
 }
 
-#mainmenu .btn {
+#mainmenu .btn, #confirmrestart .btn {
     display: block;
     margin-bottom: 10px;
 }
@@ -101,7 +101,7 @@ button {
 }
 
 .box-container li .btn {
-    margin-right: 5px;
+    margin: 0 0 5px 5px;
 }
 
 .list-unstyled {
@@ -185,6 +185,11 @@ button {
     margin: 5px 0;
 }
 
+.btn.combination-button img {
+    margin-right: 10px;
+    width: 32px;
+}
+
 #combat-win {
     text-align: center;
 }
@@ -228,6 +233,14 @@ button {
 
 #start-adventure {
     margin: -10px 0 0 10px;
+}
+
+#encounters img, #conversation img {
+    max-width: 100%;
+}
+
+#conversation img {
+    margin-bottom: 10px;
 }
 
 #start-combat {
@@ -337,7 +350,6 @@ table td {
 }
 
 #visual-features {
-    overflow: hidden;
     position: relative;
 }
 
@@ -407,6 +419,10 @@ feature {
 .enemy-list li {
     display: inline-block;
     margin-right: 25px;
+}
+
+.enemy-list img {
+    margin-left: 10px;
 }
 
 .enemy-row, .enemy-row > div, .character-row, .fight-row {
@@ -540,7 +556,23 @@ dialog {
 
 #autoplay-overlay {
     z-index: 1200;
+    align-content: center;
     text-align: center;
+}
+
+#autoplay-text {
+    margin-top: 20px;
+    visibility: hidden;
+    font-size: 1.5em;
+    transition: visibility .1s ease-out;
+    display: flex;
+    justify-content: center;
+}
+
+#autoplay-text span {
+    background-color: white;
+    border-radius: 3px;
+    padding: 5px 10px;
 }
 
 #title-screen {
@@ -559,6 +591,7 @@ dialog {
 #title-screen h1 {
     font-size: 6em;
     margin-bottom: 40px;
+    white-space: nowrap;
 }
 
 #start-game {
@@ -567,14 +600,11 @@ dialog {
     margin-top: 200px;
 }
 
-#autoplay-text {
-    margin-top: 20px;
-    visibility: hidden;
-    font-size: 1.5em;
-    transition: visibility .1s ease-out;
+#visual-features > img {
+    max-width: 100%;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1199px) {
     .combination-result-text {
         margin-top: 10px;
     }
@@ -583,6 +613,39 @@ dialog {
 @media (max-width: 767px) {
     .menu-buttons {
         float: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .box-title {
+        font-size: 1.1em;
+    }
+    
+    #attributes-panel li, .equipment-panel div {
+        white-space: nowrap;
+    }
+    
+    .modal-dialog {
+        max-width: 95%;
+    }
+    
+    .barrier {
+        margin: 10px 0 0 0;
+    }
+    
+    #quest-panel ul {
+        padding: 1em;
+    }
+
+    #title-screen h1 {
+        font-size: 2em;
+        margin-bottom: 40px;
+    }
+
+    #start-game {
+        font-size: 1.3em;
+        padding: 5px 40px;
+        margin-top: 100px;
     }
 }
 

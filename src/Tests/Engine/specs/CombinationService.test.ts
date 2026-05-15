@@ -3,17 +3,16 @@ import {CombinationService} from 'storyScript/Services/CombinationService';
 import {
     ICharacter,
     ICombinable,
-    ICombinationAction,
     ICombinationMatchResult,
     IGame,
     IHelpers,
     IInterfaceTexts,
     IRules
 } from 'storyScript/Interfaces/storyScript';
-import {Rules} from '../../../Games/MyRolePlayingGame/types';
 import {DefaultTexts} from 'storyScript/defaultTexts';
 import {IActiveCombination} from 'storyScript/Interfaces/combinations/activeCombination.ts';
-import {Combinations} from '../../../Games/MyAdventureGame/combinations';
+import {Combinations} from '../assets/MyAdventureGame/combinations';
+import {Rules} from '../assets/MyAdventureGame/types';
 import {addArrayExtensions} from 'storyScript/arrayAndFunctionExtensions.ts';
 
 describe("CombinationService", function () {
@@ -22,37 +21,35 @@ describe("CombinationService", function () {
 
     test("should return the combinations defined for the game", function () {
         const rules = <IRules>{
-            setup: {
-                getCombinationActions: (): ICombinationAction[] => {
-                    return [
-                        {
-                            text: Combinations.WALK,
-                            preposition: 'to',
-                            requiresTool: false
-                        },
-                        {
-                            text: Combinations.USE,
-                            preposition: 'on'
-                        },
-                        {
-                            text: Combinations.TOUCH,
-                            requiresTool: false
-                        },
-                        {
-                            text: Combinations.LOOKAT,
-                            preposition: 'at',
-                            requiresTool: false,
-                            failText: (game, target, tool): string => {
-                                return 'You look at the ' + target.name + '. There is nothing special about it';
-                            }
+            combinations: {
+                combinationActions: [
+                    {
+                        text: Combinations.WALK,
+                        preposition: 'to',
+                        requiresTool: false
+                    },
+                    {
+                        text: Combinations.USE,
+                        preposition: 'on'
+                    },
+                    {
+                        text: Combinations.TOUCH,
+                        requiresTool: false
+                    },
+                    {
+                        text: Combinations.LOOKAT,
+                        preposition: 'at',
+                        requiresTool: false,
+                        failText: (game, target, tool): string => {
+                            return 'You look at the ' + target.name + '. There is nothing special about it';
                         }
-                    ];
-                }
+                    }
+                ]
             }
         };
 
         const service = getService(null, rules);
-        const result = service.getCombinationActions();
+        const result = service.combinationActions;
         const names = result.map(c => c.text);
         expect(names).toEqual(combinationActionNames);
     });

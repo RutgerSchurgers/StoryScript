@@ -1,7 +1,8 @@
 import {useStateStore} from "ui/StateStore.ts";
 import {storeToRefs} from "pinia";
-import {computed, Ref, ref, watch} from "vue";
+import {computed, onMounted, onUpdated, Ref, ref, watch} from "vue";
 import {IMap} from "storyScript/Interfaces/maps/map.ts";
+import {isTouchDevice} from "../../../constants.ts";
 
 export function useLocationMap(mapImageRef: Ref<HTMLImageElement>, mapDialogRef: Ref<HTMLDialogElement>) {
     const visible: string = 'visible';
@@ -20,6 +21,7 @@ export function useLocationMap(mapImageRef: Ref<HTMLImageElement>, mapDialogRef:
 
     const fullScreen = ref(false);
     const firstShowFullScreen = ref(true);
+    const touchMarkersVisible = ref(false);
     const mapDialog = mapDialogRef;
     const currentMap = mapImageRef;
     const currentFullScreenMap = ref<HTMLImageElement>(null);
@@ -31,6 +33,29 @@ export function useLocationMap(mapImageRef: Ref<HTMLImageElement>, mapDialogRef:
             navigateMap(map.value, currentFullScreenMap.value, false);
         }
     });
+
+    onMounted(() => {
+        prepareMap(map.value, false);
+    });
+
+    onUpdated(() => {
+        prepareMap(map.value, true);
+    });
+
+    const toggleTouchMarkersVisible = () => {
+        if (!isTouchDevice) {
+            return;
+        }
+        
+        touchMarkersVisible.value = !touchMarkersVisible.value;
+
+        if (map.value.showMarkersOnKeyPress) {
+            const mapContainer = (fullScreen.value ? currentFullScreenMap.value : currentMap.value).parentElement;
+            const labelElements = mapContainer.getElementsByClassName(labelClass);
+            const markerElements = mapContainer.getElementsByClassName(imageClass);
+            setMarkerVisibility(labelElements, markerElements, touchMarkersVisible.value ? visible : hidden);
+        }
+    }
 
     function toggleFullScreen() {
         fullScreen.value = !fullScreen.value;
@@ -78,6 +103,9 @@ export function useLocationMap(mapImageRef: Ref<HTMLImageElement>, mapDialogRef:
                 const closeToggle = mapDialog.value.getElementsByClassName('map-full-screen-toggle')[0] as HTMLSpanElement;
                 closeToggle.innerText = texts.closeFullScreenMap;
                 closeToggle.onclick = () => toggleFullScreen();
+                
+                const showMarkersToggle = (mapDialog.value.querySelector('.show-marker-instructions') as HTMLElement);
+                showMarkersToggle.onclick = () => toggleTouchMarkersVisible();
             }
 
             currentFullScreenMap.value = getMapElement(mapDialog.value);
@@ -85,9 +113,6 @@ export function useLocationMap(mapImageRef: Ref<HTMLImageElement>, mapDialogRef:
         }
 
         initMap(currentMap.value);
-
-        // Call navigateMap when the map image has loaded to arrange the map in its initial state.
-        currentMap.value.onload = () => navigateMap(newMap, currentMap.value, true);
     }
 
     function initMap(mapElement: HTMLElement) {
@@ -100,15 +125,16 @@ export function useLocationMap(mapImageRef: Ref<HTMLImageElement>, mapDialogRef:
 
         map.value.locations.forEach(l => {
             const textLabel = l.markerImage ? null : l.textLabel ?? (map.value.locationNamesAsTextMarkers ? game.value.locations[l.location as string].name : null);
+            const id = l.location as string;
 
             if (textLabel) {
-                addElement(mapElement, l.coords, l.location as string, labelClass, 'span', textLabel);
+                l.markerElement = addElement(mapElement, l.coords, id, labelClass, 'span', textLabel);
             }
 
             const markerImage = l.markerImage ?? map.value.locationMarkerImage;
 
             if (markerImage) {
-                addElement(mapElement, l.coords, l.location as string, imageClass, 'img', markerImage);
+                l.markerElement = addElement(mapElement, l.coords, id, imageClass, 'img', markerImage);
             }
         });
 
@@ -122,12 +148,17 @@ export function useLocationMap(mapImageRef: Ref<HTMLImageElement>, mapDialogRef:
                     setMarkerVisibility(labelElements, markerElements, visible);
                 }
             };
+
             mapContainer.onkeyup = e => {
                 if (e.key === map.value.showMarkersOnKeyPress) {
                     setMarkerVisibility(labelElements, markerElements, hidden);
                 }
             }
         }
+    }
+
+    function showMap() {
+        navigateMap(map.value, currentMap.value, true);
     }
 
     function navigateMap(map: IMap, mapElement: HTMLElement, show: boolean) {
@@ -169,7 +200,7 @@ export function useLocationMap(mapImageRef: Ref<HTMLImageElement>, mapDialogRef:
         element.style.left = `${left}px`;
     }
 
-    function addElement(mapElement: HTMLElement, coordsString: string, location: string, className: string, elementType: string, elementValue: string) {
+    function addElement(mapElement: HTMLElement, coordsString: string, location: string, className: string, elementType: string, elementValue: string): HTMLElement {
         const coords = getCoords(coordsString);
         const labelElement = document.createElement("div");
         labelElement.setAttribute("class", className);
@@ -187,6 +218,7 @@ export function useLocationMap(mapImageRef: Ref<HTMLImageElement>, mapDialogRef:
 
         labelElement.appendChild(valueElement);
         mapElement.parentElement.appendChild(labelElement);
+        return labelElement;
     }
 
     function moveMarker(markerElements: HTMLCollection, mapMargins: { x: number, y: number }) {
@@ -276,6 +308,8 @@ export function useLocationMap(mapImageRef: Ref<HTMLImageElement>, mapDialogRef:
     return {
         map,
         prepareMap,
-        toggleFullScreen
+        showMap,
+        toggleFullScreen,
+        toggleTouchMarkersVisible
     }
 }

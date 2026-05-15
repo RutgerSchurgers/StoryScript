@@ -28,6 +28,7 @@ const _gameCollections: string[] = _entityCollections.concat([
     'combatActions',
     'enterEvents',
     'leaveEvents',
+    'triggeredEvents',
     'trade',
     'destinations',
     'combine'
@@ -171,8 +172,8 @@ export function InitEntityCollection(entity: any, property: string) {
                 removeEntity(originalScope, originalFunction, entity, property, deletedEntity))
         });
 
-        gameEvents.register(`add-${entity.type}-${property}`, false);
-        gameEvents.register(`delete-${entity.type}-${property}`, false);
+        gameEvents.register(`add-${entity.type}-${property}`);
+        gameEvents.register(`delete-${entity.type}-${property}`);
     }
 }
 
@@ -199,7 +200,7 @@ export function setDestination(destination: IDestination) {
 }
 
 export function getBasicFeatureData(location: ICompiledLocation, node: HTMLElement): IFeature {
-    const nameAttribute = node.attributes['name']?.nodeValue;
+    const nameAttribute = node.attributes['name']?.nodeValue?.toLowerCase();
 
     if (!nameAttribute) {
         throw new Error('There is no name attribute for a feature node for location ' + location.id + '.');
@@ -300,6 +301,7 @@ function createLocation(entity: ILocation) {
     initCollection(location, 'persons');
     initCollection(location, 'enterEvents');
     initCollection(location, 'leaveEvents');
+    initCollection(location, 'triggeredEvents');
     return location;
 }
 

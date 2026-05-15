@@ -45,6 +45,11 @@ export const useStateStore = defineStore('appState', () => {
     const activeActions = computed(() => game.value.currentLocation?.actions.filter(i => !i[1].inactive) || []);
     const activeDestinations = computed(() => game.value.currentLocation?.destinations.filter(e => !e.inactive) || []);
 
+    const defaultCombination = ref<string>(null);
+    const defaultCombinationImageExtension = ref<string>(null);
+    const combinationSymbolDimensions = ref<{ width: number, height: number }>(null);
+    const defaultPointerStyle = ref<string>(null);
+    
     const services = {
         soundService: <ISoundService>null,
         itemService: <IItemService>null,
@@ -101,6 +106,8 @@ export const useStateStore = defineStore('appState', () => {
         services.autoplayService = serviceFactory.GetAutoplayService();
         services.commandService = serviceFactory.GetCommandService();
         availableLocations.value = serviceFactory.AvailableLocations.sort((a, b) => a.name.localeCompare(b.name));
+
+        initCombinations();
     }
 
     const setActiveCharacter = (character: ICharacter) => {
@@ -162,6 +169,28 @@ export const useStateStore = defineStore('appState', () => {
         return buttonClass;
     }
 
+    const initCombinations = () => {
+        const combinations = services.rules.combinations;
+        
+        if (!combinations) {
+            return;
+        }
+        
+        const defaultCombinationSymbol = combinations.combinationActions.find(c => c.picture)?.picture?.toLowerCase();
+        defaultCombination.value = combinations.combinationActions.find(c => c.isDefault)?.text?.toLowerCase();
+        defaultCombinationImageExtension.value = defaultCombinationSymbol?.split('.')[1];
+
+        if (defaultCombinationSymbol) {
+            const image = document.createElement('img');
+            image.src = `resources/${defaultCombinationSymbol}`;
+            image.onload = () => {
+                combinationSymbolDimensions.value = {width: image.naturalWidth, height: image.naturalHeight};
+            }
+
+            defaultPointerStyle.value = combinations.combinationCursorStyle ?? 'url(resources/default.png) 25 25, pointer';
+        }
+    };
+
     return {
         error,
         game,
@@ -178,6 +207,10 @@ export const useStateStore = defineStore('appState', () => {
         activeItems,
         activeActions,
         activeDestinations,
+        defaultCombination,
+        defaultCombinationImageExtension,
+        combinationSymbolDimensions,
+        defaultPointerStyle,
         initErrorHandling,
         setStoreData,
         setActiveCharacter,
