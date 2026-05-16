@@ -140,14 +140,19 @@ button {
     margin-right: 10px;
 }
 
+#conversation-options ul {
+    padding: 15px 0 10px 1rem;
+    border-top: solid 1px lightgray;
+    border-bottom: solid 1px lightgray;
+}
+
 #conversation-options li {
-     cursor: pointer;
-    padding-left: 10px;
- }
+    cursor: pointer;
+    margin-bottom: 5px;
+}
 
 #conversation-options li:hover {
     color: var(--bs-blue);
-    padding-left: 5px;
 }
 
 #conversation-options .unavailable {
@@ -156,7 +161,7 @@ button {
 
 #conversation-history-title {
     font-weight: bold;
-    margin-bottom: 0;
+    margin: 20px 0 0 0;
 }
 
 #conversation-history ul {
@@ -302,6 +307,10 @@ button {
     line-height: 25px;
 }
 
+.equipment-panel div {
+    overflow: hidden;
+}
+
 .body-slot {
     align-content: center;
 }
@@ -333,6 +342,12 @@ button.restart {
 .combine-active-selected {
     color: var(--red);;
 }
+
+.combine-selectable {
+    background-color: var(--light-gray);;
+    border-radius: 5px;
+}
+
 .combination-actions {
     padding: 0 0 0 5px;
 }
@@ -389,7 +404,7 @@ feature {
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     appearance: none;
-    transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 #location-selector {
@@ -421,7 +436,7 @@ feature {
     margin-right: 25px;
 }
 
-.enemy-list img {
+#encounters img, .enemy-list img {
     margin-left: 10px;
 }
 
@@ -504,7 +519,7 @@ feature {
     white-space: nowrap;
 }
 
-.map-location-label.reachable, .map-location-image.reachable  {
+.map-location-label.reachable, .map-location-image.reachable {
     cursor: pointer;
 }
 
@@ -589,7 +604,7 @@ dialog {
 }
 
 #title-screen h1 {
-    font-size: 6em;
+    font-size: 5em;
     margin-bottom: 40px;
     white-space: nowrap;
 }
@@ -604,15 +619,64 @@ dialog {
     max-width: 100%;
 }
 
+.no-play-container {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5em;
+}
+
+.no-play-container p {
+    margin: 0;
+}
+
+#victory {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#victory > div {
+    display: flex;
+    justify-content: center;
+}
+
 @media (max-width: 1199px) {
     .combination-result-text {
         margin-top: 10px;
     }
+
+    .no-play-container {
+        font-size: 1.4em;
+    }
+}
+
+@media (max-width: 991px) {
+    #title-screen h1 {
+        font-size: 4em;
+        margin-bottom: 40px;
+    }
+
+    #start-game {
+        font-size: 2em;
+    }
+
+    .no-play-container {
+        font-size: 1.3em;
+    }
 }
 
 @media (max-width: 767px) {
-    .menu-buttons {
-        float: none;
+    #title-screen h1 {
+        font-size: 3em;
+        margin-bottom: 40px;
+    }
+
+    #start-game {
+        font-size: 1.5em;
+        margin-top: 100px;
+    }
+
+    .no-play-container {
+        font-size: 1.2em;
     }
 }
 
@@ -620,19 +684,19 @@ dialog {
     .box-title {
         font-size: 1.1em;
     }
-    
+
     #attributes-panel li, .equipment-panel div {
         white-space: nowrap;
     }
-    
+
     .modal-dialog {
         max-width: 95%;
     }
-    
+
     .barrier {
         margin: 10px 0 0 0;
     }
-    
+
     #quest-panel ul {
         padding: 1em;
     }
@@ -644,22 +708,22 @@ dialog {
 
     #start-game {
         font-size: 1.3em;
-        padding: 5px 40px;
         margin-top: 100px;
+    }
+
+    .no-play-container {
+        font-size: 1.1em;
     }
 }
 
 @media (hover: hover) {
     .combine-selectable:hover {
         cursor: pointer;
-        background-color: var(--light-gray);;
-        border-radius: 5px;
     }
 }
 
 @media (hover: none) {
-    .combine-selectable {
-        background-color: var(--light-gray);;
-        border-radius: 5px;
+    .combine-selectable:hover {
+        cursor: default;
     }
 }
