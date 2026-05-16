@@ -17,7 +17,7 @@
       <div class="row">
         <div class="col-xxl-6">
           <div class="portraitFrame">
-            <img :src="character.portraitFileName" alt="character.name" class="portrait"/>
+            <img :src="character.portraitFileName" :alt="character.name" class="portrait"/>
           </div>
           <ul id="attributes-panel" class="list-unstyled">
             <li v-for="attribute of displayCharacterAttributes">
