@@ -13,6 +13,7 @@ import {CombatParticipant} from "./interfaces/combatParticipant.ts";
 import {equals, getId} from "storyScript/utilityFunctions.ts";
 import {Constants} from "./constants.ts";
 import {MagicRing} from "./items/MagicRing.ts";
+import {checkAutoplay} from "storyScript/Services/sharedFunctions.ts";
 
 export const damageSpecial = (game: IGame, enemy: IEnemy, character: Character, property: string, checkDifficulty?: number) => {
     if (!checkDifficulty || !check(game, checkDifficulty)) {
@@ -351,7 +352,7 @@ function checkCombatWin(game: IGame, combatSetup: ICombatSetup, turn: ICombatTur
             }
 
             game.delayedDescriptionChanges.push(() => {
-                game.currentLocation.description = game.currentLocation.descriptions[descriptionSelector(game)];  
+                game.currentLocation.description = checkAutoplay(game, game.currentLocation.descriptions[descriptionSelector(game)]);  
             });
             
             return true;

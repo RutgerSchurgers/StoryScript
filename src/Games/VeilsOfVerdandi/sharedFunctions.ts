@@ -3,6 +3,7 @@ import {ICompiledLocation} from "./interfaces/location.ts";
 import {Character} from "./character.ts";
 import {IItem} from "./interfaces/item.ts";
 import {equals} from "storyScript/utilityFunctions.ts";
+import {checkAutoplay} from "storyScript/Services/sharedFunctions.ts";
 
 export function haveItem(game: IGame, item: (() => IItem)): boolean {
     return game.party.characters.find(c => c.items.find(i => equals(i, item))) !== undefined;
@@ -32,7 +33,7 @@ export function descriptionSelector(game: IGame): string {
         }
     }
 
-    return game.currentLocation.descriptions[selector] ? selector : null;
+    return checkAutoplay(game,  game.currentLocation.descriptions[selector]) ? selector : null;
 }
 
 export function locationComplete(game: IGame, location: ICompiledLocation, completeDay: (() => boolean), completeNight: (() => boolean)) {

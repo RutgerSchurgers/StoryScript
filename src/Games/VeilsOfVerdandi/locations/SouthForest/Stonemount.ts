@@ -40,7 +40,7 @@ export function Stonemount() {
             [[
                 'Leave',
                 (game: IGame) => {
-                    locationComplete(game, game.currentLocation, () => game.currentLocation.enemies.length == 0, () => game.currentLocation.actions.length == 0);
+                    locationComplete(game, game.currentLocation, () => game.currentLocation.enemies.filter(e => e.activeDay).length == 0, () => game.currentLocation.actions.length == 0);
                     return true;
                 }
             ]]
