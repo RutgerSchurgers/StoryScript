@@ -33,7 +33,7 @@ export function descriptionSelector(game: IGame): string {
         }
     }
 
-    return checkAutoplay(game,  game.currentLocation.descriptions[selector]) ? selector : null;
+    return game.currentLocation.descriptions[selector] ? selector : null;
 }
 
 export function locationComplete(game: IGame, location: ICompiledLocation, completeDay: (() => boolean), completeNight: (() => boolean)) {

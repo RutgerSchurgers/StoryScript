@@ -10,10 +10,9 @@ import {IGroupableItem, IItem} from "./interfaces/item.ts";
 import {ICombatTurn} from "./interfaces/combatTurn.ts";
 import {ClassType} from "./classType.ts";
 import {CombatParticipant} from "./interfaces/combatParticipant.ts";
-import {equals, getId} from "storyScript/utilityFunctions.ts";
+import {equals} from "storyScript/utilityFunctions.ts";
 import {Constants} from "./constants.ts";
 import {MagicRing} from "./items/MagicRing.ts";
-import {checkAutoplay} from "storyScript/Services/sharedFunctions.ts";
 
 export const damageSpecial = (game: IGame, enemy: IEnemy, character: Character, property: string, checkDifficulty?: number) => {
     if (!checkDifficulty || !check(game, checkDifficulty)) {
@@ -130,13 +129,13 @@ export const combatRules = <ICombatRules>{
 
         game.combatLog.reverse();
     },
-    
-    itemIsSelectable: (game: IGame, item: any)=> {
+
+    itemIsSelectable: (game: IGame, item: any) => {
         if (item.recharging) {
             item.recharging = item.recharging > 1 ? --item.recharging : undefined;
             return !item.recharging;
         }
-        
+
         return item.selectable;
     }
 }
@@ -150,23 +149,23 @@ function buildEffectArray(participant: IEnemy | Character): { name: string, desc
     const effects: { name: string, description: string }[] = [];
 
     if (participant.frozen) {
-        effects.push({ name: 'Frozen', description: Constants.CombatEffects['Frozen'] });
+        effects.push({name: 'Frozen', description: Constants.CombatEffects['Frozen']});
     }
 
     if (participant.frightened) {
-        effects.push({ name: 'Frightened', description: Constants.CombatEffects['Frightened'] });
+        effects.push({name: 'Frightened', description: Constants.CombatEffects['Frightened']});
     }
 
     if (participant.confused) {
-        effects.push({ name: 'Confused', description: Constants.CombatEffects['Confused'] });
+        effects.push({name: 'Confused', description: Constants.CombatEffects['Confused']});
     }
 
     if ((participant as Character).defenseBonus) {
-        effects.push({ name: 'Force Field', description: Constants.CombatEffects['Force Field'] });
+        effects.push({name: 'Force Field', description: Constants.CombatEffects['Force Field']});
     }
 
     if ((participant as Character).spellDefence) {
-        effects.push({ name: 'Magic Shield', description: Constants.CombatEffects['Magic Shield'] });
+        effects.push({name: 'Magic Shield', description: Constants.CombatEffects['Magic Shield']});
     }
 
     return effects;
@@ -352,9 +351,9 @@ function checkCombatWin(game: IGame, combatSetup: ICombatSetup, turn: ICombatTur
             }
 
             game.delayedDescriptionChanges.push(() => {
-                game.currentLocation.description = checkAutoplay(game, game.currentLocation.descriptions[descriptionSelector(game)]);  
+                game.currentLocation.descriptionSelector = game.currentLocation.descriptions[descriptionSelector(game)];
             });
-            
+
             return true;
         }
     }
@@ -384,7 +383,7 @@ function filterWeapons(game: IGame, combatSetup: ICombatSetup, filter: (combatSe
                 i.speed = getTopWeapon(c.character)?.speed || 0;
             }
         });
-        
+
         const selectedItem = c.item;
         c.itemsAvailable = c.itemsAvailable.filter(i => filter(combatSetup, c.character, i));
         c.item = c.itemsAvailable.find(i => i === selectedItem) ?? c.itemsAvailable[0];
@@ -393,13 +392,11 @@ function filterWeapons(game: IGame, combatSetup: ICombatSetup, filter: (combatSe
             c.targetsAvailable = [];
             c.target = null;
         }
-        
+
         if (combatSetup.round > 1 && c.previousItem !== c.item) {
-            if (c.character.class.name !== ClassType.Wizard)
-            {
+            if (c.character.class.name !== ClassType.Wizard) {
                 c.item = getTopWeapon(c.character);
-            }
-            else {
+            } else {
                 c.item = c.itemsAvailable.filter((i: any) => !i.recharging && i.targetType === TargetType.Enemy).sort((a, b) => a.name.localeCompare(b.name))[0];
             }
         }
@@ -418,10 +415,10 @@ function getCombatSpeed(entry: CombatParticipant, combatSetup: ICombatSetup): nu
         if ((<IGroupableItem>setupEntry.item)?.members?.length > 0) {
             baseSpeed += 2;
         }
-        
+
         // When the Wizard has the magic ring, spell casting is faster
         let wizard = (<Character>entry.participant).class?.name === ClassType.Wizard ? <Character>entry.participant : null;
-        
+
         if (wizard && equals(wizard.equipment.rightRing, MagicRing)) {
             baseSpeed -= 1;
         }
