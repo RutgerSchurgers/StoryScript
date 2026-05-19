@@ -8,14 +8,13 @@ import {addHtmlSpaces, getId, parseHtmlDocumentFromString} from '../utilityFunct
 import {ILocationService} from '../Interfaces/services/locationService';
 import {ActionType} from '../Interfaces/enumerations/actionType';
 import {checkAutoplay, parseGamePropertiesInTemplate} from './sharedFunctions';
-import {
-    getBasicFeatureData,
-    setDestination
-} from "storyScript/EntityCreatorFunctions.ts";
+import {getBasicFeatureData, setDestination} from "storyScript/EntityCreatorFunctions.ts";
 import {IDefinitions} from "storyScript/Interfaces/definitions.ts";
 import {IGameEvents} from "storyScript/Interfaces/gameEvents.ts";
 import {IAction} from "storyScript/Interfaces/action.ts";
 import {gameEvents} from "storyScript/gameEvents.ts";
+
+const whitespacePattern = /\s/g;
 
 export class LocationService implements ILocationService {
     constructor(
@@ -315,7 +314,14 @@ export class LocationService implements ILocationService {
         }
 
         description ??= defaultDescription;
-        game.currentLocation.description = checkAutoplay(game, description, autoPlayCheck && previousDescription !== description);
+
+        // To prevent NOT autoplaying when a description is shown for the first time, we need to make sure we run
+        // the autoplay check only once on a new description because the current method may be called multiple times. 
+        // We can do this by checking whether the description has actually changed. We need to remove whitespaces in 
+        // the comparison here as it happens that when autoplay was checked before, additional whitespacing is present 
+        // in the previous description.
+        const descriptionChanged = description?.replaceAll(whitespacePattern, '') !== previousDescription?.replaceAll(whitespacePattern, '');
+        game.currentLocation.description = checkAutoplay(game, description, autoPlayCheck && descriptionChanged);
         return true;
     }
 
