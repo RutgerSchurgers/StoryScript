@@ -39,7 +39,7 @@ export function useTextFeatures(descriptionRef: Ref<HTMLDivElement>) {
         featureArray.filter(e => e.innerHTML.trim() !== '')
             .forEach((e) => {
                 const featureName = e.getAttribute('name')?.toLowerCase();
-                
+
                 if (featureName && game.value.combinations.combinationResult.featuresToRemove.find(f => f === featureName)) {
                     e.innerHTML = '';
                 }
@@ -52,7 +52,8 @@ export function useTextFeatures(descriptionRef: Ref<HTMLDivElement>) {
                 return;
             }
 
-            e.classList.remove('combine-active-selected', 'combine-selectable');
+            e.classList.remove('combine-active-selected', 'combine-selectable', 'feature-cursor');
+            e.classList.add('feature-cursor');
 
             if (game.value.combinations.activeCombination) {
                 e.classList.add('combine-selectable');
@@ -66,7 +67,7 @@ export function useTextFeatures(descriptionRef: Ref<HTMLDivElement>) {
         if (triggerElement && isTouchDevice) {
             const activate = !triggerElement.classList.contains(activeTriggerClass);
 
-            Array.from(descriptionRef.value.querySelectorAll('[data-trigger]')).forEach((el) => {
+            Array.from(description.value.querySelectorAll('[data-trigger]')).forEach((el) => {
                 toggleTrigger(el as any, false);
             });
 

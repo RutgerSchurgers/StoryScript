@@ -1,6 +1,7 @@
 import {IGame} from "storyScript/Interfaces/game.ts";
 import {IActiveCombination} from "storyScript/Interfaces/combinations/activeCombination.ts";
 import {ICombinationAction} from "storyScript/Interfaces/combinations/combinationAction.ts";
+import {ICombinable} from "storyScript/Interfaces/combinations/combinable.ts";
 
 export interface ICombinationRules {
     /**
@@ -13,6 +14,7 @@ export interface ICombinationRules {
      * Use this function to run code after each successful combination.
      * @param game The game object
      * @param combination The combination used
+     * @param target The target of the combination
      */
-    success?: (game: IGame, combination: IActiveCombination) => void;
+    success?: (game: IGame, combination: IActiveCombination, target: ICombinable) => void;
 }

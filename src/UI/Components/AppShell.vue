@@ -27,31 +27,17 @@
 <script lang="ts" setup>
 import {useStateStore} from "ui/StateStore.ts";
 import {storeToRefs} from "pinia";
-import {onMounted, useTemplateRef} from "vue";
+import {useTemplateRef} from "vue";
 import {PlayState} from "storyScript/Interfaces/enumerations/playState.ts";
+import {useCustomCursor} from "ui/Composables/CustomCursor.ts";
+import {usePlayStateWatch} from "ui/Composables/playStateWatch.ts";
 
 const store = useStateStore();
 const {game, error} = storeToRefs(store);
-const {gameService, dataService} = store.services;
 const uiRoot = useTemplateRef('ui-root');
 
-const saveStates = [PlayState.Combat, PlayState.Conversation, PlayState.Trade];
-
-onMounted(() => game.value.UIRootElement = uiRoot.value.closest('body'));
-
-gameService.watchPlayState((_, newState, oldState) => {
-  stopAutoplay();
-
-  if (newState === null && saveStates.includes(oldState)) {
-    // Save the game after finishing conversations, trade and combat.
-    dataService.saveGame(game.value);
-  }
-});
-
-const stopAutoplay = () => {
-  const mediaElements = uiRoot.value.querySelectorAll('audio:not(.storyscript-player), video:not(.storyscript-player)');
-  mediaElements.forEach((m: Element) => (m as HTMLMediaElement).pause());
-}
+useCustomCursor(uiRoot);
+usePlayStateWatch(uiRoot);
 
 const reload = () => {
   window.location.reload();

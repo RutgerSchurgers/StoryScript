@@ -99,7 +99,7 @@ export class CombinationService implements ICombinationService {
         result = this.performCombination(target, combo);
 
         if (result.success) {
-            this._rules.combinations?.success?.(this._game, combo);
+            this._rules.combinations?.success?.(this._game, combo, target);
             
             if (result.removeTarget) {
                 this.removeFeature(target);

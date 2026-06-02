@@ -9,6 +9,7 @@
 body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: var(--purple);
+    height: 100vh;
 }
 
 h2 {
@@ -138,6 +139,7 @@ button {
 
 .box-container li span {
     margin-right: 10px;
+    padding: 0 5px;
 }
 
 #conversation-options ul {
@@ -504,7 +506,6 @@ feature {
 
 .map-location-label, .map-location-image, .map-name {
     z-index: 1;
-    cursor: default;
 }
 
 .show-marker-instructions {
