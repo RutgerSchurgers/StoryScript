@@ -121,7 +121,6 @@ export function buildEntities(definitions: IDefinitions): Record<string, Record<
         definitions[p]?.forEach((f: Function) => {
             const compiledEntity = f();
             const entityKey = getEntityKey(compiledEntity);
-            
             const actualId = getId(f);
             
             if (compiledEntity.id && compiledEntity.id !== actualId) {
