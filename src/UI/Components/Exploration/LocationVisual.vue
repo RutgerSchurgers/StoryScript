@@ -13,6 +13,9 @@
         <img v-if="feature.picture" :id="`feature-${feature.id}`" :alt="feature.name"
              :src="`resources/${feature.picture}`" class="feature-picture feature-cursor"
              @click="game.combinations.tryCombine(feature)"/>
+        <sprite v-if="feature.animation" :id="`feature-${feature.id}`" :alt="feature.name"
+                :spriteSettings="feature.animation" :factor="factor" class="feature-picture feature-cursor"
+                @click="game.combinations.tryCombine(feature)"></sprite>
       </div>
     </div>
   </div>
@@ -28,6 +31,6 @@ const {game} = storeToRefs(store);
 const {texts} = store.services;
 const location = computed(() => game.value.currentLocation);
 
-const {initFeatures} = useVisualFeatures(useTemplateRef('location-features'));
+const {initFeatures, factor} = useVisualFeatures(useTemplateRef('location-features'));
 
 </script>
