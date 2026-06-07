@@ -15,7 +15,7 @@ export function Elsa() {
 		canAttack: false,
 		conversation: {
 			actions: [
-				['goToCombat', (game: IGame) => game.changeLocation(Shipbattle)]
+				['goToCombat', (game: IGame) => game.commands.go(Shipbattle)]
 			]
 		},
 	});

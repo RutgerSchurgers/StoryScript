@@ -19,7 +19,7 @@ export function Flee(text: string): IAction {
             });
 
             if (result >= totalHitpoints / 2) {
-                game.changeLocation();
+                game.commands.go(game.previousLocation.id);
             }
             else {
                 game.logToCombatLog('Je ontsnapping mislukt!');

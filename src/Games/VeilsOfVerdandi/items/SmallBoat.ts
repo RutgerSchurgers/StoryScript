@@ -12,7 +12,7 @@ export function SmallBoat() {
             text: 'Sail the ocean',
             execute: OpenWithKey((game: IGame, barrier: [string, IBarrier], destination: IDestination) => {
                 game.logToLocationLog('You slide the small boat into the surf and set out for sea!');
-                game.changeLocation(destination.target);
+                game.commands.go(destination.target);
             })
         },
         keepAfterUse: true

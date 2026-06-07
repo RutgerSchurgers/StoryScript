@@ -28,7 +28,7 @@ export function DoorOne() {
                     result = check * game.activeCharacter.kracht;
 
                     if (result > 8) {
-                        game.changeLocation(RoomOne);
+                        game.commands.go(RoomOne);
                         game.logToLocationLog('Met een enorme klap schop je de deur doormidden. Je hoort een verrast gegrom en ziet een ork opspringen.');
                         return false;
                     } else {
@@ -41,7 +41,7 @@ export function DoorOne() {
                 Unlock({
                     difficulty: 10,
                     success: function (game: IGame) {
-                        game.changeLocation(RoomOne);
+                        game.commands.go(RoomOne);
                         game.logToLocationLog('Met meegebrachte pinnetjes duw je in het slot op het mechanisme tot je een klik voelt. De deur is open!');
                         game.logToLocationLog('Je duwt de deur open en kijkt naar binnen.');
                     },

@@ -110,7 +110,7 @@ export const hotSpotProperties = <ILocation>{
 };
 
 export const explorationRules = <IExplorationRules>{
-    enterLocation: (game: IGame, location: ICompiledLocation, travel: boolean): void => {
+    enterLocation: (game: IGame, location: ICompiledLocation, previousLocationId?: string, travel?: boolean): void => {
         if (!location) {
             return;
         }
@@ -187,7 +187,7 @@ export const explorationRules = <IExplorationRules>{
     descriptionSelector: descriptionSelector
 }
 
-function updateTime(game: IGame, travel: boolean): void {
+function updateTime(game: IGame, travel?: boolean): void {
     if (travel && game.currentLocation.isHotspot) {
         if (typeof game.worldProperties.isDay === 'undefined') {
             game.worldProperties.isDay = true;

@@ -85,7 +85,7 @@ function init(game: IGame) {
 
 function continueGame(game: IGame) {
     addDescriptions(game);
-    explorationRules.enterLocation(game, game.currentLocation, false);
+    explorationRules.enterLocation(game, game.currentLocation, null, false);
     initTime(game);
 }
 
@@ -99,7 +99,7 @@ function initTime(game: IGame) {
 function changeTime(game: IGame, e: string) {
     game.worldProperties.timeOfDay = e;
     setTimeStyling(game);
-    explorationRules.enterLocation(game, game.currentLocation, false);
+    explorationRules.enterLocation(game, game.currentLocation, game.previousLocation.id, false);
 }
 
 function addDescriptions(game: IGame) {
