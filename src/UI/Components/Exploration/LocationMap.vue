@@ -1,16 +1,18 @@
 <template>
   <div v-if="map" class="box-container map-container" tabindex="0">
-    <p class="map-name">
-      {{ map.name }}
-      <span v-if="map.toggleFullScreen"
-            class="map-full-screen-toggle"
-            @click="toggleFullScreen()">
-        {{ texts.openFullScreenMap }}
-      </span>
-      <span v-if="markerKey" class="show-marker-instructions" @click="toggleTouchMarkersVisible()">
+    <div class="map-name">
+      <div class="float-left">
+        {{ map.name }}
+        <span v-if="markerKey" class="show-marker-instructions" @click="toggleTouchMarkersVisible()">
         {{ isTouchDevice ? texts.touchToShowMarkers : texts.format(texts.pressToShowMarkers, [markerKey]) }}
       </span>
-    </p>
+      </div>
+      <div v-if="map.toggleFullScreen"
+           class="map-full-screen-toggle"
+           @click="toggleFullScreen()">
+        {{ texts.openFullScreenMap }}
+      </div>
+    </div>
     <img ref="map-element" :alt="map.name" :src="`resources/${map.mapImage}`" class="map-image" @load="showMap()">
     <img v-if="map.avatarImage" :alt="map.name" :src="`resources/${map.avatarImage}`" class="avatar-image"
          style="visibility: hidden;">
