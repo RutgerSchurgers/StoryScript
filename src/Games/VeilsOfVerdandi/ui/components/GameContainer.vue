@@ -60,7 +60,7 @@ import {useStateStore} from "ui/StateStore.ts";
 import {storeToRefs} from "pinia";
 import {computed} from "vue";
 import {GameState} from "storyScript/Interfaces/storyScript.ts";
-import {isDevelopment} from "../../../../../constants.ts";
+import {isDevelopment} from "src/constants.ts";
 
 const store = useStateStore();
 const {game, useEquipment, useBackpack, useQuests, useCharacterSheet} = storeToRefs(store);
