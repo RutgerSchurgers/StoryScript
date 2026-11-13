@@ -2,8 +2,8 @@
 import description from './Brennus.html?raw';
 import {Brennus as BrennusEnemy} from '../../enemies/Brennus';
 import {Start} from './start';
-import {locationComplete} from "../../sharedFunctions.ts";
-import {backToForestText} from "../../explorationRules.ts";
+import {locationComplete} from "../../sharedFunctions";
+import {backToForestText} from "../../explorationRules";
 
 export function Brennus() {
     return Location({

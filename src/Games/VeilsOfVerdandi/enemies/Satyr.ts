@@ -1,6 +1,6 @@
 import { IGame, Enemy } from '../types';
 import description from './Satyr.html?raw';
-import {ClassType} from "../classType.ts";
+import {ClassType} from "../classType";
 
 export function Satyr() {
 	return Enemy({

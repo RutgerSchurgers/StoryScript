@@ -1,6 +1,6 @@
-import {IAction} from "../interfaces/action.ts";
-import {ActionType} from "storyScript/Interfaces/enumerations/actionType.ts";
-import {IGame} from "../interfaces/game.ts";
+import {IAction} from "../interfaces/action";
+import {ActionType} from "storyScript";
+import {IGame} from "../interfaces/game";
 export const RestDay = 'RestDay';
 export const RestNight = 'RestNight';
 

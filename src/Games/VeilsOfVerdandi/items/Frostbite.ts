@@ -1,4 +1,4 @@
-﻿import {EquipmentType, PlayState, TargetType} from 'storyScript/Interfaces/storyScript';
+﻿import {EquipmentType, PlayState, TargetType} from 'storyScript';
 import {ClassType} from '../classType';
 import description from './Frostbite.html?raw';
 import {IEnemy, Item} from '../types';

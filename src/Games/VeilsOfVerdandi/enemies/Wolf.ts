@@ -1,6 +1,6 @@
 ﻿import { Enemy } from "../types";
 import description from './Wolf.html?raw';
-import {ClassType} from "../classType.ts";
+import {ClassType} from "../classType";
 
 export function Wolf() {
     return Enemy({

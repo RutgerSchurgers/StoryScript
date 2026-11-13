@@ -1,5 +1,5 @@
 import {Item} from '../types';
-import {TargetType} from 'storyScript/Interfaces/storyScript';
+import {TargetType} from 'storyScript';
 import description from './ShortBow.html?raw';
 import {ClassType} from '../classType';
 import {Constants} from '../constants';

@@ -2,10 +2,10 @@
 import description from './Woodcutter.html?raw';
 import {Spectre} from '../../enemies/Spectre';
 import {Parchment} from '../../items/Parchment';
-import {backToForestText} from "../../explorationRules.ts";
-import {NorthRoad} from "./NorthRoad.ts";
-import {QualityBow} from "../../items/QualityBow.ts";
-import {locationComplete} from "../../sharedFunctions.ts";
+import {backToForestText} from "../../explorationRules";
+import {NorthRoad} from "./NorthRoad";
+import {QualityBow} from "../../items/QualityBow";
+import {locationComplete} from "../../sharedFunctions";
 
 export function Woodcutter() {
     return Location({

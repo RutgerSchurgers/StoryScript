@@ -1,7 +1,7 @@
 import { ClassType } from '../classType';
 import {IGame, Enemy, Character, IEnemy} from '../types';
 import description from './GhostBandit.html?raw';
-import {damageSpecial} from "../combatRules.ts";
+import {damageSpecial} from "../combatRules";
 
 export function GhostBandit() {
 	return Enemy({

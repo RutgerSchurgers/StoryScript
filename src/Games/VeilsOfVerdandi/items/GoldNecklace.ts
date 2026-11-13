@@ -1,8 +1,8 @@
-﻿import {EquipmentType, ICharacter, PlayState, TargetType} from 'storyScript/Interfaces/storyScript';
+﻿import {EquipmentType, ICharacter, PlayState, TargetType} from 'storyScript';
 import description from './GoldNecklace.html?raw';
 import {ClassType} from '../classType';
 import {Character, IGame, IItem, Item} from '../types';
-import {heal} from "../sharedFunctions.ts";
+import {heal} from "../sharedFunctions";
 
 export function GoldNecklace() {
     return Item({

@@ -1,4 +1,4 @@
-﻿import {EquipmentType, TargetType} from 'storyScript/Interfaces/storyScript';
+﻿import {EquipmentType, TargetType} from 'storyScript';
 import {Item} from '../types';
 
 export function Sword() {

@@ -1,4 +1,4 @@
-﻿import {IBarrier, IDestination} from 'storyScript/Interfaces/storyScript';
+﻿import {IBarrier, IDestination} from 'storyScript';
 import {IGame} from '../types';
 
 export function Inspect(text: string) {

@@ -14,7 +14,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import {useStateStore} from "ui/StateStore.ts";
+import {useStateStore} from "ui/StateStore";
 import {computed} from "vue";
 import {storeToRefs} from "pinia";
 

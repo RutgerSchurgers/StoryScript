@@ -1,24 +1,23 @@
-import {IGame} from "./interfaces/game.ts";
-import {ICompiledLocation, ILocation} from "./interfaces/location.ts";
-import {descriptionSelector, setTimeStyling} from "./sharedFunctions.ts";
-import {IItem} from "./interfaces/item.ts";
-import {IEnemy} from "./interfaces/enemy.ts";
-import {IDestination} from "./interfaces/destination.ts";
-import {IAction} from "./interfaces/action.ts";
-import {IExplorationRules} from "storyScript/Interfaces/rules/explorationRules.ts";
-import {Spectre} from "./enemies/Spectre.ts";
-import {Bandit} from "./enemies/Bandit.ts";
-import {Brownbear} from "./enemies/Brownbear.ts";
-import {ShadowDog} from "./enemies/ShadowDog.ts";
-import {Wolf} from "./enemies/Wolf.ts";
-import {Rest, RestDay, RestNight} from "./actions/Rest.ts";
+import {IGame} from "./interfaces/game";
+import {ICompiledLocation, ILocation} from "./interfaces/location";
+import {descriptionSelector, setTimeStyling} from "./sharedFunctions";
+import {IItem} from "./interfaces/item";
+import {IEnemy} from "./interfaces/enemy";
+import {IDestination} from "./interfaces/destination";
+import {IAction} from "./interfaces/action";
+import {equals, IExplorationRules} from "storyScript";
+import {Spectre} from "./enemies/Spectre";
+import {Bandit} from "./enemies/Bandit";
+import {Brownbear} from "./enemies/Brownbear";
+import {ShadowDog} from "./enemies/ShadowDog";
+import {Wolf} from "./enemies/Wolf";
+import {Rest, RestDay, RestNight} from "./actions/Rest";
 import nightDescription from './locations/NightDescription.html?raw';
-import {equals} from "storyScript/utilityFunctions.ts";
-import {Fisherman} from "./locations/Beach/Fisherman.ts";
-import {SmallBoat} from "./items/SmallBoat.ts";
-import {Beach} from "./locations/Beach/Beach.ts";
-import {OceanShrine} from "./locations/Sea/OceanShrine.ts";
-import {SecretCove} from "./locations/CentralForest/SecretCove.ts";
+import {Fisherman} from "./locations/Beach/Fisherman";
+import {SmallBoat} from "./items/SmallBoat";
+import {Beach} from "./locations/Beach/Beach";
+import {OceanShrine} from "./locations/Sea/OceanShrine";
+import {SecretCove} from "./locations/CentralForest/SecretCove";
 
 const dayPartLength = 4;
 
@@ -90,11 +89,11 @@ export const hotSpotProperties = <ILocation>{
 
                 Object.keys(game.locations).forEach(k => {
                     const location = game.locations[k];
-                    
+
                     if (!location.isHotspot) {
                         return;
                     }
-                    
+
                     const event = location.enterEvents?.find(a => a[0] === 'Night')?.[0];
 
                     if (event) {
@@ -114,7 +113,7 @@ export const explorationRules = <IExplorationRules>{
         if (!location) {
             return;
         }
-        
+
         if (!dayEncounterPile.length) {
             dayEncounterPile = shuffle(dayEncounters);
         }
@@ -145,32 +144,29 @@ export const explorationRules = <IExplorationRules>{
         if (!location) {
             return;
         }
-        
+
         const character = game.party.characters.get(c => c.items.get(SmallBoat)) || game.activeCharacter;
         const boat = character?.items.get(SmallBoat) || location.items.get(SmallBoat);
 
         if (!boat) {
             return;
         }
-        
+
         let drop = false;
         let pickup = false;
 
         if (equals(location, Fisherman)) {
             if (equals(newLocationId, Beach)) {
                 drop = true;
-            }
-            else {
+            } else {
                 pickup = true;
             }
         }
 
         if (equals(location, SecretCove)) {
-            if (equals(newLocationId, OceanShrine))
-            {
+            if (equals(newLocationId, OceanShrine)) {
                 pickup = true;
-            } else
-            {
+            } else {
                 drop = true;
             }
         }
@@ -200,11 +196,11 @@ function updateTime(game: IGame, travel?: boolean): void {
 
         if (duskDawn) {
             game.worldProperties.isDay = !game.worldProperties.isDay;
-            
+
             if (game.worldProperties.isDay) {
                 game.worldProperties.currentDay++;
             }
-            
+
             game.worldProperties.isNight = !game.worldProperties.isNight;
         }
 
@@ -217,7 +213,7 @@ function isEntityActive(game: IGame, entity: IItem | IEnemy | IDestination | IAc
     if ((entity as IDestination).hidden) {
         return false;
     }
-    
+
     if (entity.activeNight === undefined && entity.activeDay === undefined) {
         return true;
     } else if (!entity.activeNight && !entity.activeDay) {

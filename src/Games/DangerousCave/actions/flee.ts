@@ -1,6 +1,6 @@
-﻿import { IAction, ActionType, ActionStatus } from 'storyScript/Interfaces/storyScript';
+﻿import { IAction, ActionType, ActionStatus } from 'storyScript';
 import { IGame } from '../types';
-import {isEmpty} from "storyScript/utilityFunctions.ts";
+import {isEmpty} from "storyScript";
 
 export function Flee(text: string): IAction {
     return {

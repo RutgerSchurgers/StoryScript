@@ -1,7 +1,7 @@
 import { IGame, Item } from '../types';
-import { EquipmentType } from 'storyScript/Interfaces/storyScript';
+import { EquipmentType } from 'storyScript';
 import description from './SmallDiamond.html?raw';
-import {IGroupableItem} from "../interfaces/item.ts";
+import {IGroupableItem} from "../interfaces/item";
 
 export function SmallDiamond() {
 	return <IGroupableItem>Item(<IGroupableItem>{

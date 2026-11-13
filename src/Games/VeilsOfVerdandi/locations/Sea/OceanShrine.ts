@@ -1,9 +1,9 @@
 ﻿import {IGame, Location} from '../../types';
 import description from './OceanShrine.html?raw';
 import {Octopus} from './Octopus';
-import {locationComplete} from "../../sharedFunctions.ts";
-import {SecretCove} from "../CentralForest/SecretCove.ts";
-import {MagicRing} from "../../items/MagicRing.ts";
+import {locationComplete} from "../../sharedFunctions";
+import {SecretCove} from "../CentralForest/SecretCove";
+import {MagicRing} from "../../items/MagicRing";
 
 export function OceanShrine() {
     return Location({

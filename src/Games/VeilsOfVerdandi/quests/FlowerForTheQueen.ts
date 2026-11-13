@@ -1,7 +1,7 @@
 import {IGame, IPerson, IQuest, Quest} from '../types';
-import {haveItem} from "../sharedFunctions.ts";
-import {MagicFlower} from "../items/MagicFlower.ts";
-import {BeeSting} from "../items/BeeSting.ts";
+import {haveItem} from "../sharedFunctions";
+import {MagicFlower} from "../items/MagicFlower";
+import {BeeSting} from "../items/BeeSting";
 
 export function FlowerForTheQueen() {
     return Quest({

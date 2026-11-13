@@ -1,5 +1,5 @@
-﻿import {Enemy as StoryScriptEnemy, ICharacter, IEnemy as StoryScriptIEnemy} from 'storyScript/Interfaces/storyScript';
-import {Character, IFeature, IGame, IItem} from '../types';
+﻿import {Enemy as StoryScriptEnemy, ICharacter, IEnemy as StoryScriptIEnemy} from 'storyScript';
+import {IFeature, IGame, IItem} from '../types';
 import { ClassType } from '../classType';
 
 export function Enemy(entity: IEnemy): IEnemy {
@@ -25,10 +25,4 @@ export interface IEnemyAttack {
     damageSpecial?: (game: IGame, enemy: IEnemy, character: ICharacter) => void;
     speed: number;
     attackPriority: [ClassType, number[]][]
-}
-
-export interface IEnemyAttackTurn {
-    target?: Character,
-    speed: number;
-    number?: number
 }

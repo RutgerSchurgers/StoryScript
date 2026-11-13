@@ -1,4 +1,4 @@
-﻿import { IDestination, EquipmentType, OpenWithKey, IBarrier } from 'storyScript/Interfaces/storyScript';
+﻿import { IDestination, EquipmentType, OpenWithKey, IBarrier } from 'storyScript';
 import { IGame, Key } from '../types';
 
 export function BlackKey() {

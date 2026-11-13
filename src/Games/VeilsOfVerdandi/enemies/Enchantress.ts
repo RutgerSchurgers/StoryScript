@@ -1,7 +1,7 @@
 ﻿import {Character, Enemy, IEnemy, IGame} from "../types";
-import {check, descriptionSelector} from "../sharedFunctions.ts";
-import {ClassType} from "../classType.ts";
-import {damageSpecial} from "../combatRules.ts";
+import {check, descriptionSelector} from "../sharedFunctions";
+import {ClassType} from "../classType";
+import {damageSpecial} from "../combatRules";
 
 export function Enchantress() {
     return Enemy({

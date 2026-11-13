@@ -5,13 +5,13 @@ import { Fireball } from "./items/Fireball";
 import { Frostbite } from "./items/Frostbite";
 import { LeatherArmor } from "./items/LeatherArmor";
 import { LongSword } from "./items/LongSword";
-import { MagicShield } from "./items/MagicShield.ts";
+import { MagicShield } from "./items/MagicShield";
 import { ShortBow } from "./items/ShortBow";
 import { WizardStaff } from "./items/WizardStaff";
 import { WizardCloak } from "./items/WizardCloak";
 import { IAction, IItem } from "./types";
-import {PowerAttack1} from "./items/PowerAttack1.ts";
-import {Dodge1} from "./items/Dodge1.ts";
+import {PowerAttack1} from "./items/PowerAttack1";
+import {Dodge1} from "./items/Dodge1";
 
 export class CharacterClass {
     /**

@@ -1,5 +1,5 @@
 import { IGame, Item } from '../types';
-import { EquipmentType } from 'storyScript/Interfaces/storyScript';
+import { EquipmentType } from 'storyScript';
 import description from './Ruby.html?raw';
 
 export function Ruby() {

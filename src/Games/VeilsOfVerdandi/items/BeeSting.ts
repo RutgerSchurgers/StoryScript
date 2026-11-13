@@ -2,7 +2,7 @@
 import description from './BeeSting.html?raw';
 import {Constants} from '../constants';
 import {IEnemy, IGame, Item} from '../types';
-import {TargetType} from '../../../Engine/Interfaces/storyScript';
+import {TargetType} from 'storyScript';
 
 export function BeeSting() {
     return Item({

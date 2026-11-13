@@ -1,7 +1,7 @@
 import {Key} from '../types';
-import {EquipmentType, IBarrier, IDestination, OpenWithKey} from 'storyScript/Interfaces/storyScript';
+import {EquipmentType, IBarrier, IDestination, OpenWithKey} from 'storyScript';
 import description from './SmallBoat.html?raw';
-import {IGame} from "../../MyRolePlayingGame/interfaces/game.ts";
+import {IGame} from "../../MyRolePlayingGame/interfaces/game";
 
 export function SmallBoat() {
     return Key({

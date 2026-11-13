@@ -56,11 +56,11 @@
 </template>
 
 <script lang="ts" setup>
-import {useStateStore} from "ui/StateStore.ts";
+import {useStateStore} from "ui/StateStore";
 import {storeToRefs} from "pinia";
 import {computed} from "vue";
-import {GameState} from "storyScript/Interfaces/storyScript.ts";
-import {isDevelopment} from "src/constants.ts";
+import {GameState} from "storyScript";
+import {isDevelopment} from "src/constants";
 
 const store = useStateStore();
 const {game, useEquipment, useBackpack, useQuests, useCharacterSheet} = storeToRefs(store);

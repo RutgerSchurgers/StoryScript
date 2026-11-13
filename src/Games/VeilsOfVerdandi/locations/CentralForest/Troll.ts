@@ -1,9 +1,9 @@
 ﻿import { Location, IGame } from '../../types';
 import description from './Troll.html?raw';
 import { Troll as TrollEnemy } from '../../enemies/Troll';
-import {CentralForest} from "./CentralForest.ts";
-import {backToForestText} from "../../explorationRules.ts";
-import {locationComplete} from "../../sharedFunctions.ts";
+import {CentralForest} from "./CentralForest";
+import {backToForestText} from "../../explorationRules";
+import {locationComplete} from "../../sharedFunctions";
 
 export function Troll() {
     return Location({

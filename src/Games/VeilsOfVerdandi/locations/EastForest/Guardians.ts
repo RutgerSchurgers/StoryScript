@@ -1,10 +1,10 @@
 ﻿import {IGame, Location} from '../../types';
 import description from './Guardians.html?raw';
-import {CliffWall} from './CliffWall.ts';
+import {CliffWall} from './CliffWall';
 import {Parchment} from '../../items/Parchment';
-import {EastRoad} from "./EastRoad.ts";
-import {backToForestText} from "../../explorationRules.ts";
-import {locationComplete} from "../../sharedFunctions.ts";
+import {EastRoad} from "./EastRoad";
+import {backToForestText} from "../../explorationRules";
+import {locationComplete} from "../../sharedFunctions";
 
 export function Guardians() {
     return Location({

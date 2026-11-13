@@ -3,8 +3,8 @@ import description from './ColdIronAxe.html?raw';
 import {Item} from '../types';
 import {ShadowDog} from '../enemies/ShadowDog';
 import {Constants} from '../constants';
-import {TargetType} from '../../../Engine/Interfaces/storyScript';
-import {specialDamage} from "../combatRules.ts";
+import {TargetType} from 'storyScript';
+import {specialDamage} from "../combatRules";
 
 export function ColdIronAxe() {
     return Item({

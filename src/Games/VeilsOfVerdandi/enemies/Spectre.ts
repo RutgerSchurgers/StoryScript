@@ -1,7 +1,7 @@
 ﻿import {Character, Enemy, IEnemy, IGame} from "../types";
 import description from './Spectre.html?raw';
-import {ClassType} from "../classType.ts";
-import {damageSpecial} from "../combatRules.ts";
+import {ClassType} from "../classType";
+import {damageSpecial} from "../combatRules";
 
 export function Spectre() {
     return Enemy({

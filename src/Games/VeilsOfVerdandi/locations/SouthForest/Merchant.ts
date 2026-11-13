@@ -2,7 +2,7 @@
 import description from './Merchant.html?raw';
 import {SouthRoad} from './SouthRoad';
 import {Merchant as MerchantPerson} from '../../persons/Merchant';
-import {backToForestText} from "../../explorationRules.ts";
+import {backToForestText} from "../../explorationRules";
 
 export function Merchant() {
     return Location({

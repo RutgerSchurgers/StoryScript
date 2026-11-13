@@ -1,10 +1,10 @@
 ﻿import {IGame, Location} from '../../types';
 import description from './Octopus.html?raw';
 import {Octopus as OctopusEnemy} from '../../enemies/Octopus';
-import {ActionStatus, ActionType} from 'storyScript/Interfaces/storyScript';
+import {ActionStatus, ActionType} from 'storyScript';
 import {OceanShrine} from './OceanShrine';
-import {Fisherman} from "../Beach/Fisherman.ts";
-import {locationComplete} from "../../sharedFunctions.ts";
+import {Fisherman} from "../Beach/Fisherman";
+import {locationComplete} from "../../sharedFunctions";
 
 export function Octopus() {
     return Location({

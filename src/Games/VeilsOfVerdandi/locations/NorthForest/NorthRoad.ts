@@ -4,8 +4,8 @@ import {Woodcutter} from './Woodcutter';
 import {CentralForest} from '../CentralForest/CentralForest';
 import description from './NorthRoad.html?raw';
 import {Start} from '../ForestEntry/start';
-import {hotSpotProperties} from "../../explorationRules.ts";
-import {Beach} from "../Beach/Beach.ts";
+import {hotSpotProperties} from "../../explorationRules";
+import {Beach} from "../Beach/Beach";
 
 export function NorthRoad() {
     return Location({

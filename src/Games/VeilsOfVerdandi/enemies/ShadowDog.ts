@@ -1,8 +1,8 @@
 import {Character, Enemy, IEnemy, IGame} from '../types';
 import description from './ShadowDog.html?raw';
-import {ClassType} from "../classType.ts";
-import {check} from "../sharedFunctions.ts";
-import {damageSpecial} from "../combatRules.ts";
+import {ClassType} from "../classType";
+import {check} from "../sharedFunctions";
+import {damageSpecial} from "../combatRules";
 
 export function ShadowDog() {
     return Enemy({

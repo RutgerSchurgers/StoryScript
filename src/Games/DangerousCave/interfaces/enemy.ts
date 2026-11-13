@@ -1,4 +1,4 @@
-﻿import {Enemy as StoryScriptEnemy, IEnemy as StoryScriptIEnemy} from 'storyScript/Interfaces/storyScript';
+﻿import {Enemy as StoryScriptEnemy, IEnemy as StoryScriptIEnemy} from 'storyScript';
 import {IFeature} from '../types';
 
 export function Enemy(entity: IEnemy): IEnemy {

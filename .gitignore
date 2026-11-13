@@ -13,3 +13,5 @@
 debug.log
 package-lock.json
 stats.html
+
+/src/Games/VeilsOfVerdandi/resources/*

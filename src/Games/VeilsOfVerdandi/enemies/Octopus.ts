@@ -1,5 +1,5 @@
 ﻿import { Enemy, IGame } from '../types';
-import {ClassType} from "../classType.ts";
+import {ClassType} from "../classType";
 
 export function Octopus() {
     return Enemy({

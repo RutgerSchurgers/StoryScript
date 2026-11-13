@@ -1,4 +1,4 @@
-﻿import {EquipmentType} from 'storyScript/Interfaces/storyScript';
+﻿import {EquipmentType} from 'storyScript';
 import description from './MagicFlower.html?raw';
 import {Item} from '../types';
 

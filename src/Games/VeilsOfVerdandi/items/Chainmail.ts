@@ -1,4 +1,4 @@
-﻿import {EquipmentType} from 'storyScript/Interfaces/storyScript';
+﻿import {EquipmentType} from 'storyScript';
 import {ClassType} from '../classType';
 import description from './Chainmail.html?raw';
 import {Item} from '../types';

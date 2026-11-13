@@ -1,6 +1,6 @@
 ﻿import {Character, Enemy, IEnemy, IGame} from "../types";
-import {ClassType} from "../classType.ts";
-import {damageSpecial} from "../combatRules.ts";
+import {ClassType} from "../classType";
+import {damageSpecial} from "../combatRules";
 
 export function DarkDryad() {
     return Enemy({

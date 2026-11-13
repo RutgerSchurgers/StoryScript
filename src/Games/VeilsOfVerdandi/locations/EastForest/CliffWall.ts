@@ -3,7 +3,7 @@ import description from './CliffWall.html?raw';
 import {Darkcave} from './Darkcave';
 import {Twoheadedwolf} from '../../enemies/Twoheadedwolf';
 import {Guardians} from './Guardians';
-import {locationComplete} from "../../sharedFunctions.ts";
+import {locationComplete} from "../../sharedFunctions";
 
 export function CliffWall() {
     return Location({

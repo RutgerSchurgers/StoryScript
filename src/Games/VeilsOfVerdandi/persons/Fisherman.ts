@@ -1,9 +1,9 @@
 import {IGame, IItem, Person} from '../types';
 import description from './Fisherman.html?raw';
-import {ColdIronAxe} from "../items/ColdIronAxe.ts";
-import {Cutlass} from "../items/Cutlass.ts";
-import {getId} from "storyScript/utilityFunctions.ts";
-import {PowerAttack2} from "../items/PowerAttack2.ts";
+import {ColdIronAxe} from "../items/ColdIronAxe";
+import {Cutlass} from "../items/Cutlass";
+import {getId} from "storyScript";
+import {PowerAttack2} from "../items/PowerAttack2";
 
 export function Fisherman() {
     return Person({

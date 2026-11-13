@@ -1,9 +1,9 @@
 ﻿import {IGame, Location} from '../../types';
 import description from './Dryad.html?raw';
 import {ForestPond} from './ForestPond';
-import {backToForestText} from "../../explorationRules.ts";
-import {EastRoad} from "./EastRoad.ts";
-import {SmallDiamond} from "../../items/SmallDiamond.ts";
+import {backToForestText} from "../../explorationRules";
+import {EastRoad} from "./EastRoad";
+import {SmallDiamond} from "../../items/SmallDiamond";
 
 export function Dryad() {
     return Location({

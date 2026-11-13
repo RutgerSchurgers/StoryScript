@@ -1,6 +1,6 @@
 ﻿import {Location} from '../../types';
 import description from './IslandMeadow.html?raw';
-import {CastleApproach} from "./CastleApproach.ts";
+import {CastleApproach} from "./CastleApproach";
 
 export function IslandMeadow() {
     return Location({

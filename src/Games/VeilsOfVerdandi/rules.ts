@@ -1,11 +1,11 @@
-﻿import {ICharacter, IRules, PlayState} from 'storyScript/Interfaces/storyScript';
+﻿import {ICharacter, IRules, PlayState} from 'storyScript';
 import {Character, IGame, IInterfaceTexts, IItem} from './types';
-import {combatRules} from "./combatRules.ts";
-import {canEquip, characterRules} from "./characterRules.ts";
-import {explorationRules} from "./explorationRules.ts";
-import {IGroupableItem} from "./interfaces/item.ts";
-import {ITrade} from "./interfaces/trade.ts";
-import {setTimeStyling} from "./sharedFunctions.ts";
+import {combatRules} from "./combatRules";
+import {canEquip, characterRules} from "./characterRules";
+import {explorationRules} from "./explorationRules";
+import {IGroupableItem} from "./interfaces/item";
+import {ITrade} from "./interfaces/trade";
+import {setTimeStyling} from "./sharedFunctions";
 
 export function Rules(): IRules {
     return {

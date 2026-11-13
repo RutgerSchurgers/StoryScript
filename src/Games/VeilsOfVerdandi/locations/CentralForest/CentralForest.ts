@@ -3,9 +3,9 @@ import {Treestump} from './Treestump';
 import {Troll} from './Troll';
 import description from './CentralForest.html?raw';
 import {NorthRoad} from '../NorthForest/NorthRoad';
-import {hotSpotProperties} from "../../explorationRules.ts";
-import {EastRoad} from "../EastForest/EastRoad.ts";
-import {SecretCove} from "./SecretCove.ts";
+import {hotSpotProperties} from "../../explorationRules";
+import {EastRoad} from "../EastForest/EastRoad";
+import {SecretCove} from "./SecretCove";
 
 export function CentralForest() {
     return Location({

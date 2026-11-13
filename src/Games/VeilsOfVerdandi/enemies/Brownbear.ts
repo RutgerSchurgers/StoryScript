@@ -1,6 +1,6 @@
 ﻿import {Enemy} from "../types";
 import description from './Brownbear.html?raw';
-import {ClassType} from "../classType.ts";
+import {ClassType} from "../classType";
 
 export function Brownbear() {
     return Enemy({

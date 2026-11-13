@@ -1,5 +1,5 @@
 ﻿import {Enemy} from "../types";
-import {ClassType} from "../classType.ts";
+import {ClassType} from "../classType";
 
 export function Troll() {
     return Enemy({

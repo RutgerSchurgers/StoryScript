@@ -1,6 +1,6 @@
 ﻿import {Location} from '../types';
 import description from './westCrossing.html?raw'
-import {Open} from 'storyScript/Interfaces/storyScript';
+import {Open} from 'storyScript';
 import {Inspect} from '../actions/inspect';
 import {BlackKey} from '../items/blackKey';
 import {Goblin} from '../enemies/goblin';

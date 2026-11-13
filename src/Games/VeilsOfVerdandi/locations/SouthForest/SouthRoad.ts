@@ -1,10 +1,10 @@
 import {Location} from '../../types';
 import description from './SouthRoad.html?raw';
-import {Stonemount} from "./Stonemount.ts";
-import {Merchant} from "./Merchant.ts";
-import {Start} from "../ForestEntry/start.ts";
+import {Stonemount} from "./Stonemount";
+import {Merchant} from "./Merchant";
+import {Start} from "../ForestEntry/start";
 import {EastRoad} from "../EastForest/EastRoad";
-import {hotSpotProperties} from "../../explorationRules.ts";
+import {hotSpotProperties} from "../../explorationRules";
 
 export function SouthRoad() {
     return Location({

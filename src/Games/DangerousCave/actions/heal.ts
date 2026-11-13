@@ -1,5 +1,5 @@
 ﻿import {IGame, IItem} from '../types';
-import {ICharacter} from "storyScript/Interfaces/character.ts";
+import {ICharacter} from "storyScript";
 
 export function Heal(potency: string) {
     return function (game: IGame, character: ICharacter, item: IItem) {

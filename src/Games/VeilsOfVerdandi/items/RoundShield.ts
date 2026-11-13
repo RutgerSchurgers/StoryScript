@@ -1,8 +1,8 @@
-﻿import { EquipmentType } from 'storyScript/Interfaces/storyScript';
+﻿import { EquipmentType } from 'storyScript';
 import { ClassType } from '../classType';
 import description from './RoundShield.html?raw';
 import { Item } from '../types';
-import {Constants} from "../constants.ts";
+import {Constants} from "../constants";
 
 export function RoundShield() {
     return Item({

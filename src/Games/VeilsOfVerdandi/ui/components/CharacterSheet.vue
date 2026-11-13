@@ -33,12 +33,12 @@
   </div>
 </template>
 <script lang="ts" setup>
-import {useStateStore} from "ui/StateStore.ts";
+import {useStateStore} from "ui/StateStore";
 import {storeToRefs} from "pinia";
-import {ICharacter} from "storyScript/Interfaces/character.ts";
+import {ICharacter} from "storyScript";
 import {ref} from "vue";
-import {IParty} from "storyScript/Interfaces/party.ts";
-import {isDevelopment} from "src/constants.ts";
+import {IParty} from "storyScript";
+import {isDevelopment} from "src/constants";
 
 const store = useStateStore();
 const {game} = storeToRefs(store);

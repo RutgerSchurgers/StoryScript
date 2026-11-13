@@ -1,6 +1,5 @@
 ﻿import {Character, Enemy, IEnemy, IGame} from '../types';
-import {ClassType} from "../classType.ts";
-import {GameState} from "storyScript/Interfaces/enumerations/gameState.ts";
+import {ClassType} from "../classType";
 
 export function Twoheadedwolf() {
     return Enemy({

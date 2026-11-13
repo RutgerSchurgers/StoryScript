@@ -1,5 +1,5 @@
-import {IEnemy, IEnemyAttack} from "./enemy.ts";
-import {Character} from "../character.ts";
+import {IEnemy, IEnemyAttack} from "./enemy";
+import {Character} from "../character";
 
 export interface CombatParticipant {
     participant: IEnemy | Character;

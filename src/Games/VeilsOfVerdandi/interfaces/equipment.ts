@@ -1,4 +1,4 @@
-import { IEquipment as StoryScriptIEquipment } from 'storyScript/Interfaces/storyScript';
+import { IEquipment as StoryScriptIEquipment } from 'storyScript';
 import { IItem } from './item';
 
 export interface IEquipment extends Omit<

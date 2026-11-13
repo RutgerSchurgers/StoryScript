@@ -1,8 +1,8 @@
-﻿import { BeeSting } from '../items/BeeSting.ts';
-import { MagicFlower } from '../items/MagicFlower.ts';
+﻿import { BeeSting } from '../items/BeeSting';
+import { MagicFlower } from '../items/MagicFlower';
 import { Person } from '../types';
 import description from './QueenBee.html?raw';
-import {FlowerForTheQueen} from "../quests/FlowerForTheQueen.ts";
+import {FlowerForTheQueen} from "../quests/FlowerForTheQueen";
 
 export function QueenBee() {
     return Person({

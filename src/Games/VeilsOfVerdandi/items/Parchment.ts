@@ -1,4 +1,4 @@
-﻿import {EquipmentType, IBarrier, OpenWithKey} from 'storyScript/Interfaces/storyScript';
+﻿import {EquipmentType, IBarrier, OpenWithKey} from 'storyScript';
 import {IDestination, IGame, Key} from '../types';
 import description from './Parchment.html?raw';
 

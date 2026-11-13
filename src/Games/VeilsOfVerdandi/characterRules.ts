@@ -1,15 +1,11 @@
-import {ICreateCharacter} from "storyScript/Interfaces/createCharacter/createCharacter.ts";
-import {ClassType} from "./classType.ts";
-import {IParty} from "./interfaces/party.ts";
-import {ICreateCharacterStep} from "storyScript/Interfaces/createCharacter/createCharacterStep.ts";
-import {IGame} from "./interfaces/game.ts";
-import {ICharacter} from "storyScript/Interfaces/character.ts";
-import {Character} from "./character.ts";
-import {CharacterClasses} from "./characterClass.ts";
-import {getEquipmentType} from "storyScript/utilityFunctions.ts";
-import {ICharacterRules} from "storyScript/Interfaces/rules/characterRules.ts";
-import {Dagger} from "./items/Dagger.ts";
-import {IItem} from "./interfaces/item.ts";
+import {getEquipmentType, ICharacter, ICharacterRules, ICreateCharacter, ICreateCharacterStep} from "storyScript";
+import {ClassType} from "./classType";
+import {IParty} from "./interfaces/party";
+import {IGame} from "./interfaces/game";
+import {Character} from "./character";
+import {CharacterClasses} from "./characterClass";
+import {Dagger} from "./items/Dagger";
+import {IItem} from "./interfaces/item";
 
 export const canEquip = (item: IItem, character: Character): boolean => {
     const classesToCheck = Array.isArray(item.itemClass) ? item.itemClass : [item.itemClass];
@@ -82,17 +78,17 @@ export const characterRules = <ICharacterRules>{
             const item = i();
             const types = Array.isArray(item.equipmentType) ? item.equipmentType : [item.equipmentType];
             let equipped = false;
-            
+
             for (const t in types) {
                 const type = getEquipmentType(types[t]);
-    
+
                 if (Object.keys(character.equipment).find(k => k === type) && !character.equipment[type]) {
                     character.equipment[type] = item;
                     equipped = true;
                     break;
                 }
             }
-            
+
             if (!equipped) {
                 character.items.push(item);
             }
@@ -102,28 +98,26 @@ export const characterRules = <ICharacterRules>{
         character.portraitFileName = characterClass.picture;
         return character;
     },
-    
+
     isSlotUsed(character: Character, slot) {
         if (slot === 'bow') {
             return character.class.name === ClassType.Rogue;
-        }
-        else if (slot === 'special' || slot === 'secondaryWeapon') {
+        } else if (slot === 'special' || slot === 'secondaryWeapon') {
             return character.class.name !== ClassType.Wizard;
-        }
-        else if (slot === 'rightRing') {
+        } else if (slot === 'rightRing') {
             return character.class.name === ClassType.Wizard;
         }
-        
+
         return true;
     },
-    
+
     canEquip: canEquip,
-    
+
     beforePickup(game: IGame, character: Character, item: IItem): boolean {
         if (!item.itemClass) {
             return true;
         }
-        
+
         return Array.isArray(item.itemClass) ? item.itemClass.indexOf(character.class.name) > -1 : item.itemClass === character.class.name;
     }
 }

@@ -1,12 +1,12 @@
 import {Item} from '../types';
-import {TargetType} from 'storyScript/Interfaces/storyScript';
+import {TargetType} from 'storyScript';
 import description from './SilverDagger.html?raw';
 import {Constants} from '../constants';
 import {ClassType} from '../classType';
 import {Spectre} from '../enemies/Spectre';
-import {IGroupableItem} from "../interfaces/item.ts";
-import {Dagger} from "./Dagger.ts";
-import {specialDamage} from "../combatRules.ts";
+import {IGroupableItem} from "../interfaces/item";
+import {Dagger} from "./Dagger";
+import {specialDamage} from "../combatRules";
 
 export function SilverDagger() {
     return <IGroupableItem>Item(<IGroupableItem>{

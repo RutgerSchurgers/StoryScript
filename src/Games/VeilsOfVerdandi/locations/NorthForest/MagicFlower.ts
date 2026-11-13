@@ -1,11 +1,11 @@
 ﻿import {IGame, Location} from '../../types';
 import description from './MagicFlower.html?raw';
 import {Brownbear} from '../../enemies/Brownbear';
-import {MagicFlower as MagicFlowerItem} from '../../items/MagicFlower.ts';
+import {MagicFlower as MagicFlowerItem} from '../../items/MagicFlower';
 import {NorthRoad} from './NorthRoad';
-import {backToForestText} from "../../explorationRules.ts";
-import {locationComplete} from "../../sharedFunctions.ts";
-import {getId, hasItem} from "storyScript/utilityFunctions.ts";
+import {backToForestText} from "../../explorationRules";
+import {locationComplete} from "../../sharedFunctions";
+import {getId, hasItem} from "storyScript";
 
 export function MagicFlower() {
     return Location({

@@ -1,9 +1,9 @@
 ﻿import {Location} from '../../types';
 import description from './CastleInside.html?raw';
 import {QueenBee} from '../../persons/queenBee';
-import {Fisherman} from "../Beach/Fisherman.ts";
-import {getId} from "storyScript/utilityFunctions.ts";
-import {IslandMeadow} from "./IslandMeadow.ts";
+import {Fisherman} from "../Beach/Fisherman";
+import {getId} from "storyScript";
+import {IslandMeadow} from "./IslandMeadow";
 
 export function CastleInside() {
     return Location({

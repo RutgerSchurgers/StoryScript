@@ -1,8 +1,8 @@
-import {IGame} from "./interfaces/game.ts";
-import {ICompiledLocation} from "./interfaces/location.ts";
-import {Character} from "./character.ts";
-import {IItem} from "./interfaces/item.ts";
-import {equals} from "storyScript/utilityFunctions.ts";
+import {IGame} from "./interfaces/game";
+import {ICompiledLocation} from "./interfaces/location";
+import {Character} from "./character";
+import {IItem} from "./interfaces/item";
+import {equals} from "storyScript";
 
 export function haveItem(game: IGame, item: (() => IItem)): boolean {
     return game.party.characters.find(c => c.items.find(i => equals(i, item))) !== undefined;

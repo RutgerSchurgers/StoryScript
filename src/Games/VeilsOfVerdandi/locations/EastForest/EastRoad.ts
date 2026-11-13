@@ -2,9 +2,9 @@ import {Location} from '../../types';
 import {Guardians} from './Guardians';
 import {CentralForest} from '../CentralForest/CentralForest';
 import description from './EastRoad.html?raw';
-import {hotSpotProperties} from "../../explorationRules.ts";
-import {SouthRoad} from "../SouthForest/SouthRoad.ts";
-import {Dryad} from "./Dryad.ts";
+import {hotSpotProperties} from "../../explorationRules";
+import {SouthRoad} from "../SouthForest/SouthRoad";
+import {Dryad} from "./Dryad";
 
 export function EastRoad() {
     return Location({

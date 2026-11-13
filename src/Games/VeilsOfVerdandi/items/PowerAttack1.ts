@@ -1,8 +1,8 @@
 import {IEnemy, IGame, IItem, Item} from '../types';
-import {ICharacter, TargetType} from 'storyScript/Interfaces/storyScript';
+import {ICharacter, TargetType} from 'storyScript';
 import description from './PowerAttack1.html?raw';
-import {getTopWeapon} from "../sharedFunctions.ts";
-import {ClassType} from "../classType.ts";
+import {getTopWeapon} from "../sharedFunctions";
+import {ClassType} from "../classType";
 
 export function PowerAttack1() {
     return Item({

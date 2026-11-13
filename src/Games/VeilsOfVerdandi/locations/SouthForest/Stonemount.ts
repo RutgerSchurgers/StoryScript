@@ -2,11 +2,11 @@
 import description from './Stonemount.html?raw';
 import {Wolf} from '../../enemies/Wolf';
 import {GhostBandit} from '../../enemies/GhostBandit';
-import {locationComplete} from "../../sharedFunctions.ts";
-import {backToForestText} from "../../explorationRules.ts";
-import {SouthRoad} from "./SouthRoad.ts";
-import {Pearl} from "../../items/Pearl.ts";
-import {Ruby} from "../../items/Ruby.ts";
+import {locationComplete} from "../../sharedFunctions";
+import {backToForestText} from "../../explorationRules";
+import {SouthRoad} from "./SouthRoad";
+import {Pearl} from "../../items/Pearl";
+import {Ruby} from "../../items/Ruby";
 
 export function Stonemount() {
     return Location({

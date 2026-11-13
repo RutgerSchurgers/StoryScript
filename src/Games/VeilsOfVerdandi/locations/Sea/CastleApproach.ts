@@ -1,6 +1,6 @@
 ﻿import {Location} from '../../types';
 import description from './CastleApproach.html?raw';
-import {CastleInside} from "./CastleInside.ts";
+import {CastleInside} from "./CastleInside";
 
 export function CastleApproach() {
     return Location({

@@ -1,10 +1,10 @@
 import {IGame, Location} from '../../types';
 import description from './Mermaid.html?raw';
 import {Pearl} from '../../items/Pearl';
-import {MagicFlower} from '../../items/MagicFlower.ts';
-import {Beach} from "./Beach.ts";
-import {equals} from "storyScript/utilityFunctions.ts";
-import {ActionStatus} from "storyScript/Interfaces/enumerations/actionStatus.ts";
+import {MagicFlower} from '../../items/MagicFlower';
+import {Beach} from "./Beach";
+import {equals} from "storyScript";
+import {ActionStatus} from "storyScript";
 
 export function Mermaid() {
     return Location({

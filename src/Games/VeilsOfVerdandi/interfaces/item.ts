@@ -2,7 +2,7 @@
     IGroupableItem as StoryScriptIGroupableItem,
     IItem as StoryScriptIItem,
     Item as StoryScriptItem
-} from 'storyScript/Interfaces/storyScript';
+} from 'storyScript';
 import {IFeature, IGame} from '../types';
 import {ClassType} from '../classType';
 import {IEnemy} from '../types';

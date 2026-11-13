@@ -2,7 +2,7 @@
 import description from './BroadSword.html?raw';
 import {Constants} from '../constants';
 import {Item} from '../types';
-import {TargetType} from '../../../Engine/Interfaces/storyScript';
+import {TargetType} from 'storyScript';
 
 export function BroadSword() {
     return Item({

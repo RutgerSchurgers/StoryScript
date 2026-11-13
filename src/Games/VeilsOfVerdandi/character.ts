@@ -1,4 +1,4 @@
-﻿import {ICharacter} from 'storyScript/Interfaces/storyScript';
+﻿import {ICharacter} from 'storyScript';
 import {IEquipment, IItem} from './types';
 import {CharacterClass} from './characterClass';
 

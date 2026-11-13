@@ -1,8 +1,7 @@
 ﻿import {Location} from '../../types';
 import description from './Darkcave.html?raw';
-import {Enchantress} from "../../enemies/Enchantress.ts";
-import {ActionType} from "storyScript/Interfaces/enumerations/actionType.ts";
-import {GameState} from "storyScript/Interfaces/storyScript.ts";
+import {Enchantress} from "../../enemies/Enchantress";
+import {ActionType, GameState} from "storyScript";
 
 export function Darkcave() {
     return Location({

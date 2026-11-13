@@ -1,6 +1,6 @@
 import description from './Dodge2.html?raw';
-import {customEntity} from "storyScript/EntityCreatorFunctions.ts";
-import {Dodge1} from "./Dodge1.ts";
+import {customEntity} from "storyScript";
+import {Dodge1} from "./Dodge1";
 
 export function Dodge2() {
     return customEntity(Dodge1, {name: 'Dodge 2', power: '1', description: description, value: 40});

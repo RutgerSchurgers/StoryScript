@@ -1,10 +1,10 @@
 ﻿import {IGame, Location} from '../../types';
 import description from './Treestump.html?raw';
-import {backToForestText} from "../../explorationRules.ts";
-import {CentralForest} from "./CentralForest.ts";
-import {Satyr} from "../../enemies/Satyr.ts";
-import {check, locationComplete} from "../../sharedFunctions.ts";
-import {ActionStatus} from "storyScript/Interfaces/enumerations/actionStatus.ts";
+import {backToForestText} from "../../explorationRules";
+import {CentralForest} from "./CentralForest";
+import {Satyr} from "../../enemies/Satyr";
+import {check, locationComplete} from "../../sharedFunctions";
+import {ActionStatus} from "storyScript";
 
 export function Treestump() {
     return Location({
@@ -34,7 +34,7 @@ export function Treestump() {
                         game.currentLocation.actions.delete('intercept');
                         game.currentLocation.destinations.map(d => d.inactive = false);
                     }
-                }, 
+                },
                 activeDay: true
             }],
             ['Intercept', {
@@ -55,12 +55,12 @@ export function Treestump() {
             }]
         ],
         leaveEvents:
-        [[
-            'Leave',
-            (game: IGame) => {
-                locationComplete(game, game.currentLocation, () => !game.currentLocation.actions.length, () => true);
-                return true;
-            }
-        ]]
+            [[
+                'Leave',
+                (game: IGame) => {
+                    locationComplete(game, game.currentLocation, () => !game.currentLocation.actions.length, () => true);
+                    return true;
+                }
+            ]]
     });
 }

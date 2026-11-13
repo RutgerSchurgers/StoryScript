@@ -2,15 +2,14 @@
 import {IGame, Location} from '../../types';
 import description from './Fisherman.html?raw';
 import {Beach} from './Beach';
-import {Octopus} from "../Sea/Octopus.ts";
+import {Octopus} from "../Sea/Octopus";
 import {Fisherman as FisherManPerson} from '../../persons/Fisherman'
-import {ActionType} from "storyScript/Interfaces/enumerations/actionType.ts";
-import {ActionStatus} from "storyScript/Interfaces/enumerations/actionStatus.ts";
-import {IBarrier} from "storyScript/Interfaces/barrier.ts";
-import {IBarrierAction} from "storyScript/Interfaces/barrierAction.ts";
-import {equals} from "storyScript/utilityFunctions.ts";
-import {IslandMeadow} from "../Sea/IslandMeadow.ts";
-import {haveItem} from "../../sharedFunctions.ts";
+import {ActionType} from "storyScript";
+import {ActionStatus} from "storyScript";
+import {IBarrier} from "storyScript";
+import {IBarrierAction} from "storyScript";
+import {IslandMeadow} from "../Sea/IslandMeadow";
+import {haveItem} from "../../sharedFunctions";
 
 export function Fisherman() {
     return Location({

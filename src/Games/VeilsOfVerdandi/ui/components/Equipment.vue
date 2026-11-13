@@ -9,10 +9,10 @@
   </div>
 </template>
 <script lang="ts" setup>
-import {useStateStore} from "ui/StateStore.ts";
+import {useStateStore} from "ui/StateStore";
 import {storeToRefs} from "pinia";
-import {DefaultEquipment} from "storyScript/Interfaces/defaultEquipment.ts";
-import {ICharacter} from "storyScript/Interfaces/character.ts";
+import {DefaultEquipment} from "storyScript";
+import {ICharacter} from "storyScript";
 
 const store = useStateStore();
 const {useEquipment} = storeToRefs(store);

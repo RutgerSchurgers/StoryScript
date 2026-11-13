@@ -1,11 +1,10 @@
 import {IGame, IItem, Person} from '../types';
 import description from './Merchant.html?raw';
-import {BroadSword} from "../items/BroadSword.ts";
-import {SilverDagger} from "../items/SilverDagger.ts";
-import {RoundShield} from "../items/RoundShield.ts";
-import {MagicRing} from "../items/MagicRing.ts";
-import {Dodge2} from "../items/Dodge2.ts";
-import {getId} from "storyScript/utilityFunctions.ts";
+import {BroadSword} from "../items/BroadSword";
+import {SilverDagger} from "../items/SilverDagger";
+import {RoundShield} from "../items/RoundShield";
+import {Dodge2} from "../items/Dodge2";
+import {getId} from "storyScript";
 
 export function Merchant() {
     return Person({

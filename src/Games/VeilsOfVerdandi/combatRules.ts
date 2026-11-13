@@ -1,18 +1,15 @@
-import {IGame} from "./interfaces/game.ts";
-import {ICombatSetup} from "./interfaces/combatSetup.ts";
-import {IEnemy, IEnemyAttack} from "./interfaces/enemy.ts";
-import {Character} from "./character.ts";
-import {format} from "storyScript/defaultTexts.ts";
-import {TargetType} from "storyScript/Interfaces/enumerations/targetType.ts";
-import {check, descriptionSelector, getTopWeapon} from "./sharedFunctions.ts";
-import {ICombatRules} from "storyScript/Interfaces/rules/combatRules.ts";
-import {IGroupableItem, IItem} from "./interfaces/item.ts";
-import {ICombatTurn} from "./interfaces/combatTurn.ts";
-import {ClassType} from "./classType.ts";
-import {CombatParticipant} from "./interfaces/combatParticipant.ts";
-import {equals} from "storyScript/utilityFunctions.ts";
-import {Constants} from "./constants.ts";
-import {MagicRing} from "./items/MagicRing.ts";
+import {IGame} from "./interfaces/game";
+import {ICombatSetup} from "./interfaces/combatSetup";
+import {IEnemy, IEnemyAttack} from "./interfaces/enemy";
+import {Character} from "./character";
+import {equals, format, ICombatRules, TargetType} from "storyScript";
+import {check, descriptionSelector, getTopWeapon} from "./sharedFunctions";
+import {IGroupableItem, IItem} from "./interfaces/item";
+import {ICombatTurn} from "./interfaces/combatTurn";
+import {ClassType} from "./classType";
+import {CombatParticipant} from "./interfaces/combatParticipant";
+import {Constants} from "./constants";
+import {MagicRing} from "./items/MagicRing";
 
 export const damageSpecial = (game: IGame, enemy: IEnemy, character: Character, property: string, checkDifficulty?: number) => {
     if (!checkDifficulty || !check(game, checkDifficulty)) {

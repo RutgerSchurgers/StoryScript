@@ -1,4 +1,4 @@
-﻿import { IAction, ActionType } from 'storyScript/Interfaces/storyScript';
+﻿import { IAction, ActionType } from 'storyScript';
 import { IGame } from '../types';
 
 export interface UnlockSettings {

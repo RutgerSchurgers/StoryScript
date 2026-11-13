@@ -1,1 +1,1 @@
-export const currentGameName = 'MyRolePlayingGame';
+export const currentGameName = 'VeilsOfVerdandi';

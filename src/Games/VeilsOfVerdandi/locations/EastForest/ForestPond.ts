@@ -2,7 +2,7 @@
 import description from './ForestPond.html?raw';
 import {DarkDryad} from '../../enemies/DarkDryad';
 import {Dryad} from './Dryad';
-import {ForceField} from "../../items/ForceField.ts";
+import {ForceField} from "../../items/ForceField";
 
 export function ForestPond() {
     return Location({

@@ -1,9 +1,9 @@
 import {Location} from '../../types';
 import description from './Beach.html?raw';
-import {Mermaid} from "./Mermaid.ts";
-import {NorthRoad} from "../NorthForest/NorthRoad.ts";
-import {Fisherman} from "./Fisherman.ts";
-import {hotSpotProperties} from "../../explorationRules.ts";
+import {Mermaid} from "./Mermaid";
+import {NorthRoad} from "../NorthForest/NorthRoad";
+import {Fisherman} from "./Fisherman";
+import {hotSpotProperties} from "../../explorationRules";
 
 export function Beach() {
     return Location({

@@ -1,7 +1,7 @@
 import {IGame, IItem, Item} from '../types';
 import description from './Dodge1.html?raw';
-import {ClassType} from "../classType.ts";
-import {ICharacter} from "storyScript/Interfaces/character.ts";
+import {ClassType} from "../classType";
+import {ICharacter} from "storyScript";
 
 export function Dodge1() {
     return Item({

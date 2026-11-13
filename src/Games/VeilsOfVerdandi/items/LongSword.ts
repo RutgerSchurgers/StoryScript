@@ -1,4 +1,4 @@
-﻿import {TargetType} from 'storyScript/Interfaces/storyScript';
+﻿import {TargetType} from 'storyScript';
 import {ClassType} from '../classType';
 import description from './LongSword.html?raw';
 import {Constants} from '../constants';

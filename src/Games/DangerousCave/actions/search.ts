@@ -1,4 +1,4 @@
-﻿import {ActionType, IAction} from 'storyScript/Interfaces/storyScript';
+﻿import {ActionType, IAction} from 'storyScript';
 import {IGame} from '../types';
 
 export interface SearchSettings {

@@ -1,10 +1,10 @@
 ﻿import {IGame, Location} from '../../types';
 import description from './ForestLake.html?raw';
 import {Bandit} from '../../enemies/Bandit';
-import {GoldNecklace} from '../../items/GoldNecklace.ts';
+import {GoldNecklace} from '../../items/GoldNecklace';
 import {Start} from './start';
-import {heal, locationComplete} from "../../sharedFunctions.ts";
-import {backToForestText} from "../../explorationRules.ts";
+import {heal, locationComplete} from "../../sharedFunctions";
+import {backToForestText} from "../../explorationRules";
 
 export function ForestLake() {
     return Location({

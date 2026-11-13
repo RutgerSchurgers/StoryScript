@@ -3,8 +3,8 @@ import description from './start.html?raw';
 import {Brennus} from './Brennus';
 import {ForestLake} from './ForestLake';
 import {NorthRoad} from '../NorthForest/NorthRoad';
-import {SouthRoad} from "../SouthForest/SouthRoad.ts";
-import {hotSpotProperties} from "../../explorationRules.ts";
+import {SouthRoad} from "../SouthForest/SouthRoad";
+import {hotSpotProperties} from "../../explorationRules";
 
 export function Start() {
     return Location({

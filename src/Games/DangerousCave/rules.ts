@@ -1,10 +1,10 @@
-﻿import {ICharacter, ICompiledLocation, ICreateCharacter, IRules, PlayState} from 'storyScript/Interfaces/storyScript';
+﻿import {ICharacter, ICompiledLocation, ICreateCharacter, IRules, PlayState} from 'storyScript';
 import {Character, IEnemy, IGame} from './types';
 import {Dagger} from './items/dagger';
 import {LeatherHelmet} from './items/leatherHelmet';
 import {Lantern} from './items/lantern';
 import {Flee} from './actions/flee';
-import {ICombatSetup} from "./interfaces/combatSetup.ts";
+import {ICombatSetup} from "./interfaces/combatSetup";
 
 export function Rules(): IRules {
     return {
@@ -28,13 +28,14 @@ export function Rules(): IRules {
                 // Use a timeout to prevent a new enemy being added when fleeing, as this will
                 // set the playstate to null before moving to the new location.
                 setTimeout(() => {
-                    if (game.currentLocation?.id === 'arena' 
-                        && game.worldProperties.arenaStarted === true 
-                        && newState === null 
+                    if (game.currentLocation?.id === 'arena'
+                        && game.worldProperties.arenaStarted === true
+                        && newState === null
                         && oldState === PlayState.Combat) {
                         const randomEnemy = game.helpers.randomEnemy();
                         game.currentLocation.enemies.add(randomEnemy);
-                }});
+                    }
+                });
             }
         },
 
