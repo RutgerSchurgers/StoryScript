@@ -215,6 +215,10 @@ button {
     margin-bottom: 10px;
 }
 
+.combat-participant-container {
+    position: relative;
+}
+
 .currency-won {
     margin-bottom: 10px;
 }
@@ -478,6 +482,7 @@ feature {
     padding: 0;
     max-height: 95%;
     overflow: hidden;
+    overscroll-behavior: contain;
 }
 
 .map-container {

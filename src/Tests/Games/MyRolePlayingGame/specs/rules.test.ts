@@ -1,10 +1,10 @@
 import { describe, test, expect } from 'vitest';
 import {Character, IGame, IItem, Rules} from '../../../../Games/MyRolePlayingGame/types';
-import { ICharacter, IEnemy, ICompiledLocation, IHelpers, ICreateCharacter, ICombatSetup, ICombatTurn } from 'storyScript/Interfaces/storyScript';
+import { ICharacter, IEnemy, ICompiledLocation, IHelpers, ICreateCharacter, ICombatSetup, ICombatTurn } from 'storyScript';
 
 describe("Rules", function() {
 
-    test("should conduct combat", function() {
+    test("should conduct combat", async function() {
         const service = Rules();
         const character = new Character();
 
@@ -21,7 +21,9 @@ describe("Rules", function() {
                 }
             },
             logToCombatLog: (message: string) => {
-
+            },
+            commands: {
+                playMediaEffect: (name: string, effectSource) => {}
             }
         };
         const enemy = <IEnemy>{
@@ -37,7 +39,8 @@ describe("Rules", function() {
         setup.characters = [character];
         setup.enemies = [enemy];
         setup.round = 1;
-        service.combat.fight(game, setup);
+        
+        await service.combat.fight(game, setup);
 
         // Character default strength 1 + 6.
         const expected = 3;

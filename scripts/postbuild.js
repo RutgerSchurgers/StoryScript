@@ -1,0 +1,184 @@
+import fs from 'fs';
+import {ZipArchive} from "archiver";
+import path, {resolve} from "path";
+import jsonfile from 'jsonfile';
+import sharp from 'sharp';
+import {execFile} from 'child_process'
+import which from "which";
+import {rootFolder} from "./helpers.js";
+import {pathToFileURL} from "url";
+
+const {readFileSync} = jsonfile;
+
+const fileUrl = pathToFileURL(path.resolve(rootFolder, 'currentGameName.js')).href;
+const nameModule = await import(fileUrl);
+const gamePath = path.resolve(rootFolder, 'src', 'Games', nameModule.currentGameName);
+
+const resourcePath = path.resolve(rootFolder, 'dist', 'resources');
+const tempResourcePath = path.join(resourcePath, '_tmp');
+const gameInfoPath = path.resolve(gamePath, 'webroot', 'gameinfo.json');
+
+export async function postBuild() {
+    const originalWarn = console.warn;
+    
+    // Override the console warn to silence vite pwa glob warnings on the resources folder. It is not always present
+    // in the dist, only when a game has resources.
+    console.warn = (...args) => {
+        if (args[0]?.includes('glob pattern')) return;
+        originalWarn(...args);
+    };
+    
+    let gameInfo;
+
+    if (fs.existsSync(gameInfoPath)) {
+        gameInfo = readFileSync(gameInfoPath);
+    }
+
+    // 1. Include the game sources if specified to do so.
+    if (gameInfo?.sourcesIncluded) {
+        const srcPath = path.join('dist', 'sources');
+        const resourcesPath = path.join('dist', 'sources', 'resources');
+
+        fs.cpSync(gamePath, srcPath, {recursive: true});
+
+        if (fs.existsSync(resourcesPath)) {
+            fs.rmSync(resourcesPath, {recursive: true});
+        }
+
+        await zipDirectory(srcPath, path.join('dist', 'sources.zip'));
+        fs.rmSync(srcPath, {recursive: true});
+    }
+
+    // 2. Optimize jpg and png images using sharp.
+    const imageFiles = getFiles(resourcePath, ['.jpg', '.png', 'webp']);
+
+    if (imageFiles?.length) {
+        await optimizeFiles('images', imageFiles, async (filePath, tempPath) => {
+            const sharpStream = sharp(filePath);
+            if (filePath.indexOf('.png') > -1) {
+                await sharpStream.png({quality: 80}).toFile(tempPath);
+            } else if (filePath.indexOf('.jpg') > -1) {
+                await sharpStream.jpeg({quality: 80}).toFile(tempPath);
+            } else if (filePath.indexOf('.webp') > -1) {
+                await sharpStream.webp({quality: 80}).toFile(tempPath);
+            }
+        });
+    }
+
+    // 3. Optimize sound files using FFmpeg.
+    const soundFiles = getFiles(resourcePath, ['.mp3']);
+
+    if (soundFiles?.length) {
+
+        // Check if FFmpeg is available on the system. If not, log a warning.
+        const ffmpegPath = await which('ffmpeg').catch(() => null);
+
+        if (!ffmpegPath) {
+            console.warn('FFmpeg is not installed. Please install it to optimize sound files.');
+        } else {
+            await optimizeFiles('sounds', soundFiles, async (filePath, tempPath) => {
+                execFile(ffmpegPath, ['-i', filePath, '-b:a', '64k', tempPath], (error) => {
+                    if (error) {
+                        console.error(`Error converting ${filePath}:`, error.message);
+                    } else {
+                        resolve(filePath);
+                    }
+                });
+            });
+        }
+    }
+}
+
+async function optimizeFiles(type, files, conversionFunc) {
+    console.log(`Optimize ${type}`)
+
+    await Promise.all(files.map(async (file) => {
+        const subdirectory = path.join(resourcePath, '_tmp', file.subdirectory);
+
+        if (!fs.existsSync(subdirectory)) {
+            fs.mkdirSync(subdirectory, {recursive: true});
+        }
+
+        const filePath = path.join(resourcePath, file.subdirectory, file.filepath);
+        const tempPath = path.join(tempResourcePath, file.subdirectory, file.filepath);
+
+        await conversionFunc(filePath, tempPath);
+    }));
+
+    console.log(`Replace ${type} with optimized versions`);
+
+    await Promise.all(files.map(async (file) => {
+        const filePath = path.join(resourcePath, file.subdirectory, file.filepath);
+        const tempPath = path.join(tempResourcePath, file.subdirectory, file.filepath);
+        await waitForFileReady(tempPath);
+        await fs.promises.rename(tempPath, filePath);
+    }));
+
+    if (fs.existsSync(tempResourcePath)) {
+        fs.rmSync(tempResourcePath, {recursive: true});
+    }
+}
+
+function getFiles(dirPath, extensions, arrayOfFiles) {
+    arrayOfFiles = arrayOfFiles || [];
+
+    if (!fs.existsSync(dirPath)) {
+        return;
+    }
+
+    const files = fs.readdirSync(dirPath);
+
+    files.forEach(function (file) {
+        if (fs.statSync(dirPath + "/" + file).isDirectory()) {
+            arrayOfFiles = getFiles(dirPath + "/" + file, extensions, arrayOfFiles);
+        } else if (extensions.find(e => file.indexOf(e) > -1)) {
+            const subdirectory = dirPath.replace(resourcePath, '');
+            arrayOfFiles.push({filepath: file, subdirectory: subdirectory});
+        }
+    })
+
+    return arrayOfFiles;
+}
+
+function zipDirectory(sourceDir, outPath) {
+    const archive = new ZipArchive({zlib: {level: 9}});
+    const stream = fs.createWriteStream(outPath);
+
+    return new Promise(async (resolve, reject) => {
+        archive
+            .directory(sourceDir, false)
+            .on('error', err => reject(err))
+            .pipe(stream)
+        ;
+
+        stream.on('close', () => resolve());
+        await archive.finalize();
+    });
+}
+
+async function waitForFileReady(filePath, maxWaitTime = 5000) {
+    const startTime = Date.now();
+    let lastSize = 0;
+    let stableCount = 0;
+
+    while (Date.now() - startTime < maxWaitTime) {
+        try {
+            const stat = await fs.promises.stat(filePath);
+
+            // If file size hasn't changed for 2 checks, it's ready
+            if (stat.size === lastSize) {
+                stableCount++;
+                if (stableCount >= 2) return true;
+            } else {
+                stableCount = 0;
+            }
+
+            lastSize = stat.size;
+            await new Promise(resolve => setTimeout(resolve, 100));
+        } catch (error) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+    }
+
+    return true;
+}

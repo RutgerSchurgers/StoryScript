@@ -1,17 +1,20 @@
-import {PlayState} from "storyScript/Interfaces/enumerations/playState.ts";
-import {ICombatSetup} from "storyScript/Interfaces/combatSetup.ts";
-import {ICombatTurn} from "storyScript/Interfaces/combatTurn.ts";
-import {GameState} from "storyScript/Interfaces/enumerations/gameState.ts";
-import {IGame} from "storyScript/Interfaces/game.ts";
-import {IRules} from "storyScript/Interfaces/rules/rules.ts";
-import {IItem} from "storyScript/Interfaces/item.ts";
-import {TargetType} from "storyScript/Interfaces/enumerations/targetType.ts";
-import {ICharacter} from "storyScript/Interfaces/character.ts";
-import {IEnemy} from "storyScript/Interfaces/enemy.ts";
-import {IInterfaceTexts} from "storyScript/Interfaces/interfaceTexts.ts";
-import {ICombatService} from "storyScript/Interfaces/services/combatService.ts";
-import {StateProperties} from "storyScript/stateProperties.ts";
-import {addUniqueId} from "storyScript/arrayAndFunctionExtensions.ts";
+import {
+    GameState,
+    IActor,
+    ICharacter,
+    ICombatService,
+    ICombatSetup,
+    ICombatTurn,
+    IEnemy,
+    IGame,
+    IInterfaceTexts,
+    IItem,
+    IRules,
+    PlayState,
+    TargetType
+} from 'storyScript';
+import {StateProperties} from "src/Engine/stateProperties";
+import {addUniqueId} from "src/Engine/arrayAndFunctionExtensions";
 
 export class CombatService implements ICombatService {
     constructor(private readonly _game: IGame, private readonly _rules: IRules, private readonly _texts: IInterfaceTexts) {
@@ -25,12 +28,12 @@ export class CombatService implements ICombatService {
         this._game.combat.enemies.forEach(enemy => enemy.onAttack?.(this._game, enemy));
     }
 
-    fight = (combat: ICombatSetup<ICombatTurn>, retaliate?: boolean): Promise<void> | void => {
+    fight = (combat: ICombatSetup<ICombatTurn>): Promise<void> | void => {
         if (!this._rules.combat?.fight) {
             return;
         }
 
-        const promise = this._rules.combat.fight(this._game, combat, retaliate);
+        const promise = this._rules.combat.fight(this._game, combat);
 
         return Promise.resolve(promise).then(() => {
             combat.forEach((s, i) => {
@@ -174,7 +177,7 @@ export class CombatService implements ICombatService {
             }
 
             i.selectable = false;
-            let targets;
+            let targets: (ICharacter | IEnemy)[];
 
             switch (i.targetType) {
                 case TargetType.Enemy: {
