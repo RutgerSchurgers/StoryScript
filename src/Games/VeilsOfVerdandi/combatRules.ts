@@ -11,9 +11,10 @@ import {CombatParticipant} from "./interfaces/combatParticipant";
 import {Constants} from "./constants";
 import {MagicRing} from "./items/MagicRing";
 
-export const damageSpecial = (game: IGame, enemy: IEnemy, character: Character, property: string, checkDifficulty?: number) => {
+export const damageSpecial = async (game: IGame, enemy: IEnemy, character: Character, property: string, checkDifficulty?: number): Promise<void> => {
     if (!checkDifficulty || !check(game, checkDifficulty)) {
         character[property] = true;
+        await game.commands.playMediaEffect('special', enemy);
         game.logToCombatLog(`${character.name} is ${property} by the ${enemy.name}\`s attack!`)
     }
 };
@@ -91,9 +92,10 @@ export const combatRules = <ICombatRules>{
         combatSetup.roundHeader = combatSetup.round === 1 ? 'Archery round' : combatSetup.roundHeader;
     },
 
-    fight: (game: IGame, combatSetup: ICombatSetup): void => {
+    fight: async (game: IGame, combatSetup: ICombatSetup): Promise<void> => {
         game.combatLog = [];
-        const orderedParticipants = getOrderedParticipants(game, combatSetup);
+        const orderedParticipants = await getOrderedParticipants(game, combatSetup);
+        await game.commands.delay(1000);
 
         for (let i in orderedParticipants) {
             const entry = orderedParticipants[i];
@@ -107,9 +109,9 @@ export const combatRules = <ICombatRules>{
                     continue;
                 }
 
-                executeCharacterTurn(game, setupEntry);
+                await executeCharacterTurn(game, setupEntry);
 
-                if (checkCombatWin(game, combatSetup, setupEntry)) {
+                if (await checkCombatWin(game, combatSetup, setupEntry)) {
                     return;
                 }
 
@@ -121,7 +123,7 @@ export const combatRules = <ICombatRules>{
             }
 
             const enemyTarget = combatSetup.enemyTargets.find(e => e[0] === enemy)[1][entry.attackIndex];
-            executeEnemyTurn(game, combatSetup, enemy, entry.attack, enemyTarget);
+            await executeEnemyTurn(game, combatSetup, enemy, entry.attack, enemyTarget);
         }
 
         game.combatLog.reverse();
@@ -168,7 +170,7 @@ function buildEffectArray(participant: IEnemy | Character): { name: string, desc
     return effects;
 }
 
-function getOrderedParticipants(game: IGame, combatSetup: ICombatSetup): CombatParticipant[] {
+async function getOrderedParticipants(game: IGame, combatSetup: ICombatSetup): Promise<CombatParticipant[]> {
     // First, determine the order of the round.
     const enemyTurns = <CombatParticipant[]>[];
 
@@ -192,6 +194,7 @@ function getOrderedParticipants(game: IGame, combatSetup: ICombatSetup): CombatP
     participants.forEach(p => delete p.participant.frozen);
 
     if (combatSetup.round > 1) {
+        await game.commands.delay(500);
         game.logToCombatLog('Combat order: ' + participants.reduce((c: string, p, i: number, a) => {
             if (p.combatSpeed === 0) {
                 return c;
@@ -233,13 +236,14 @@ function getEnemyTargets(game: IGame, combatSetup: ICombatSetup) {
     combatSetup.enemyTargets = enemyTargets;
 }
 
-function executeCharacterTurn(game: IGame, turn: ICombatTurn) {
+async function executeCharacterTurn(game: IGame, turn: ICombatTurn) {
     if (!turn.target || turn.character.currentHitpoints <= 0 || (turn.item.targetType === TargetType.Enemy && turn.target.currentHitpoints <= 0)) {
         return;
     }
 
     if (turn.item.use) {
-        turn.item.use(game, turn.character, turn.item, turn.target);
+        await turn.item.use(game, turn.character, turn.item, turn.target);
+        await game.commands.playMediaEffect('use', turn.item, turn.target);
 
         if (turn.item.recharge) {
             (<any>turn.item).recharging = turn.item.recharge;
@@ -264,14 +268,17 @@ function executeCharacterTurn(game: IGame, turn: ICombatTurn) {
             }
 
             if (totalDamage + (specialDamage?.extraDamage ?? 0) <= 0) {
+                await game.commands.playMediaEffect('miss', item);
                 game.logToCombatLog(`${turn.character.name} misses ${turn.target.name}!`);
                 continue;
             }
 
             turn.target.currentHitpoints = Math.max(0, turn.target.currentHitpoints - totalDamage);
+            await game.commands.playMediaEffect('hit', item, turn.target);
             game.logToCombatLog(`${turn.character.name} does ${totalDamage} damage to ${turn.target.name}!`);
 
             if (specialDamage?.text) {
+                await game.commands.playMediaEffect('special', item, turn.target);
                 game.logToCombatLog(specialDamage.text);
             }
         }
@@ -281,7 +288,7 @@ function executeCharacterTurn(game: IGame, turn: ICombatTurn) {
     }
 }
 
-function executeEnemyTurn(game: IGame, combatSetup: ICombatSetup, enemy: IEnemy, enemyAttack: IEnemyAttack, target: Character) {
+async function executeEnemyTurn(game: IGame, combatSetup: ICombatSetup, enemy: IEnemy, enemyAttack: IEnemyAttack, target: Character): Promise<void> {
     if (enemy.currentHitpoints <= 0 || target.currentHitpoints <= 0) {
         return;
     }
@@ -306,24 +313,27 @@ function executeEnemyTurn(game: IGame, combatSetup: ICombatSetup, enemy: IEnemy,
             const avoidedDamage = Math.ceil(totalDamage * parseFloat(special.power));
             totalDamage = totalDamage - avoidedDamage;
             special.selectable = false;
+            await game.commands.playMediaEffect('use', special, character);
             game.logToCombatLog(`${character.name} dodges ${avoidedDamage} damage!`);
         }
     }
 
     if (!totalDamage) {
         game.logToCombatLog(`${enemy.name} misses ${target.name}!`);
+        await game.commands.playMediaEffect('miss', enemy);
         return;
     }
 
     if (enemyAttack.damageSpecial) {
-        enemyAttack.damageSpecial(game, enemy, target);
+        await enemyAttack.damageSpecial(game, enemy, target);
     }
 
+    await game.commands.playMediaEffect('hit', enemy, target);
     game.logToCombatLog(`${enemy.name} does ${totalDamage} damage to ${target.name}!`);
     target.currentHitpoints = Math.max(0, target.currentHitpoints - totalDamage);
 }
 
-function checkCombatWin(game: IGame, combatSetup: ICombatSetup, turn: ICombatTurn): boolean {
+async function checkCombatWin(game: IGame, combatSetup: ICombatSetup, turn: ICombatTurn): Promise<boolean> {
     if (!turn.target) {
         return false;
     }
@@ -333,6 +343,7 @@ function checkCombatWin(game: IGame, combatSetup: ICombatSetup, turn: ICombatTur
 
         combatSetup.filter(t => t.target === turn.target && t !== turn).forEach(t => t.target = undefined);
 
+        await game.commands.playMediaEffect('defeat', turn.target);
         game.logToCombatLog(`${turn.character.name} defeats ${turn.target.name}!`);
 
         if (!combatSetup.enemies.some(e => e.currentHitpoints > 0)) {

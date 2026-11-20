@@ -50,6 +50,6 @@ const store = useStateStore();
 const {game} = storeToRefs(store);
 const {texts, gameService} = store.services;
 
-const endIntro = (): void => gameService.restart(true);
+const endIntro = async () => await gameService.restart(true);
 
 </script>
