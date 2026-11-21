@@ -36,7 +36,7 @@
     </audio>
     <p>
       <br>
-      <button class="btn btn-primary" type="button" @click="endIntro()">{{ texts.skipIntro }}</button>
+      <button class="btn btn-primary" type="button" @click="gameService.restart(true)">{{ texts.skipIntro }}</button>
     </p>
   </div>
 </template>
@@ -49,7 +49,5 @@ import {GameState} from "storyScript";
 const store = useStateStore();
 const {game} = storeToRefs(store);
 const {texts, gameService} = store.services;
-
-const endIntro = async () => await gameService.restart(true);
 
 </script>

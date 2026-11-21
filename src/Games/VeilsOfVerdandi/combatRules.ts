@@ -1,13 +1,10 @@
-import {IGame} from "./interfaces/game";
-import {ICombatSetup} from "./interfaces/combatSetup";
-import {IEnemy, IEnemyAttack} from "./interfaces/enemy";
+import {IEnemyAttack} from "./interfaces/enemy";
 import {Character} from "./character";
 import {equals, format, ICombatRules, TargetType} from "storyScript";
 import {check, descriptionSelector, getTopWeapon} from "./sharedFunctions";
-import {IGroupableItem, IItem} from "./interfaces/item";
 import {ICombatTurn} from "./interfaces/combatTurn";
 import {ClassType} from "./classType";
-import {CombatParticipant} from "./interfaces/combatParticipant";
+import {CombatParticipant, ICombatSetup, IEffect, IEnemy, IGame, IGroupableItem, IItem} from "./types";
 import {Constants} from "./constants";
 import {MagicRing} from "./items/MagicRing";
 
@@ -145,7 +142,7 @@ function setEffects(combatSetup: ICombatSetup): void {
 }
 
 function buildEffectArray(participant: IEnemy | Character): { name: string, description: string }[] {
-    const effects: { name: string, description: string }[] = [];
+    const effects: IEffect[] = [];
 
     if (participant.frozen) {
         effects.push({name: 'Frozen', description: Constants.CombatEffects['Frozen']});
@@ -176,7 +173,7 @@ async function getOrderedParticipants(game: IGame, combatSetup: ICombatSetup): P
 
     combatSetup.enemies.forEach(e => {
         e.attacks.forEach((a, i) => {
-            enemyTurns.add({participant: e, attack: a, attackIndex: i})
+            enemyTurns.add({participant: e, attack: a, attackIndex: i} as any);
         });
     })
 

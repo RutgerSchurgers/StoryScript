@@ -3,20 +3,24 @@
     <div :class="{ 'participant-data': participant.picture }">
       <h4>{{ participant.name }}</h4>
       <p :class="{ 'enemy-health': participantType === 'enemy', 'character-health': participantType === 'character' }">
-        {{ texts.format(participant.type === 'enemy' ? texts.enemyHitpoints : texts.characterHitpoints, [participant.currentHitpoints, participant.hitpoints]) }}
+        {{ texts.format(participant.type === 'enemy' ? texts.enemyHitpoints : texts.characterHitpoints, [participant.currentHitpoints.toString(), participant.hitpoints.toString()]) }}
       </p>
       <ul v-if="participant.effects.length > 0" class="effects">
         <li v-for="effect of participant.effects" :class="effect.name" :title="effect.description">{{ effect.name }}</li>
       </ul>
     </div>
     <img v-if="participant.picture" class="participant-image" :src="participant.picture" :alt="participant.name" />
+    <sprite v-if="animationVisible" :spriteSettings="participant.displayAnimation"
+            :style="animationStyle" alt="Under attack!"></sprite>
     <div class="clearfix"></div>
   </div>
 </template>
 <script lang="ts" setup>
 import {useStateStore} from "ui/StateStore";
-import {computed} from "vue";
+import {computed, useTemplateRef} from "vue";
 import {storeToRefs} from "pinia";
+import {useDisplayAnimation} from "src/UI";
+import {CombatParticipant} from "../../types";
 
 const store = useStateStore();
 const {game} = storeToRefs(store);
@@ -24,10 +28,16 @@ const {texts, rules} = store.services;
 
 const participantType = computed(() => participant.type ?? 'character');
 
-const hitPointText = computed(() => participant.type ? texts.enemyHitpoints : texts.characterHitpoints);
-
 const {participant} = defineProps<{
-  participant: any
+  participant: CombatParticipant;
 }>();
+
+const participantContainerRef = useTemplateRef('participant-container');
+const participantImageRef = useTemplateRef('participant-image');
+
+const {
+  animationVisible,
+  animationStyle
+} = useDisplayAnimation(participant, participantContainerRef, participantImageRef);
 
 </script>

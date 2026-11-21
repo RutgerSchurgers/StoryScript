@@ -16,6 +16,8 @@ import {ICombatSetup} from './interfaces/combatSetup';
 import {IMap, IMapLocation, LocationMap} from './interfaces/map';
 import {IInterfaceTexts} from './interfaces/interfaceTexts';
 import {IAction} from './interfaces/action';
+import {CombatParticipant} from './interfaces/combatParticipant';
+import {IEffect} from './interfaces/effect';
 
 export type {
     IAction,
@@ -35,7 +37,9 @@ export type {
     IEquipment,
     IGame,
     ICombatSetup,
-    IInterfaceTexts
+    IInterfaceTexts,
+    CombatParticipant,
+    IEffect
 }
 
 export {
