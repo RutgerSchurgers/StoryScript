@@ -25,5 +25,10 @@ export function Frostbite() {
             game.logToCombatLog(`${character.name} casts Frostbite.`);
             game.logToCombatLog(`${character.name} does ${damage} damage to ${target.name}. ${target.name} is frozen!`);
         },
+        mediaEvents: {
+            use: {
+                sound: 'SoundEffects/frostbite.mp3'
+            }
+        }
     });
 }

@@ -16,6 +16,14 @@ export function Wolf() {
                 [ClassType.Rogue, [4,5,6]]
             ],
         }],
+        mediaEvents: {
+            'attack': {
+                sound: 'SoundEffects/wolf_attack.mp3'
+            },
+            'defeat': {
+                sound: 'SoundEffects/wolf_defeat.mp3'
+            }
+        },
         activeDay: true
     });
 }

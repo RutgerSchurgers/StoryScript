@@ -19,6 +19,17 @@ export function DarkDryad() {
                     [ClassType.Warrior, [5, 6]]
                 ]
             }
-        ]
+        ],
+        mediaEvents: {
+            'attack': {
+                sound: 'SoundEffects/dark_dryad_attack.mp3'
+            },
+            'special': {
+                sound: 'SoundEffects/frostbite.mp3'
+            },
+            'defeat': {
+                sound: 'SoundEffects/dark_dryad_defeat.mp3'
+            }
+        },
     });
 }

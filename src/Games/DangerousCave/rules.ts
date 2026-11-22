@@ -169,7 +169,6 @@ export function Rules(): IRules {
             hitpointsChange(game: IGame, character: ICharacter, change: number) {
                 if (game.activeCharacter.hitpoints < 5) {
                     game.logToActionLog('Pas op! Je bent zwaar gewond!');
-                    game.logToCombatLog('Pas op! Je bent zwaar gewond!');
                 }
             }
         },
@@ -193,7 +192,7 @@ export function Rules(): IRules {
                 addFleeAction(game, location);
             },
 
-            fight: (game: IGame, combatSetup: ICombatSetup, retaliate?: boolean): void => {
+            fight: (game: IGame, combatSetup: ICombatSetup): void => {
                 const character = combatSetup[0].character;
                 const enemy = combatSetup[0].target;
                 const check = game.helpers.rollDice(6, character.kracht);

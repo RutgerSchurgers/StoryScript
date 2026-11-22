@@ -19,6 +19,14 @@ export function Brownbear() {
                 ]
             }
         ],
+        mediaEvents: {
+            'attack': {
+                sound: 'SoundEffects/bear_attack.mp3'
+            },
+            'defeat': {
+                sound: 'SoundEffects/bear_defeat.mp3'
+            }
+        },
         activeDay: true
     });
 }

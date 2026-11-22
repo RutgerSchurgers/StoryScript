@@ -92,7 +92,6 @@ export const combatRules = <ICombatRules>{
     fight: async (game: IGame, combatSetup: ICombatSetup): Promise<void> => {
         game.combatLog = [];
         const orderedParticipants = await getOrderedParticipants(game, combatSetup);
-        await game.commands.delay(1000);
 
         for (let i in orderedParticipants) {
             const entry = orderedParticipants[i];
@@ -123,7 +122,7 @@ export const combatRules = <ICombatRules>{
             await executeEnemyTurn(game, combatSetup, enemy, entry.attack, enemyTarget);
         }
 
-        game.combatLog.reverse();
+        //game.combatLog.reverse();
     },
 
     itemIsSelectable: (game: IGame, item: any) => {
@@ -299,6 +298,7 @@ async function executeEnemyTurn(game: IGame, combatSetup: ICombatSetup, enemy: I
         characterDefense = target.frightened ? Math.min(1, characterDefense - 1) : characterDefense;
     }
 
+    await game.commands.playMediaEffect('attack', enemy, target);
     const enemyDamage = game.helpers.rollDice(enemyAttack.damage) + game.helpers.calculateBonus(enemy, 'damageBonus');
     let totalDamage = Math.max(0, enemyDamage - characterDefense);
 
@@ -317,16 +317,15 @@ async function executeEnemyTurn(game: IGame, combatSetup: ICombatSetup, enemy: I
 
     if (!totalDamage) {
         game.logToCombatLog(`${enemy.name} misses ${target.name}!`);
-        await game.commands.playMediaEffect('miss', enemy);
         return;
     }
+    
+    game.logToCombatLog(`${enemy.name} does ${totalDamage} damage to ${target.name}!`);
 
     if (enemyAttack.damageSpecial) {
         await enemyAttack.damageSpecial(game, enemy, target);
     }
-
-    await game.commands.playMediaEffect('hit', enemy, target);
-    game.logToCombatLog(`${enemy.name} does ${totalDamage} damage to ${target.name}!`);
+    
     target.currentHitpoints = Math.max(0, target.currentHitpoints - totalDamage);
 }
 

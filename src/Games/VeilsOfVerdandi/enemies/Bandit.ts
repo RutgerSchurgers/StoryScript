@@ -19,6 +19,14 @@ export function Bandit() {
                 ],
             }
         ],
+        mediaEvents: {
+            'attack': {
+                sound: 'SoundEffects/bandit_attack.mp3'
+            },
+            'defeat': {
+                sound: 'SoundEffects/bandit_defeat.mp3'
+            }
+        },
         activeDay: true
     });
 }

@@ -25,6 +25,8 @@ export function Arena() {
                     game.currentLocation.enemies.add(troll);
                     game.worldProperties.arenaStarted = true;
                     game.logToActionLog('Er verschijnt op magische wijze een enorme trol waar het symbool was! Hij valt je aan!');
+                    // Keep the action, so the arena can be re-entered when the browser refreshes.
+                    return true;
                 }
             }
         ]]

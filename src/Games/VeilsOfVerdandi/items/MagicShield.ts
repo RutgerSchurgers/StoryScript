@@ -24,5 +24,10 @@ export function MagicShield() {
             game.logToCombatLog(`${character.name} casts Magic Shield on ${target.name}.`);
             target.spellDefence = 2;
         },
+        mediaEvents: {
+            use: {
+                sound: 'SoundEffects/magic_shield.mp3'
+            }
+        }
     });
 }

@@ -22,6 +22,17 @@ export function Spectre() {
                 ]
             }
         ],
+        mediaEvents: {
+            'attack': {
+                sound: 'SoundEffects/spectre_attack.mp3'
+            },
+            'special': {
+                sound: 'SoundEffects/fright.mp3'
+            },
+            'defeat': {
+                sound: 'SoundEffects/dark_dryad_defeat.mp3'
+            }
+        },
         activeNight: true
     });
 }
