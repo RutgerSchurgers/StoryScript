@@ -18,5 +18,6 @@ export function ColdIronAxe() {
         attackText: '{0} swings the Cold Iron Axe',
         itemClass: ClassType.Warrior,
         targetType: TargetType.Enemy,
+        mediaEvents: Constants.itemDelay
     });
 }

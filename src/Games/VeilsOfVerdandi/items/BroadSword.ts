@@ -15,5 +15,6 @@ export function BroadSword() {
         attackText: '{0} swings the Broad Sword',
         itemClass: [ClassType.Warrior],
         targetType: TargetType.Enemy,
+        mediaEvents: Constants.itemDelay
     });
 }

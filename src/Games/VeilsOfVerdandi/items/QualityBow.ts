@@ -14,6 +14,7 @@ export function QualityBow() {
         targetType: TargetType.Enemy,
         ranged: true,
         attackText: '{0} shoots the Quality Bow',
-        itemClass: [ClassType.Rogue]
+        itemClass: [ClassType.Rogue],
+        mediaEvents: Constants.itemDelay
     });
 }

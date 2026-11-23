@@ -2,6 +2,7 @@ import {IGame, IItem, Item} from '../types';
 import description from './Dodge1.html?raw';
 import {ClassType} from "../classType";
 import {ICharacter} from "storyScript";
+import {Constants} from "src/Games/VeilsOfVerdandi/constants";
 
 export function Dodge1() {
     return Item({
@@ -13,6 +14,7 @@ export function Dodge1() {
         itemClass: ClassType.Rogue,
         unequip(character: ICharacter, item: IItem, game: IGame): boolean {
             return false;
-        }
+        },
+        mediaEvents: Constants.itemDelay
     });
 }

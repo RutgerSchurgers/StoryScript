@@ -2,6 +2,7 @@
 import {check, descriptionSelector} from "../sharedFunctions";
 import {ClassType} from "../classType";
 import {damageSpecial} from "../combatRules";
+import {Constants} from "src/Games/VeilsOfVerdandi/constants";
 
 export function Enchantress() {
     return Enemy({
@@ -35,6 +36,7 @@ export function Enchantress() {
             game.delayedDescriptionChanges.push(() => {
                 game.currentLocation.descriptionSelector = 'after';
             });
-        }
+        },
+        mediaEvents: Constants.enemyDelay
     });
 }

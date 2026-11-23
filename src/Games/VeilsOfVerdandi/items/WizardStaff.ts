@@ -14,5 +14,6 @@ export function WizardStaff() {
         attackText: '{0} swings the Wizard\'s Staff',
         itemClass: [ClassType.Wizard],
         targetType: TargetType.Enemy,
+        mediaEvents: Constants.itemDelay
     });
 }

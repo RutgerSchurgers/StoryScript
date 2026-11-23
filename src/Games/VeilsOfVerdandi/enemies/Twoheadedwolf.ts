@@ -1,5 +1,6 @@
 ﻿import {Character, Enemy, IEnemy, IGame} from '../types';
 import {ClassType} from "../classType";
+import {Constants} from "src/Games/VeilsOfVerdandi/constants";
 
 export function Twoheadedwolf() {
     return Enemy({
@@ -32,7 +33,8 @@ export function Twoheadedwolf() {
                 game.currentLocation.enemies.clear();
                 game.playState = null;
             }
-        }
+        },
+        mediaEvents: Constants.enemyDelay
     });
 }
 

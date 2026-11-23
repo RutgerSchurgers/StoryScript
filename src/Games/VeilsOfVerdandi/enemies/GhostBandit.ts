@@ -2,6 +2,7 @@ import { ClassType } from '../classType';
 import {IGame, Enemy, Character, IEnemy} from '../types';
 import description from './GhostBandit.html?raw';
 import {damageSpecial} from "../combatRules";
+import {Constants} from "src/Games/VeilsOfVerdandi/constants";
 
 export function GhostBandit() {
 	return Enemy({
@@ -22,6 +23,7 @@ export function GhostBandit() {
                 ]
             }  
         ],
+        mediaEvents: Constants.enemyDelay,
 		activeNight: true
 	});
 }

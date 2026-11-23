@@ -1,5 +1,6 @@
 ﻿import {ClassType} from '../classType';
 import {Enemy} from '../types';
+import {Constants} from "src/Games/VeilsOfVerdandi/constants";
 
 export function Brennus() {
     return Enemy({
@@ -16,6 +17,7 @@ export function Brennus() {
                     [ClassType.Warrior, [1, 2, 3, 4]],
                     [ClassType.Wizard, [5, 6]]]
             }
-        ]
+        ],
+        mediaEvents: Constants.enemyDelay
     });
 }

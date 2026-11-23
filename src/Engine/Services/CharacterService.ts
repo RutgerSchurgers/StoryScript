@@ -10,9 +10,9 @@
     IGame,
     IItem,
     IQuest,
-    IRules
+    IRules,
+    getEquipmentType
 } from 'storyScript';
-import {getEquipmentType} from '../utilityFunctions';
 
 export class CharacterService implements ICharacterService {
     constructor(private readonly _dataService: IDataService, private readonly _game: IGame, private readonly _rules: IRules) {

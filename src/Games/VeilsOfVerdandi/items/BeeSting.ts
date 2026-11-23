@@ -22,5 +22,6 @@ export function BeeSting() {
         attackText: '{0} swings Bee\'s Sting',
         itemClass: ClassType.Warrior,
         targetType: TargetType.Enemy,
+        mediaEvents: Constants.itemDelay
     });
 }

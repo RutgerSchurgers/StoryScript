@@ -14,6 +14,7 @@ export function ShortBow() {
         targetType: TargetType.Enemy,
         ranged: true,
         attackText: '{0} shoots the Short Bow',
-        itemClass: [ClassType.Rogue]
+        itemClass: [ClassType.Rogue],
+        mediaEvents: Constants.itemDelay
     });
 }

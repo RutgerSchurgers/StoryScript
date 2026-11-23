@@ -10,4 +10,30 @@ export class Constants {
         'Force Field': 'The force field surrounding you increases your defense against physical attacks by +1.',
         'Magic Shield': 'The magic shield protecting you increases your defense against spells by +2.'
     };
+
+    static standardDelay = 1000;
+    
+    static itemDelay = {
+        attack: {
+            delay: Constants.standardDelay
+        },
+        special: {
+            delay: Constants.standardDelay
+        },
+        use: {
+            delay: Constants.standardDelay
+        }
+    }
+
+    static enemyDelay = {
+        attack: {
+            delay: Constants.standardDelay
+        },
+        special: {
+            delay: Constants.standardDelay
+        },
+        defeat: {
+            delay: Constants.standardDelay
+        }
+    }
 }

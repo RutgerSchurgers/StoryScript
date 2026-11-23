@@ -1,6 +1,7 @@
 import { IGame, Enemy } from '../types';
 import description from './Satyr.html?raw';
 import {ClassType} from "../classType";
+import {Constants} from "src/Games/VeilsOfVerdandi/constants";
 
 export function Satyr() {
 	return Enemy({
@@ -19,5 +20,6 @@ export function Satyr() {
 				],
 			}
 		],
+		mediaEvents: Constants.enemyDelay
 	});
 }

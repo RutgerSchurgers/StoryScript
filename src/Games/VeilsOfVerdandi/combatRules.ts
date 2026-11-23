@@ -190,7 +190,6 @@ async function getOrderedParticipants(game: IGame, combatSetup: ICombatSetup): P
     participants.forEach(p => delete p.participant.frozen);
 
     if (combatSetup.round > 1) {
-        await game.commands.delay(500);
         game.logToCombatLog('Combat order: ' + participants.reduce((c: string, p, i: number, a) => {
             if (p.combatSpeed === 0) {
                 return c;
@@ -199,6 +198,8 @@ async function getOrderedParticipants(game: IGame, combatSetup: ICombatSetup): P
             const separator = a.length === i + 1 ? ').' : '), ';
             return c + p.participant.name + ' (speed ' + p.combatSpeed + separator;
         }, ''));
+
+        await game.commands.delay(Constants.standardDelay * 2);
     }
 
     return participants;
@@ -263,6 +264,8 @@ async function executeCharacterTurn(game: IGame, turn: ICombatTurn) {
                 game.logToCombatLog(combatText + '.');
             }
 
+            await game.commands.playMediaEffect('attack', item);
+
             if (totalDamage + (specialDamage?.extraDamage ?? 0) <= 0) {
                 await game.commands.playMediaEffect('miss', item);
                 game.logToCombatLog(`${turn.character.name} misses ${turn.target.name}!`);
@@ -298,6 +301,7 @@ async function executeEnemyTurn(game: IGame, combatSetup: ICombatSetup, enemy: I
         characterDefense = target.frightened ? Math.min(1, characterDefense - 1) : characterDefense;
     }
 
+    game.logToCombatLog(`${enemy.name} attacks ${target.name}!`);
     await game.commands.playMediaEffect('attack', enemy, target);
     const enemyDamage = game.helpers.rollDice(enemyAttack.damage) + game.helpers.calculateBonus(enemy, 'damageBonus');
     let totalDamage = Math.max(0, enemyDamage - characterDefense);

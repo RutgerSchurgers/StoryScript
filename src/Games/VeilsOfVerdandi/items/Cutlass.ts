@@ -15,5 +15,6 @@ export function Cutlass() {
         attackText: '{0} swings the Cutlass',
         itemClass: [ClassType.Warrior, ClassType.Rogue],
         targetType: TargetType.Enemy,
+        mediaEvents: Constants.itemDelay
     });
 }

@@ -19,6 +19,7 @@ export function Dagger() {
         isGroupable: true,
         groupName: 'Double Daggers',
         groupTypes: [SilverDagger],
-        maxSize: 2
+        maxSize: 2,
+        mediaEvents: Constants.itemDelay
     });
 }

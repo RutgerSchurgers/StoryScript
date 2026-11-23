@@ -2,6 +2,7 @@
 import {ClassType} from '../classType';
 import description from './Fireball.html?raw';
 import {Item} from '../types';
+import {Constants} from "src/Games/VeilsOfVerdandi/constants";
 
 export function Fireball() {
     return Item({
@@ -24,5 +25,6 @@ export function Fireball() {
             game.logToCombatLog(`${character.name} casts Fireball.`);
             game.logToCombatLog(`${character.name} does ${damage} damage to ${target.name}!`);
         },
+        mediaEvents: Constants.itemDelay
     });
 }

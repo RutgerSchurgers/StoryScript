@@ -3,6 +3,7 @@ import description from './GoldNecklace.html?raw';
 import {ClassType} from '../classType';
 import {Character, IGame, IItem, Item} from '../types';
 import {heal} from "../sharedFunctions";
+import {Constants} from "src/Games/VeilsOfVerdandi/constants";
 
 export function GoldNecklace() {
     return Item({
@@ -23,6 +24,7 @@ export function GoldNecklace() {
         use(game, character, item, target: Character) {
             game.logToCombatLog(`${character.name} uses the Golden Necklace to heal ${target.name}.`);
             heal(target, 3);
-        }
+        },
+        mediaEvents: Constants.itemDelay
     });
 }

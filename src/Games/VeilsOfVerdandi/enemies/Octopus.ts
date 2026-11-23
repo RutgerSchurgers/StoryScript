@@ -1,5 +1,6 @@
 ﻿import { Enemy, IGame } from '../types';
 import {ClassType} from "../classType";
+import {Constants} from "src/Games/VeilsOfVerdandi/constants";
 
 export function Octopus() {
     return Enemy({
@@ -30,6 +31,7 @@ export function Octopus() {
                     [ClassType.Rogue, [5, 6]]]
             }
         ],
+        mediaEvents: Constants.enemyDelay,
         activeDay: false,
         activeNight: false,
         onDefeat: (game: IGame) => {

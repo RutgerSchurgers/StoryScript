@@ -2,6 +2,7 @@
 import {ClassType} from '../classType';
 import description from './ForceField.html?raw';
 import {Character, IGame, IItem, Item} from '../types';
+import {Constants} from "src/Games/VeilsOfVerdandi/constants";
 
 export function ForceField() {
     return Item({
@@ -24,5 +25,6 @@ export function ForceField() {
             game.logToCombatLog(`${character.name} casts Force Field on ${target.name}.`);
             target.defenseBonus = 1;
         },
+        mediaEvents: Constants.itemDelay
     });
 }

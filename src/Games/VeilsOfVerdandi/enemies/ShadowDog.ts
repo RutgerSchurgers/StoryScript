@@ -3,6 +3,7 @@ import description from './ShadowDog.html?raw';
 import {ClassType} from "../classType";
 import {check} from "../sharedFunctions";
 import {damageSpecial} from "../combatRules";
+import {Constants} from "src/Games/VeilsOfVerdandi/constants";
 
 export function ShadowDog() {
     return Enemy({
@@ -21,6 +22,7 @@ export function ShadowDog() {
                     [ClassType.Rogue, [5, 6]]
                 ],
             }],
+        mediaEvents: Constants.enemyDelay,
         activeNight: true
     });
 }

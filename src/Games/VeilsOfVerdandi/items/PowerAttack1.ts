@@ -3,6 +3,7 @@ import {ICharacter, TargetType} from 'storyScript';
 import description from './PowerAttack1.html?raw';
 import {getTopWeapon} from "../sharedFunctions";
 import {ClassType} from "../classType";
+import {Constants} from "src/Games/VeilsOfVerdandi/constants";
 
 export function PowerAttack1() {
     return Item({
@@ -34,6 +35,7 @@ export function PowerAttack1() {
         },
         unequip(character: ICharacter, item: IItem, game: IGame): boolean {
             return false;
-        }
+        },
+        mediaEvents: Constants.itemDelay
     });
 }

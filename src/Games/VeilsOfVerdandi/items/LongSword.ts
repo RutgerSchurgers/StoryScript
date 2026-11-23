@@ -13,6 +13,7 @@ export function LongSword() {
         equipmentType: Constants.PrimaryWeapon,
         targetType: TargetType.Enemy,
         attackText: '{0} swings the Long Sword',
-        itemClass: ClassType.Warrior
+        itemClass: ClassType.Warrior,
+        mediaEvents: Constants.itemDelay
     });
 }
