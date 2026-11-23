@@ -14,6 +14,10 @@ export function LongSword() {
         targetType: TargetType.Enemy,
         attackText: '{0} swings the Long Sword',
         itemClass: ClassType.Warrior,
-        mediaEvents: Constants.itemDelay
+        mediaEvents: {
+            attack: {
+                sound: 'SoundEffects/long_sword.mp3'
+            }
+        }
     });
 }
