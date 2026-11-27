@@ -1,10 +1,12 @@
 ﻿import {ClassType} from '../classType';
 import {Enemy} from '../types';
 import {Constants} from "src/Games/VeilsOfVerdandi/constants";
+import description from './Brennus.html?raw';
 
 export function Brennus() {
     return Enemy({
         name: 'Brennus',
+        description: description,
         hitpoints: 18,
         defence: 3,
         currency: 5,

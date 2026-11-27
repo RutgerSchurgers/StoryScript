@@ -1,10 +1,12 @@
 ﻿import {Character, Enemy, IEnemy, IGame} from "../types";
 import {ClassType} from "../classType";
 import {damageSpecial} from "../combatRules";
+import description from './DarkDryad.html?raw';
 
 export function DarkDryad() {
     return Enemy({
         name: 'The Dark Dryad',
+        description: description,
         hitpoints: 20,
         defence: 4,
         currency: 15,

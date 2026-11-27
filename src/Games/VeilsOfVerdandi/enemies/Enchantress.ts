@@ -1,12 +1,13 @@
 ﻿import {Character, Enemy, IEnemy, IGame} from "../types";
-import {check, descriptionSelector} from "../sharedFunctions";
 import {ClassType} from "../classType";
 import {damageSpecial} from "../combatRules";
 import {Constants} from "src/Games/VeilsOfVerdandi/constants";
+import description from './Enchantress.html?raw';
 
 export function Enchantress() {
     return Enemy({
         name: 'Enchantress',
+        description: description,
         hitpoints: 30,
         defence: 3,
         currency: 25,
