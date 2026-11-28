@@ -1,10 +1,12 @@
 ﻿import { Enemy, IGame } from '../types';
 import {ClassType} from "../classType";
 import {Constants} from "src/Games/VeilsOfVerdandi/constants";
+import description from './Octopus.html?raw';
 
 export function Octopus() {
     return Enemy({
         name: 'Giant Octopus',
+        description: description,
         hitpoints: 25,
         defence: 2,
         currency: 10,

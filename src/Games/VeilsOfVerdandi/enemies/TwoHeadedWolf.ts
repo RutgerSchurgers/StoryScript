@@ -1,10 +1,12 @@
 ﻿import {Character, Enemy, IEnemy, IGame} from '../types';
 import {ClassType} from "../classType";
 import {Constants} from "src/Games/VeilsOfVerdandi/constants";
+import description from './TwoHeadedWolf.html?raw';
 
 export function Twoheadedwolf() {
     return Enemy({
         name: 'Two-Headed Wolf',
+        description: description,
         hitpoints: 30,
         defence: 3,
         currency: 15,

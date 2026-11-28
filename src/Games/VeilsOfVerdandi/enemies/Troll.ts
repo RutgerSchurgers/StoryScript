@@ -1,10 +1,12 @@
 ﻿import {Enemy} from "../types";
 import {ClassType} from "../classType";
 import {Constants} from "src/Games/VeilsOfVerdandi/constants";
+import description from './Troll.html?raw';
 
 export function Troll() {
     return Enemy({
         name: 'Troll',
+        description: description,
         hitpoints: 35,
         defence: 1,
         currency: 15,
